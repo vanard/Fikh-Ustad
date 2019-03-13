@@ -1,4 +1,4 @@
-package com.iffy.fikhustaz.fragment
+package com.iffy.fikhustaz.fragment.materi
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

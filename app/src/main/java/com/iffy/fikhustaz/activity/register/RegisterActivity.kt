@@ -36,14 +36,13 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     }
 
     private fun putin(){
-        val mUname = username_et_register.text.toString()
         val mName = name_et_register.text.toString()
         val mEmail = email_et_register.text.toString()
         val mPhone = phone_et_register.text.toString()
         val mPass = pass_et_register.text.toString()
         val mConfpass = confpass_et_register.text.toString()
 
-        val info = Verify(mUname, mName, mEmail, mPhone, mPass, mConfpass)
+        val info = Verify(mName, mEmail, mPhone, mPass, mConfpass)
 
         if (!presenter.verifyEntries(info)){
             return

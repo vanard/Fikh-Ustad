@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.iffy.fikhustaz.fragment.HomeFragment
-import com.iffy.fikhustaz.fragment.MateriFragment
+import com.iffy.fikhustaz.fragment.materi.MateriFragment
 import com.iffy.fikhustaz.fragment.PesanFragment
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.R.id.*
