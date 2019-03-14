@@ -6,9 +6,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
-import com.iffy.fikhustaz.data.itemrv.ImageMessageItem
-import com.iffy.fikhustaz.data.itemrv.PersonItem
-import com.iffy.fikhustaz.data.itemrv.TextMessageItem
+import com.iffy.fikhustaz.data.itemviews.ImageMessageItem
+import com.iffy.fikhustaz.data.itemviews.PersonItem
+import com.iffy.fikhustaz.data.itemviews.TextMessageItem
 import com.iffy.fikhustaz.data.model.*
 import com.xwray.groupie.kotlinandroidextensions.Item
 

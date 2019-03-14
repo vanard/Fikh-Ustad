@@ -1,9 +1,10 @@
-package com.iffy.fikhustaz.data.itemrv
+package com.iffy.fikhustaz.data.itemviews
 
 import android.content.Context
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.model.TextMessage
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
+import kotlinx.android.synthetic.main.item_text_message.*
 
 class TextMessageItem(val message: TextMessage,
                       val context: Context

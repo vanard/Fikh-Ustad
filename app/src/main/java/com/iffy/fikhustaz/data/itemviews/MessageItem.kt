@@ -1,4 +1,4 @@
-package com.iffy.fikhustaz.data.itemrv
+package com.iffy.fikhustaz.data.itemviews
 
 import android.view.Gravity
 import android.widget.FrameLayout

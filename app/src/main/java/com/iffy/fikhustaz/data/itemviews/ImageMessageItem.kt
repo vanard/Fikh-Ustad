@@ -1,9 +1,13 @@
-package com.iffy.fikhustaz.data.itemrv
+package com.iffy.fikhustaz.data.itemviews
 
 import android.content.Context
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.model.ImageMessage
+import com.iffy.fikhustaz.util.StorageUtil
+import com.squareup.picasso.Picasso
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
+import kotlinx.android.synthetic.main.item_image_message.*
+import java.io.File
 
 class ImageMessageItem(val message: ImageMessage,
                        val context: Context
@@ -12,9 +16,9 @@ class ImageMessageItem(val message: ImageMessage,
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
         super.bind(viewHolder, position)
-        GlideApp.with(context)
-            .load(StorageUtil.pathToReference(message.imagePath))
-            .placeholder(R.drawable.ic_image_black_24dp)
+        Picasso.get()
+            .load(File(StorageUtil.pathToReference(message.imagePath).toString()))
+            .placeholder(R.drawable.ic_image)
             .into(viewHolder.imageView_message_image)
     }
 
