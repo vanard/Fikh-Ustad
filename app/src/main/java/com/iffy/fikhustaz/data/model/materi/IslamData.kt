@@ -10,4 +10,4 @@ data class IslamData (@SerializedName("id") val id:String,
                       @SerializedName("title") val title: String,
                       @SerializedName("add_date") val date: Long,
                       @SerializedName("description")val description: String,
-                      @SerializedName("attachments") val attach:List<Attachment>) : Parcelable
+                      @SerializedName("attachments") val attach:MutableList<Attachment>) : Parcelable

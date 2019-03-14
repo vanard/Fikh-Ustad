@@ -1,17 +1,20 @@
 package com.iffy.fikhustaz.fragment.materi
 
 import android.os.Bundle
+import android.util.Log.d
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iffy.fikhustaz.R
+import com.iffy.fikhustaz.activity.materi.MateriActivity
 import com.iffy.fikhustaz.data.itemviews.MateriItem
 import com.iffy.fikhustaz.data.model.materi.IslamData
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.fragment_materi.*
+import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
 
 

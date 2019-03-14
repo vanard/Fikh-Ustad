@@ -5,6 +5,27 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activity.MateriActivity">
+        tools:context=".activity.materi.MateriActivity">
+
+    <ProgressBar
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+        app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent" android:visibility="gone"/>
+
+    <com.github.barteksc.pdfviewer.PDFView
+            android:id="@+id/pdf_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" android:visibility="gone"
+            android:padding="2dp"
+    />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

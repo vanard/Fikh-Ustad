@@ -15,7 +15,7 @@ class MateriPresenter (v: MateriContract.View) : MateriContract.Presenter{
         view?.showLoading()
         val service = RetrofitFactory.makeRetrofitService()
         uiScope.launch {
-            val request = service.fetchArticles()
+            val request = service.fetchFatwa()
             try {
                 val response = request.await()
                 response.body()?.let {

@@ -6,4 +6,4 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Kajian(@SerializedName("links") val links: IslamLink,
-                    @SerializedName("data") val data: List<IslamData>) : Parcelable
+                    @SerializedName("data") val data: MutableList<IslamData>) : Parcelable

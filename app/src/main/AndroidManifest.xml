@@ -18,7 +18,10 @@
             android:theme="@style/AppTheme">
         <activity android:name=".activity.reset.ResetActivity" android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".activity.MateriActivity">
+        <activity android:name=".activity.materi.MateriActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.iffy.fikhustaz.activity.HomeActivity"/>
         </activity>
         <activity
                 android:name=".activity.SplashActivity"
