@@ -16,7 +16,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".activity.reset.ResetActivity">
+        <activity android:name=".activity.reset.ResetActivity" android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".activity.MateriActivity">
         </activity>
@@ -44,6 +44,21 @@
                 android:name=".activity.login.LoginActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
+        <!--FCM-->
+        <meta-data
+                android:name="com.google.firebase.messaging.default_notification_icon"
+                android:resource="@drawable/logo_app_fikh" />
+        <service android:name=".service.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".service.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

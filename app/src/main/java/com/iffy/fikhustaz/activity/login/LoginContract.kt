@@ -1,6 +1,6 @@
 package com.iffy.fikhustaz.activity.login
 
-import com.iffy.fikhustaz.data.model.Verify
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
 interface LoginContract{
     interface View{
@@ -9,7 +9,8 @@ interface LoginContract{
         fun hideLoading()
     }
     interface Presenter{
-        fun verify(data: Verify) : Boolean
-        fun login(data: Verify): Boolean
+        fun verify(email: String, pass: String) : Boolean
+        fun login(email: String, pass: String)
+        fun googleLogin(account: GoogleSignInAccount)
     }
 }

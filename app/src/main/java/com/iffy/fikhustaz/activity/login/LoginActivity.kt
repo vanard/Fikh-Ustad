@@ -1,5 +1,7 @@
 package com.iffy.fikhustaz.activity.login
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,47 +9,84 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
+import android.util.Log.w
 import android.view.View
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.activity.HomeActivity
+import com.iffy.fikhustaz.activity.register.RegisterActivity
 import com.iffy.fikhustaz.activity.reset.ResetActivity
-import com.iffy.fikhustaz.data.model.Verify
 import kotlinx.android.synthetic.main.activity_login.*
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.*
 
 class LoginActivity : AppCompatActivity() , LoginContract.View{
 
     private lateinit var presenter: LoginPresenter
+    private var googleSignInClient : GoogleSignInClient? = null
+    private var currentUser : FirebaseUser? = null
+    private val RC_SIGN_IN = 101
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        presenter = LoginPresenter(this)
+        currentUser = FirebaseAuth.getInstance().currentUser
+
+        if (currentUser != null){
+            finish()
+            startActivity(intentFor<HomeActivity>().newTask().clearTask())
+        }
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(this@LoginActivity, gso)
+        presenter = LoginPresenter(this, this)
         text()
 
-        btn_login_login.setOnClickListener {
-            tryLogin()
-        }
+        btn_login_login.setOnClickListener { tryLogin() }
 
-        tv_lupa_pass.setOnClickListener {
-            startActivity<ResetActivity>()
-        }
+        tv_daftar_login.setOnClickListener { startActivity<RegisterActivity>() }
+
+        tv_lupa_pass.setOnClickListener { startActivity<ResetActivity>() }
     }
 
     private fun tryLogin(){
         val mEmail = email_et_login.text.toString()
         val mPass = pass_et_login.text.toString()
 
-        val info = Verify("", mEmail, "", mPass, "")
-
-        if (!presenter.verify(info)){
+        if (!presenter.verify(mEmail, mPass)){
             return
         }
-        if (presenter.login(info)){
-            startActivity<HomeActivity>()
+        presenter.login(mEmail, mPass)
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC_SIGN_IN && resultCode == Activity.RESULT_OK){
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                presenter.googleLogin(account!!)
+            } catch (e: ApiException) {
+                w("MainActivity", "Google sign in failed", e)
+            }
         }
+    }
+
+    private fun googleLogin(){
+        val signInIntent = googleSignInClient?.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
     private fun text(){

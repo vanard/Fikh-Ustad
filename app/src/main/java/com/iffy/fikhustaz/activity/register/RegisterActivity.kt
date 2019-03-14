@@ -9,24 +9,34 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.View
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.iffy.fikhustaz.R
+import com.iffy.fikhustaz.activity.HomeActivity
 import com.iffy.fikhustaz.activity.login.LoginActivity
+import com.iffy.fikhustaz.data.model.Ustad
 import com.iffy.fikhustaz.data.model.Verify
 import kotlinx.android.synthetic.main.activity_register.*
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.*
 
 class RegisterActivity : AppCompatActivity(), RegisterContract.View {
 
     private lateinit var mAuth: FirebaseAuth
     private lateinit var presenter: RegisterPresenter
+    private var currentUser : FirebaseUser? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
         mAuth = FirebaseAuth.getInstance()
-        presenter = RegisterPresenter(this)
+        currentUser = mAuth.currentUser
+
+        if (currentUser != null){
+            finish()
+            startActivity(intentFor<HomeActivity>().newTask().clearTask())
+        }
+
+        presenter = RegisterPresenter(this, this)
         text()
 
         btn_regist_register.setOnClickListener {
@@ -46,11 +56,12 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
         val mConfpass = confpass_et_register.text.toString()
 
         val info = Verify(mName, mEmail, mPhone, mPass, mConfpass)
+        val newUser = Ustad(mName, mEmail, mPhone, "", "", "", mutableListOf())
 
         if (!presenter.verifyEntries(info)){
             return
         }
-        presenter.saveData(info)
+        presenter.saveData(newUser, mPass)
     }
 
     private fun text(){

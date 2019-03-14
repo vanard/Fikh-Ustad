@@ -3,13 +3,18 @@ package com.iffy.fikhustaz.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
 import com.iffy.fikhustaz.fragment.HomeFragment
 import com.iffy.fikhustaz.fragment.materi.MateriFragment
 import com.iffy.fikhustaz.fragment.PesanFragment
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.R.id.*
+import com.iffy.fikhustaz.activity.login.LoginActivity
 import com.iffy.fikhustaz.util.permissionCheck
 import kotlinx.android.synthetic.main.activity_home.*
+import org.jetbrains.anko.clearTask
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.newTask
 
 class HomeActivity : AppCompatActivity() {
 
@@ -17,6 +22,10 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        if (FirebaseAuth.getInstance().currentUser == null){
+            finish()
+            startActivity(intentFor<LoginActivity>().newTask().clearTask())
+        }
         permissionCheck(this)
 
         bottom_navigation.setOnNavigationItemSelectedListener { item ->

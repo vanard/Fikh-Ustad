@@ -1,5 +1,6 @@
 package com.iffy.fikhustaz.activity.register
 
+import com.iffy.fikhustaz.data.model.Ustad
 import com.iffy.fikhustaz.data.model.Verify
 
 interface RegisterContract {
@@ -11,6 +12,6 @@ interface RegisterContract {
 
     interface Presenter {
         fun verifyEntries(data: Verify): Boolean
-        fun saveData(data: Verify) : Boolean
+        fun saveData(data: Ustad, pass: String)
     }
 }

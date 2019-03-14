@@ -82,8 +82,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/tv_login_register" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
-            app:layout_constraintTop_toTopOf="@+id/btn_regist_register" app:layout_constraintBottom_toBottomOf="@+id/btn_regist_register"
-            android:textSize="16sp" android:textColor="@android:color/black"/>
+            app:layout_constraintTop_toTopOf="@+id/btn_regist_register"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_regist_register"
+            android:textSize="16sp"/>
     <Button
             android:text="Lanjut"
             android:layout_width="0dp"

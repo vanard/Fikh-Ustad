@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import com.iffy.fikhustaz.R
-import com.iffy.fikhustaz.activity.register.RegisterActivity
+import com.iffy.fikhustaz.activity.login.LoginActivity
 import org.jetbrains.anko.startActivity
 
 class SplashActivity : AppCompatActivity() {
@@ -36,7 +36,7 @@ class SplashActivity : AppCompatActivity() {
 
     internal val mRunnable: Runnable = Runnable {
 
-        startActivity<HomeActivity>()
+        startActivity<LoginActivity>()
         finish()
     }
 
