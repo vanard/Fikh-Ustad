@@ -10,6 +10,7 @@ import android.text.style.StyleSpan
 import android.view.View
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.activity.HomeActivity
+import com.iffy.fikhustaz.activity.reset.ResetActivity
 import com.iffy.fikhustaz.data.model.Verify
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
@@ -28,6 +29,10 @@ class LoginActivity : AppCompatActivity() , LoginContract.View{
 
         btn_login_login.setOnClickListener {
             tryLogin()
+        }
+
+        tv_lupa_pass.setOnClickListener {
+            startActivity<ResetActivity>()
         }
     }
 

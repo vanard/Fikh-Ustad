@@ -8,6 +8,7 @@ import com.iffy.fikhustaz.fragment.materi.MateriFragment
 import com.iffy.fikhustaz.fragment.PesanFragment
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.R.id.*
+import com.iffy.fikhustaz.util.permissionCheck
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
@@ -15,6 +16,8 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        permissionCheck(this)
 
         bottom_navigation.setOnNavigationItemSelectedListener { item ->
             when(item.itemId) {
