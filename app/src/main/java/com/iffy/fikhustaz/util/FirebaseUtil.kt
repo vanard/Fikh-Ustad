@@ -10,6 +10,7 @@ import com.iffy.fikhustaz.data.itemviews.ImageMessageItem
 import com.iffy.fikhustaz.data.itemviews.PersonItem
 import com.iffy.fikhustaz.data.itemviews.TextMessageItem
 import com.iffy.fikhustaz.data.model.*
+import com.iffy.fikhustaz.data.model.chat.*
 import com.xwray.groupie.kotlinandroidextensions.Item
 
 object FirebaseUtil {
@@ -34,12 +35,16 @@ object FirebaseUtil {
         }
     }
 
-    fun updateCurrentUser(name: String = "", bio: String = "", profilePicturePath: String? = null) {
+    fun updateCurrentUser(nama: String = "", handphone: String = "", profilePicture: String? = null, sertifikat: String? = null, ijazah: String? = null) {
         val userFieldMap = mutableMapOf<String, Any>()
-        if (name.isNotBlank()) userFieldMap["name"] = name
-        if (bio.isNotBlank()) userFieldMap["bio"] = bio
-        if (profilePicturePath != null)
-            userFieldMap["profilePicturePath"] = profilePicturePath
+        if (nama.isNotBlank()) userFieldMap["nama"] = nama
+        if (handphone.isNotBlank()) userFieldMap["handphone"] = handphone
+        if (profilePicture != null)
+            userFieldMap["profilePicture"] = profilePicture
+        if (sertifikat != null)
+            userFieldMap["sertifikat"] = sertifikat
+        if (ijazah != null)
+            userFieldMap["ijazah"] = ijazah
         currentUserDocRef.update(userFieldMap)
     }
 
@@ -81,7 +86,14 @@ object FirebaseUtil {
                 val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
 
                 val newChannel = chatChannelsCollectionRef.document()
-                newChannel.set(ChatChannel(mutableListOf(currentUserId, otherUserId)))
+                newChannel.set(
+                    ChatChannel(
+                        mutableListOf(
+                            currentUserId,
+                            otherUserId
+                        )
+                    )
+                )
 
                 currentUserDocRef
                     .collection("engagedChatChannels")

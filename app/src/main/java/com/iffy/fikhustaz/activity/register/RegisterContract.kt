@@ -1,6 +1,6 @@
 package com.iffy.fikhustaz.activity.register
 
-import com.iffy.fikhustaz.data.Verify
+import com.iffy.fikhustaz.data.model.Verify
 
 interface RegisterContract {
     interface View {

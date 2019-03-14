@@ -36,7 +36,7 @@ class SplashActivity : AppCompatActivity() {
 
     internal val mRunnable: Runnable = Runnable {
 
-        startActivity<RegisterActivity>()
+        startActivity<HomeActivity>()
         finish()
     }
 

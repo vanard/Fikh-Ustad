@@ -10,7 +10,7 @@ import android.text.style.StyleSpan
 import android.view.View
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.activity.HomeActivity
-import com.iffy.fikhustaz.data.Verify
+import com.iffy.fikhustaz.data.model.Verify
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -32,10 +32,10 @@ class LoginActivity : AppCompatActivity() , LoginContract.View{
     }
 
     private fun tryLogin(){
-        val mUname = uname_et_login.text.toString()
+        val mEmail = email_et_login.text.toString()
         val mPass = pass_et_login.text.toString()
 
-        val info = Verify(mUname, "", "", "", mPass, "")
+        val info = Verify("", mEmail, "", mPass, "")
 
         if (!presenter.verify(info)){
             return

@@ -1,4 +1,4 @@
-package com.iffy.fikhustaz.data.model
+package com.iffy.fikhustaz.data.model.chat
 
 import java.util.*
 

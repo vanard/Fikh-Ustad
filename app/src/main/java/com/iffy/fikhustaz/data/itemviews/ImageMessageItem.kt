@@ -2,7 +2,7 @@ package com.iffy.fikhustaz.data.itemviews
 
 import android.content.Context
 import com.iffy.fikhustaz.R
-import com.iffy.fikhustaz.data.model.ImageMessage
+import com.iffy.fikhustaz.data.model.chat.ImageMessage
 import com.iffy.fikhustaz.util.StorageUtil
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder

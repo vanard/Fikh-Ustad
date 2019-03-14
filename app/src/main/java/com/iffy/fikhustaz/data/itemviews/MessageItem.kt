@@ -4,7 +4,7 @@ import android.view.Gravity
 import android.widget.FrameLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.iffy.fikhustaz.R
-import com.iffy.fikhustaz.data.model.Message
+import com.iffy.fikhustaz.data.model.chat.Message
 import com.xwray.groupie.kotlinandroidextensions.Item
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.item_text_message.*

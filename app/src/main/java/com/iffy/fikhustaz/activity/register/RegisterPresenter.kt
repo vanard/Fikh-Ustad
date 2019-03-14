@@ -1,6 +1,6 @@
 package com.iffy.fikhustaz.activity.register
 
-import com.iffy.fikhustaz.data.Verify
+import com.iffy.fikhustaz.data.model.Verify
 import com.iffy.fikhustaz.util.FirebaseUtil
 
 class RegisterPresenter (v: RegisterContract.View) : RegisterContract.Presenter {
@@ -9,14 +9,6 @@ class RegisterPresenter (v: RegisterContract.View) : RegisterContract.Presenter 
 
 
     override fun verifyEntries(data: Verify) : Boolean{
-        if (data.uname.isEmpty()){
-            view?.showMsg("Username harus diisi")
-            return false
-        }
-        if (data.uname.length < 3){
-            view?.showMsg("Username minimal 3 karakter")
-            return false
-        }
         if (data.name.isEmpty()){
             view?.showMsg("Nama harus diisi")
             return false

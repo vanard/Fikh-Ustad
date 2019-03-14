@@ -8,21 +8,24 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.View
+import com.google.firebase.auth.FirebaseAuth
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.activity.login.LoginActivity
-import com.iffy.fikhustaz.data.Verify
+import com.iffy.fikhustaz.data.model.Verify
 import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class RegisterActivity : AppCompatActivity(), RegisterContract.View {
 
+    private lateinit var mAuth: FirebaseAuth
     private lateinit var presenter: RegisterPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        mAuth = FirebaseAuth.getInstance()
         presenter = RegisterPresenter(this)
         text()
 

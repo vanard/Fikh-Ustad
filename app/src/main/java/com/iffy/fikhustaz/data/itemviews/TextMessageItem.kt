@@ -2,7 +2,7 @@ package com.iffy.fikhustaz.data.itemviews
 
 import android.content.Context
 import com.iffy.fikhustaz.R
-import com.iffy.fikhustaz.data.model.TextMessage
+import com.iffy.fikhustaz.data.model.chat.TextMessage
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.item_text_message.*
 
