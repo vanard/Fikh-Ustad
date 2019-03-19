@@ -17,13 +17,13 @@ class PersonItem(val person: Ustad,
     : Item() {
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
-        viewHolder.textView_name.text = person.nama
-        viewHolder.textView_bio.text = person.handphone
+        viewHolder.tv_person_name.text = person.nama
+        viewHolder.tv_last_message.text = person.handphone
         if (person.profilePicture != null)
             Picasso.get()
                 .load(File(StorageUtil.pathToReference(person.profilePicture).toString()))
                 .placeholder(R.drawable.ic_account_circle)
-                .into(viewHolder.imageView_profile_picture)
+                .into(viewHolder.img_profile_picture)
     }
 
     override fun getLayout() = R.layout.item_person

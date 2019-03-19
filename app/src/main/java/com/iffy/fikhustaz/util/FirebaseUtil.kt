@@ -2,10 +2,13 @@ package com.iffy.fikhustaz.util
 
 import android.content.Context
 import android.util.Log
+import android.util.Log.d
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.Query
+import com.iffy.fikhustaz.data.itemviews.ChatItem
 import com.iffy.fikhustaz.data.itemviews.ImageMessageItem
 import com.iffy.fikhustaz.data.itemviews.PersonItem
 import com.iffy.fikhustaz.data.itemviews.TextMessageItem
@@ -16,16 +19,16 @@ import com.xwray.groupie.kotlinandroidextensions.Item
 object FirebaseUtil {
     private val firestoreInstance: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 
-    private val currentUserDocRef: DocumentReference
+    val currentUserDocRef: DocumentReference
         get() = firestoreInstance.document("users/${FirebaseAuth.getInstance().currentUser?.uid
             ?: throw NullPointerException("UID is null.")}")
 
     private val chatChannelsCollectionRef = firestoreInstance.collection("chatChannels")
 
-    fun initCurrentUserIfFirstTime(user: Ustad, onComplete: () -> Unit) {
+    fun initCurrentUserIfFirstTime(ustad: Ustad, onComplete: () -> Unit) {
         currentUserDocRef.get().addOnSuccessListener { documentSnapshot ->
             if (!documentSnapshot.exists()) {
-                val newUser = user
+                val newUser = ustad
                 currentUserDocRef.set(newUser).addOnSuccessListener {
                     onComplete()
                 }
@@ -35,10 +38,30 @@ object FirebaseUtil {
         }
     }
 
-    fun updateCurrentUser(nama: String = "", handphone: String = "", profilePicture: String? = null, sertifikat: String? = null, ijazah: String? = null) {
+    fun updateCurrentUser(nama: String = "",
+                          email: String = "",
+                          handphone: String = "",
+                          tempatLahir: String = "",
+                          tanggalLahir: String = "",
+                          pendidikan: String = "",
+                          keilmuan: String = "",
+                          firkah: String = "",
+                          mazhab: String = "",
+                          profilePicture: String? = null,
+                          sertifikat: String? = null,
+                          ijazah: String? = null,
+                          rate: String? = null
+    ) {
         val userFieldMap = mutableMapOf<String, Any>()
         if (nama.isNotBlank()) userFieldMap["nama"] = nama
+        if (email.isNotBlank()) userFieldMap["email"] = email
         if (handphone.isNotBlank()) userFieldMap["handphone"] = handphone
+        if (tempatLahir.isNotBlank()) userFieldMap["tempatLahir"] = tempatLahir
+        if (tanggalLahir.isNotBlank()) userFieldMap["tanggalLahir"] = tanggalLahir
+        if (pendidikan.isNotBlank()) userFieldMap["pendidikan"] = pendidikan
+        if (keilmuan.isNotBlank()) userFieldMap["keilmuan"] = keilmuan
+        if (firkah.isNotBlank()) userFieldMap["firkah"] = firkah
+        if (mazhab.isNotBlank()) userFieldMap["mazhab"] = mazhab
         if (profilePicture != null)
             userFieldMap["profilePicture"] = profilePicture
         if (sertifikat != null)
@@ -128,6 +151,43 @@ object FirebaseUtil {
                     return@forEach
                 }
                  onListen(items)
+
+
+            }
+    }
+
+    fun addChatListener(channelId: String, context: Context,
+                                onListen: (List<Item>) -> Unit): ListenerRegistration {
+            return chatChannelsCollectionRef.document(channelId).collection("messages")
+                .orderBy("time", Query.Direction.DESCENDING).limit(1)
+                .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                    if (firebaseFirestoreException != null) {
+                        Log.e("FIRESTORE", "ChatMessagesListener error.", firebaseFirestoreException)
+                        return@addSnapshotListener
+                    }
+
+                    val items = mutableListOf<Item>()
+                    querySnapshot!!.documents.forEach {
+                        items.add(ChatItem(it.toObject(Chat::class.java)!!, context))
+                        return@forEach
+                    }
+                    onListen(items)
+
+                }
+
+    }
+
+    fun getChatChannel(onComplete: (channel: MutableList<String>) -> Unit) {
+        val data : MutableList<String> = mutableListOf()
+        currentUserDocRef.collection("engagedChatChannels").get()
+            .addOnSuccessListener {
+                for (doc in it){
+                    data.add(doc.data["channelId"] as String)
+                }
+                onComplete(data)
+                return@addOnSuccessListener
+            }.addOnFailureListener {
+                return@addOnFailureListener
             }
     }
 

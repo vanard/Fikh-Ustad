@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.iffy.fikhustaz.fragment.HomeFragment
 import com.iffy.fikhustaz.fragment.materi.MateriFragment
-import com.iffy.fikhustaz.fragment.PesanFragment
+import com.iffy.fikhustaz.fragment.pesan.PesanFragment
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.R.id.*
 import com.iffy.fikhustaz.activity.login.LoginActivity

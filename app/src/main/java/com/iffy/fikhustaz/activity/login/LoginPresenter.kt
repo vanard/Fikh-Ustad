@@ -62,7 +62,7 @@ class LoginPresenter (v: LoginContract.View, ctx: Context) : LoginContract.Prese
             if (it.isSuccessful){
                 val user = mAuth.currentUser
                 if (user != null){
-                    val data = Ustad(user.displayName, user.email, user.phoneNumber, user.photoUrl.toString(),"", "", mutableListOf())
+                    val data = Ustad(user.displayName, user.email, user.phoneNumber, "","", "","","","",user.photoUrl.toString(),"","","", mutableListOf())
                     FirebaseUtil.initCurrentUserIfFirstTime(data){
                         val registrationToken = FirebaseInstanceId.getInstance().token
                         MyFirebaseInstanceIDService.addTokenToFirestore(registrationToken)

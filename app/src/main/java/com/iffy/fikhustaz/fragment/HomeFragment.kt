@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.iffy.fikhustaz.R
+import com.iffy.fikhustaz.activity.EditProfileActivity
 import com.iffy.fikhustaz.util.FirebaseUtil
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.jetbrains.anko.support.v4.startActivity
 
 class HomeFragment : Fragment() {
 
@@ -29,17 +31,13 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        edit_btn_home.setOnClickListener {
+            startActivity<EditProfileActivity>()
+        }
         name_tv_home.text = currentUser?.displayName
-        email_tv_home.text = currentUser?.email
     }
 
     override fun onStart() {
         super.onStart()
-        FirebaseUtil.getCurrentUser {
-            if (this@HomeFragment.isVisible){
-                email_tv_home.text = it.email
-                phone_tv_home.text = it.handphone
-            }
-        }
     }
 }
