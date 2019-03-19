@@ -5,6 +5,150 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activity.EditProfileActivity">
+        tools:context=".activity.editprof.EditProfileActivity">
 
+    <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:id="@+id/progressBar"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" android:visibility="gone"/>
+    <ScrollView android:layout_height="0dp"
+                android:layout_width="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout android:layout_height="wrap_content"
+                      android:layout_width="match_parent" android:orientation="vertical"
+                      android:id="@+id/linearLayout6">
+            <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                                                               android:layout_height="wrap_content"
+                                                               android:layout_marginStart="8dp"
+                                                               android:layout_marginEnd="8dp"
+                                                               android:layout_marginTop="8dp"
+                                                               android:layout_marginBottom="4dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView android:layout_width="64dp"
+                                                              android:layout_height="64dp"
+                                                              app:layout_constraintEnd_toEndOf="parent"
+                                                              android:layout_marginEnd="8dp"
+                                                              app:layout_constraintStart_toStartOf="parent"
+                                                              android:layout_marginStart="8dp"
+                                                              android:layout_marginTop="16dp"
+                                                              app:layout_constraintTop_toTopOf="parent"
+                                                              android:scaleType="centerCrop"
+                                                              android:src="@drawable/ic_account_circle"
+                                                              android:id="@+id/img_detailutd"/>
+                <TextView
+                        android:text="Ustad Name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/name_tv_home" app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="16dp" app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="16dp" app:layout_constraintTop_toBottomOf="@+id/img_detailutd"
+                        android:textAlignment="center" android:layout_marginTop="8dp" android:textSize="16sp"
+                        android:textColor="@android:color/black"
+                />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:gravity="center_horizontal">
+                <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="add"
+                        android:id="@+id/btn_add_schedule"/>
+            </RelativeLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                                                               android:layout_height="wrap_content">
+                <TextView
+                        android:text="Tempat, Tanggal Lahir"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/textView16"
+                        android:textColor="@android:color/black"
+                        android:layout_marginStart="12dp" app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="12dp"
+                        app:layout_constraintHorizontal_bias="1.0" android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toTopOf="parent"/>
+                <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/datebirt_et_edit"
+                        app:layout_constraintStart_toStartOf="@+id/textView16"
+                        app:layout_constraintTop_toBottomOf="@+id/textView16" android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent" android:hint="Sumatera Utara"
+                        android:textSize="14sp" app:layout_constraintEnd_toStartOf="@+id/date_tv_edit"
+                        android:background="@android:color/transparent" app:layout_constraintHorizontal_bias="0.5"
+                        android:layout_marginTop="8dp" android:maxLines="1"/>
+                <TextView
+                        android:text=", 18 Mei 1997"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/date_tv_edit" app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/datebirt_et_edit"
+                        app:layout_constraintTop_toTopOf="@+id/datebirt_et_edit" android:layout_marginEnd="16dp"
+                        app:layout_constraintStart_toEndOf="@+id/datebirt_et_edit"
+                        app:layout_constraintHorizontal_bias="0.5" android:layout_marginStart="8dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                    android:text="Riwayat Pendidikan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/textView18"
+                    android:textColor="@android:color/black" android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="12dp" android:layout_marginStart="12dp"/>
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/pendidikan_et_edit"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp" android:textSize="14sp"
+                    android:background="@android:color/transparent"
+                    android:hint="S2 Dar El Hadith El Hassania, Kerajaan Maroko" android:maxLines="2"/>
+            <TextView
+                    android:text="Bidang Keilmuan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/textView20"
+                    android:textColor="@android:color/black" android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="12dp" android:layout_marginStart="12dp" android:layout_marginTop="12dp"/>
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/keilmuan_et_edit"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp" android:textSize="14sp"
+                    android:background="@android:color/transparent" android:hint="Ilmu Hadist" android:maxLines="1"/>
+            <TextView
+                    android:text="Firkah"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/textView22"
+                    android:textColor="@android:color/black" android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="12dp" android:layout_marginStart="12dp" android:layout_marginTop="12dp"/>
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/firkah_et_edit"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp" android:hint="Sunni" android:textSize="14sp"
+                    android:background="@android:color/transparent" android:maxLines="1"/>
+            <TextView
+                    android:text="Mazhab"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/textView24"
+                    android:textColor="@android:color/black"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="12dp" android:layout_marginStart="12dp" android:layout_marginTop="12dp"/>
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/mazhab_et_edit"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp" android:layout_marginBottom="12dp"
+                    android:background="@android:color/transparent" android:textSize="14sp" android:hint="Syafi'i"
+                    android:maxLines="1"/>
+            <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:id="@+id/edit_btn_home" android:text="Save Profile" android:layout_margin="4dp"/>
+        </LinearLayout>
+
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

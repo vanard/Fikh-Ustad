@@ -56,7 +56,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
         val mConfpass = confpass_et_register.text.toString()
 
         val info = Verify(mName, mEmail, mPhone, mPass, mConfpass)
-        val newUser = Ustad(mName, mEmail, mPhone, "", "", "", "","", "","","","","",mutableListOf())
+        val newUser = Ustad(mName, mEmail, mPhone, "", "", "", "","", "","","","","",mutableListOf(),mutableListOf())
 
         if (!presenter.verifyEntries(info)){
             return

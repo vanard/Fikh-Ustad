@@ -13,6 +13,7 @@ data class Ustad (val nama: String?,
                   val sertifikat: String?,
                   val ijazah: String?,
                   val rate: String?,
+                  val userOnline: MutableList<String>,
                   val registrationTokens: MutableList<String>){
-    constructor(): this ("","","","","","", "","","","","","", "",mutableListOf())
+    constructor(): this ("","","","","","", "","","","","","", "",mutableListOf(),mutableListOf())
 }

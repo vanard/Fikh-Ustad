@@ -16,7 +16,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".activity.EditProfileActivity">
+        <activity android:name=".activity.editprof.EditProfileActivity" android:label="Edit Profile">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.iffy.fikhustaz.activity.HomeActivity"/>
         </activity>
         <activity android:name=".activity.ChatActivity">
             <meta-data
