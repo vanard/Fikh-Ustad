@@ -23,6 +23,6 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
     }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-        toast("$day $month $year")
+        toast("$day ${month+1} $year")
     }
 }

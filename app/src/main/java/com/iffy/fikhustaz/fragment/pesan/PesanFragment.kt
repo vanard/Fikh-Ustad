@@ -22,14 +22,15 @@ import com.xwray.groupie.ViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.fragment_pesan.*
 import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.support.v4.toast
 
 
-class PesanFragment : Fragment() {
+class PesanFragment : Fragment() , PesanContract.View{
 
-    private var currentChannelId: MutableList<String> = mutableListOf()
     private lateinit var currentUser: Ustad
     private lateinit var messagesListenerRegistration: ListenerRegistration
     private lateinit var messagesSection: Section
+    private lateinit var presenter: PesanPresenter
     val mAdapter = GroupAdapter<ViewHolder>()
 
     private var shouldInitRecyclerView = true
@@ -44,19 +45,21 @@ class PesanFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        presenter = PesanPresenter(this)
+
         FirebaseUtil.getCurrentUser {
             currentUser = it
             d("Pesan_Fragment", "$currentUser")
         }
 
-        FirebaseUtil.getChatChannel{
-            currentChannelId.addAll(it)
-            d("Pesan_Fragment", "$currentChannelId")
+        presenter.getLastMessage()
 
-            for (doc in currentChannelId){
-                messagesListenerRegistration =
-                    FirebaseUtil.addChatListener(doc, context!!, this::updateRecyclerView)
-            }
+    }
+
+    override fun fillData(data: MutableList<String>) {
+        for (doc in data){
+            messagesListenerRegistration =
+                FirebaseUtil.addChatListener(doc, context!!, this::updateRecyclerView)
         }
     }
 
@@ -106,6 +109,17 @@ class PesanFragment : Fragment() {
                 )
             }
         }
+    }
+
+    override fun showLoad() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideLoad() {
+        progressBar.visibility = View.GONE
+    }
+    override fun showMsg(msg: String) {
+        toast(msg)
     }
 
 }

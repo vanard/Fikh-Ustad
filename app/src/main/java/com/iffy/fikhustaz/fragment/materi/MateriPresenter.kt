@@ -18,10 +18,15 @@ class MateriPresenter (v: MateriContract.View) : MateriContract.Presenter{
             val request = service.fetchFatwa()
             try {
                 val response = request.await()
-                response.body()?.let {
-                    view?.initData(it.data)
+                if (response.isSuccessful){
+                    response.body()?.let {
+                        view?.initData(it.data)
+                    }
+                    view?.hideLoading()
+                }else{
+                    view?.showMsg("${response.errorBody()}")
+                    view?.hideLoading()
                 }
-                view?.hideLoading()
             } catch (e: HttpException) {
                 view?.showMsg(e.code().toString())
             } catch (e: Throwable) {

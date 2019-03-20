@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.activity.materi.MateriActivity
@@ -35,6 +36,7 @@ class MateriFragment : Fragment(), MateriContract.View {
         super.onActivityCreated(savedInstanceState)
         rv_materi.adapter = adapter
         rv_materi.layoutManager = LinearLayoutManager(context)
+        rv_materi.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
         presenter.getData()
 
