@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.ListenerRegistration
 import com.iffy.fikhustaz.R
-import com.iffy.fikhustaz.activity.ChatActivity
+import com.iffy.fikhustaz.activity.chat.ChatActivity
 import com.iffy.fikhustaz.data.itemviews.ChatItem
 import com.iffy.fikhustaz.data.model.Ustad
 import com.iffy.fikhustaz.util.FirebaseUtil
@@ -71,8 +71,8 @@ class PesanFragment : Fragment() , PesanContract.View{
 
     private fun updateRecyclerView(messages: List<Item>) {
         fun init() {
-            rv_latest_messages.apply {
-                layoutManager = LinearLayoutManager(context)
+            rv_messages.apply {
+                layoutManager = LinearLayoutManager(this@PesanFragment.context)
                 addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
                 adapter = mAdapter.apply {
                     messages.forEach {

@@ -6,4 +6,6 @@
 
     <color name="colorTextHint">#80000000</color>
     <color name="green_app">#14D18F</color>
+    <color name="blue_app">#5CBCEB</color>
+    <color name="grey_app">#1A000000</color>
 </resources>

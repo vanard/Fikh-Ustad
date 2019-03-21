@@ -158,21 +158,18 @@ object FirebaseUtil {
 
     fun addChatListener(channelId: String, context: Context,
                                 onListen: (List<Item>) -> Unit): ListenerRegistration {
-            return chatChannelsCollectionRef.document(channelId).collection("messages")
-                .orderBy("time", Query.Direction.DESCENDING).limit(1)
-                .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+            return chatChannelsCollectionRef.document(channelId).collection("lastmessage").document(channelId)
+                .addSnapshotListener { docSnapshot, firebaseFirestoreException ->
                     if (firebaseFirestoreException != null) {
                         Log.e("FIRESTORE", "ChatMessagesListener error.", firebaseFirestoreException)
                         return@addSnapshotListener
                     }
 
                     val items = mutableListOf<Item>()
-                    querySnapshot!!.documents.forEach {
-                        items.add(ChatItem(it.toObject(Chat::class.java)!!, context))
-                        return@forEach
+                    if (docSnapshot != null && docSnapshot.exists()){
+                        items.add(ChatItem(docSnapshot.toObject(Chat::class.java)!!, context))
                     }
                     onListen(items)
-
                 }
 
     }
@@ -195,6 +192,10 @@ object FirebaseUtil {
         chatChannelsCollectionRef.document(channelId)
             .collection("messages")
             .add(message)
+
+        chatChannelsCollectionRef.document(channelId)
+            .collection("lastmessage").document(channelId)
+            .set(message)
     }
 
     //region FCM

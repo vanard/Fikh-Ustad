@@ -25,7 +25,7 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.iffy.fikhustaz.activity.HomeActivity"/>
         </activity>
-        <activity android:name=".activity.ChatActivity">
+        <activity android:name=".activity.chat.ChatActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.iffy.fikhustaz.activity.HomeActivity"/>

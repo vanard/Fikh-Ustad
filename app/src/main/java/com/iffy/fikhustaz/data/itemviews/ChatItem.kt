@@ -29,8 +29,7 @@ class ChatItem(val message: Chat,
             viewHolder.tv_last_message.text = "${message.senderName} sent a photo"
         }
         val dateFormat = SimpleDateFormat
-            .getDateTimeInstance(SimpleDateFormat.SHORT, SimpleDateFormat.SHORT)
-//        val a = DateFormat.reformatStringDate(dateFormat.format(message.time), "d/M/y H:m a", "HM:mm a")
+            .getTimeInstance(SimpleDateFormat.SHORT)
         viewHolder.tv_last_date.text = dateFormat.format(message.time)
 
         Picasso.get()

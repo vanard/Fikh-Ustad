@@ -22,21 +22,21 @@ abstract class MessageItem(private val message: Message)
 
     private fun setTimeText(viewHolder: ViewHolder) {
         val dateFormat = SimpleDateFormat
-            .getDateTimeInstance(SimpleDateFormat.SHORT, SimpleDateFormat.SHORT)
+            .getTimeInstance(SimpleDateFormat.SHORT)
         viewHolder.textView_message_time.text = dateFormat.format(message.time)
     }
 
     private fun setMessageRootGravity(viewHolder: ViewHolder) {
         if (message.senderId == FirebaseAuth.getInstance().currentUser?.uid) {
             viewHolder.message_root.apply {
-                backgroundResource = R.drawable.round_white
+                backgroundResource = R.drawable.round_text_message
                 val lParams = FrameLayout.LayoutParams(wrapContent, wrapContent, Gravity.END)
                 this.layoutParams = lParams
             }
         }
         else {
             viewHolder.message_root.apply {
-                backgroundResource = R.drawable.round_text_message
+                backgroundResource = R.drawable.round_blue
                 val lParams = FrameLayout.LayoutParams(wrapContent, wrapContent, Gravity.START)
                 this.layoutParams = lParams
             }

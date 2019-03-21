@@ -1,4 +1,4 @@
-package com.iffy.fikhustaz.activity
+package com.iffy.fikhustaz.activity.chat
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,18 +14,17 @@ import com.xwray.groupie.Section
 import com.xwray.groupie.kotlinandroidextensions.Item
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.activity_chat.*
-import org.jetbrains.anko.toast
 import java.util.*
 
-class ChatActivity : AppCompatActivity() {
+class ChatActivity : AppCompatActivity(), ChatContract.View {
 
-    private lateinit var currentChannelId: String
     private lateinit var currentUser: Ustad
     private lateinit var otherUserId: String
 
     private lateinit var messagesListenerRegistration: ListenerRegistration
     private var shouldInitRecyclerView = true
     private lateinit var messagesSection: Section
+    private lateinit var presenter:ChatPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,17 +33,20 @@ class ChatActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = intent.getStringExtra("USERNAME")
 
+        presenter = ChatPresenter(this)
         FirebaseUtil.getCurrentUser {
             currentUser = it
         }
         otherUserId = intent.getStringExtra("USER_ID")
-        FirebaseUtil.getOrCreateChatChannel(otherUserId) { channelId ->
-            currentChannelId = channelId
+        presenter.getData(otherUserId)
+    }
 
-            messagesListenerRegistration =
-                FirebaseUtil.addChatMessagesListener(channelId, this, this::updateRecyclerView)
+    override fun showData(channelId: String) {
+        messagesListenerRegistration =
+            FirebaseUtil.addChatMessagesListener(channelId, this, this::updateRecyclerView)
 
-            send_btn_chat_log.setOnClickListener {
+        send_btn_chat_log.setOnClickListener {
+            if (et_chat_log.text.toString().isNotEmpty()){
                 val messageToSend =
                     TextMessage(
                         et_chat_log.text.toString(), Calendar.getInstance().time,
