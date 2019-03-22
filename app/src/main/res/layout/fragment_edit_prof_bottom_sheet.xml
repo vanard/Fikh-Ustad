@@ -14,7 +14,8 @@
 
     <com.google.android.material.tabs.TabLayout android:layout_width="match_parent"
                                                 android:layout_height="?android:attr/actionBarSize"
-                                                app:tabMode="scrollable"
+                                                app:tabMaxWidth="0dp"
+                                                app:tabMode="fixed"
                                                 app:tabGravity="fill"
                                                 android:id="@+id/tabLayout_editProf" app:layout_constraintEnd_toEndOf="parent"
                                                 app:layout_constraintStart_toStartOf="parent"

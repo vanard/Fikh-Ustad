@@ -3,22 +3,22 @@
                                                    xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
                                                    android:layout_width="match_parent"
                                                    android:layout_height="wrap_content"
-                                                   tools:context=".views.activity.editprof.bottomsheetfragment.ScheduleStartFragment">
+                                                   tools:context=".views.activity.editprof.bottomsheetfragment.ScheduleEndFragment">
 
     <TimePicker android:layout_width="0dp" android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-                android:id="@+id/timePicker_start"
+                android:id="@+id/timePicker_end"
                 android:timePickerMode="spinner"
-                app:layout_constraintEnd_toStartOf="@+id/tv_save_start" android:layout_marginEnd="16dp"/>
+                app:layout_constraintEnd_toStartOf="@+id/tv_save_end" android:layout_marginEnd="16dp"/>
     <TextView
             android:gravity="center"
             android:text="Save"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:id="@+id/tv_save_start" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/timePicker_start"
+            android:id="@+id/tv_save_end" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/timePicker_end"
             android:textColor="@color/green_app" android:textStyle="bold" android:textSize="18sp"
-            app:layout_constraintTop_toTopOf="@+id/timePicker_start" android:layout_marginTop="32dp"
+            app:layout_constraintTop_toTopOf="@+id/timePicker_end" android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

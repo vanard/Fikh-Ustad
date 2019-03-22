@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              tools:context=".views.activity.editprof.bottomsheetfragment.ScheduleStartFragment">
 
-    <TimePicker android:layout_width="match_parent" android:layout_height="wrap_content" />
+    <TimePicker android:layout_width="0dp" android:layout_height="wrap_content" android:id="@+id/timePicker_start"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+            android:text="Save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/tv_save_start"
+            app:layout_constraintTop_toBottomOf="@+id/timePicker_start" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="24dp" android:textColor="@color/green_app"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textStyle="bold" android:textSize="18sp"/>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
