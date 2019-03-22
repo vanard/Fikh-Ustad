@@ -16,31 +16,31 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".activity.editprof.addschedule.AddScheduleActivity">
+        <activity android:name="com.iffy.fikhustaz.views.activity.editprof.addschedule.AddScheduleActivity">
         </activity>
         <activity
-                android:name=".activity.editprof.EditProfileActivity"
+                android:name="com.iffy.fikhustaz.views.activity.editprof.EditProfileActivity"
                 android:label="Edit Profile">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.iffy.fikhustaz.activity.HomeActivity"/>
+                    android:value="com.iffy.fikhustaz.views.activity.HomeActivity"/>
         </activity>
-        <activity android:name=".activity.chat.ChatActivity">
+        <activity android:name="com.iffy.fikhustaz.views.activity.chat.ChatActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.iffy.fikhustaz.activity.HomeActivity"/>
+                    android:value="com.iffy.fikhustaz.views.activity.HomeActivity"/>
         </activity>
         <activity
-                android:name=".activity.reset.ResetActivity"
+                android:name="com.iffy.fikhustaz.views.activity.reset.ResetActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".activity.materi.MateriActivity">
+        <activity android:name="com.iffy.fikhustaz.views.activity.materi.MateriActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.iffy.fikhustaz.activity.HomeActivity"/>
+                    android:value="com.iffy.fikhustaz.views.activity.HomeActivity"/>
         </activity>
         <activity
-                android:name=".activity.SplashActivity"
+                android:name="com.iffy.fikhustaz.views.activity.SplashActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -48,10 +48,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.HomeActivity">
+        <activity android:name="com.iffy.fikhustaz.views.activity.HomeActivity">
         </activity>
         <activity
-                android:name=".activity.register.RegisterActivity"
+                android:name="com.iffy.fikhustaz.views.activity.register.RegisterActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -60,7 +60,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".activity.login.LoginActivity"
+                android:name="com.iffy.fikhustaz.views.activity.login.LoginActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity> <!-- FCM -->
         <meta-data

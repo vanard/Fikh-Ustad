@@ -1,7 +1,7 @@
 package com.iffy.fikhustaz.data.itemviews
 
 import com.iffy.fikhustaz.R
-import com.iffy.fikhustaz.activity.materi.MateriActivity
+import com.iffy.fikhustaz.views.activity.materi.MateriActivity
 import com.iffy.fikhustaz.data.model.materi.IslamData
 import com.iffy.fikhustaz.util.DateFormat
 import com.squareup.picasso.Picasso
