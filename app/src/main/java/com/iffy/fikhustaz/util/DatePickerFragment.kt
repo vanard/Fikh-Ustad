@@ -7,6 +7,7 @@ import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
 import org.jetbrains.anko.support.v4.toast
+import java.text.SimpleDateFormat
 import java.util.*
 
 class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
@@ -23,6 +24,8 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
     }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-        toast("$day ${month+1} $year")
+        val change = "$day/${month+1}/$year"
+        val dateForm = SimpleDateFormat("dd/MMMM/yyyy", Locale.getDefault())
+        toast(change.format(dateForm))
     }
 }

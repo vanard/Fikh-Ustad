@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
-import com.iffy.fikhustaz.views.fragment.HomeFragment
+import com.iffy.fikhustaz.views.fragment.home.HomeFragment
 import com.iffy.fikhustaz.views.fragment.materi.MateriFragment
 import com.iffy.fikhustaz.views.fragment.pesan.PesanFragment
 import com.iffy.fikhustaz.R

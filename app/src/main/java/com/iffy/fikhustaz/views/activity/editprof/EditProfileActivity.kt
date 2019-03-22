@@ -9,26 +9,11 @@ import com.iffy.fikhustaz.util.DatePickerFragment
 import com.iffy.fikhustaz.util.TimePickerFragment
 import com.iffy.fikhustaz.views.activity.editprof.bottomsheetfragment.EditProfBottomSheetFragment
 import kotlinx.android.synthetic.main.activity_edit_profile.*
+import org.jetbrains.anko.toast
 
 class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
 
     private lateinit var presenter:EditProfPresenter
-
-    override fun showLoad() {
-        progressBar.visibility = View.VISIBLE
-    }
-
-    override fun hideLoad() {
-        progressBar.visibility = View.GONE
-    }
-
-    override fun showTimePicker(v: EditProfContract.View) {
-        TimePickerFragment().show(supportFragmentManager, "timePicker")
-    }
-
-    override fun showDatePicker(v: EditProfContract.View) {
-        DatePickerFragment().show(supportFragmentManager, "datePicker")
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +37,16 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
     }
 
     private fun tryToSaveData() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val name = name_tv_edit.text.toString()
+        val tempat = datebirt_et_edit.text.toString()
+        val tanggal = date_tv_edit.text.toString()
+        val pendidikan = pendidikan_et_edit.text.toString()
+        val keilmuan = keilmuan_et_edit.text.toString()
+        val firkah = firkah_et_edit.text.toString()
+        val mazhab = mazhab_et_edit.text.toString()
+
+        presenter.saveData(Ustad(name, "","",tempat, tanggal, pendidikan, keilmuan, firkah, mazhab,"","","","",
+            mutableListOf(), mutableListOf()))
     }
 
     override fun setData(ustad: Ustad) {
@@ -67,6 +61,26 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
         keilmuan_et_edit.setText("${ustad.keilmuan}")
         firkah_et_edit.setText("${ustad.firkah}")
         mazhab_et_edit.setText("${ustad.mazhab}")
+    }
+
+    override fun showLoad() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideLoad() {
+        progressBar.visibility = View.GONE
+    }
+
+    override fun showTimePicker(v: EditProfContract.View) {
+        TimePickerFragment().show(supportFragmentManager, "timePicker")
+    }
+
+    override fun showDatePicker(v: EditProfContract.View) {
+        DatePickerFragment().show(supportFragmentManager, "datePicker")
+    }
+
+    override fun showMsg(msg: String) {
+        toast(msg)
     }
 
 }
