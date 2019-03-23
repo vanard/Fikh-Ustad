@@ -3,7 +3,7 @@ package com.iffy.fikhustaz.util
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DateFormat {
+class DatesFormat {
 
     companion object {
 

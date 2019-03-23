@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ListenerRegistration
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.views.activity.chat.ChatActivity
@@ -28,12 +29,13 @@ import org.jetbrains.anko.support.v4.toast
 class PesanFragment : Fragment() , PesanContract.View{
 
     private lateinit var currentUser: Ustad
-    private lateinit var messagesListenerRegistration: ListenerRegistration
-    private lateinit var messagesSection: Section
+    private var messagesListenerRegistration: ListenerRegistration? = null
     private lateinit var presenter: PesanPresenter
-    val mAdapter = GroupAdapter<ViewHolder>()
+    private val user = FirebaseAuth.getInstance().currentUser!!.uid
+    private lateinit var messagesSection: Section
 
     private var shouldInitRecyclerView = true
+    private var list = mutableListOf<Item>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,6 +59,7 @@ class PesanFragment : Fragment() , PesanContract.View{
     }
 
     override fun fillData(data: MutableList<String>) {
+        d("FillData", "$data")
         for (doc in data){
             messagesListenerRegistration =
                 FirebaseUtil.addChatListener(doc, context!!, this::updateRecyclerView)
@@ -65,8 +68,10 @@ class PesanFragment : Fragment() , PesanContract.View{
 
     override fun onDestroyView() {
         super.onDestroyView()
-        FirebaseUtil.removeListener(messagesListenerRegistration)
-        shouldInitRecyclerView = true
+        if (messagesListenerRegistration != null){
+            FirebaseUtil.removeListener(messagesListenerRegistration!!)
+            shouldInitRecyclerView = true
+        }
     }
 
     private fun updateRecyclerView(messages: List<Item>) {
@@ -74,15 +79,16 @@ class PesanFragment : Fragment() , PesanContract.View{
             rv_messages.apply {
                 layoutManager = LinearLayoutManager(this@PesanFragment.context)
                 addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-                adapter = mAdapter.apply {
-                    messages.forEach {
-                        messagesSection = Section(it)
-                        add(messagesSection)
+                adapter = GroupAdapter<ViewHolder>().apply {
+                    clear()
+                    messages.apply {
                         setOnItemClickListener(onItemClick)
+                        messagesSection = Section(messages)
+                        add(messagesSection)
                     }
                 }
             }
-            shouldInitRecyclerView = false
+                shouldInitRecyclerView = false
         }
 
         fun updateItems() = messagesSection.update(messages)
@@ -97,7 +103,7 @@ class PesanFragment : Fragment() , PesanContract.View{
 
     private val onItemClick = OnItemClickListener { it, view ->
         if (it is ChatItem) {
-            if (it.message.senderName == currentUser.nama) {
+            if (it.message.senderId == user) {
                 startActivity<ChatActivity>(
                     "USER_ID" to it.message.recipientId,
                     "USERNAME" to it.message.recipientName

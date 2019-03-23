@@ -21,7 +21,9 @@ object StorageUtil {
         val ref = currentUserRef.child("profilePictures/${UUID.nameUUIDFromBytes(imageBytes)}")
         ref.putBytes(imageBytes)
             .addOnSuccessListener {
-                onSuccess(ref.path)
+                ref.downloadUrl.addOnSuccessListener {
+                    onSuccess(it.toString())
+                }
             }
     }
 
@@ -30,9 +32,10 @@ object StorageUtil {
         val ref = currentUserRef.child("messages/${UUID.nameUUIDFromBytes(imageBytes)}")
         ref.putBytes(imageBytes)
             .addOnSuccessListener {
-                onSuccess(ref.path)
+                ref.downloadUrl.addOnSuccessListener {
+                    onSuccess(it.toString())
+                }
             }
     }
 
-    fun pathToReference(path: String) = storageInstance.getReference(path)
 }

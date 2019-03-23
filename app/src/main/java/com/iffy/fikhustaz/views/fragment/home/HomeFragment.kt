@@ -1,6 +1,8 @@
 package com.iffy.fikhustaz.views.fragment.home
 
+import android.app.ProgressDialog
 import android.os.Bundle
+import android.util.Log.d
 import android.view.*
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
@@ -13,6 +15,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.newTask
 import org.jetbrains.anko.support.v4.intentFor
+import org.jetbrains.anko.support.v4.progressDialog
 import org.jetbrains.anko.support.v4.startActivity
 
 class HomeFragment : Fragment(), HomeContract.View {
@@ -20,6 +23,7 @@ class HomeFragment : Fragment(), HomeContract.View {
     private lateinit var presenter:HomePresenter
     private lateinit var mAuth: FirebaseAuth
     private var currentUser: FirebaseUser? = null
+    private lateinit var dialog: ProgressDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,20 +63,28 @@ class HomeFragment : Fragment(), HomeContract.View {
         })
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        presenter.cancelGetData()
+    }
+
     override fun showLoad() {
-        progressBar.visibility = View.VISIBLE
+        dialog = ProgressDialog.show(this@HomeFragment.context, "", "Please wait")
+        dialog.setCancelable(false)
     }
 
     override fun hideLoad() {
-        progressBar.visibility = View.GONE
+        dialog.dismiss()
     }
 
     override fun setData(ustad: Ustad) {
+
         name_tv_home.text = currentUser?.displayName
         datebirt_tv_home.text = "${ustad.tempatLahir}, ${ustad.tanggalLahir}"
         pendidikan_tv_home.text = ustad.pendidikan
         keilmuan_tv_home.text = ustad.keilmuan
         firkah_tv_home.text = ustad.firkah
         mazhab_tv_home.text = ustad.mazhab
+
     }
 }

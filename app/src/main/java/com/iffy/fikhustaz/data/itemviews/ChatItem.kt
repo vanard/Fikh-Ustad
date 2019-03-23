@@ -5,7 +5,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.model.chat.Chat
 import com.iffy.fikhustaz.data.model.chat.MessageType
-import com.iffy.fikhustaz.util.DateFormat
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.kotlinandroidextensions.Item
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder

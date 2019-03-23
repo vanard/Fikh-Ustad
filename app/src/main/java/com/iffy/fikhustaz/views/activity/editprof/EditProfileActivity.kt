@@ -1,15 +1,17 @@
 package com.iffy.fikhustaz.views.activity.editprof
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.model.Ustad
-import com.iffy.fikhustaz.util.DatePickerFragment
-import com.iffy.fikhustaz.util.TimePickerFragment
+import com.iffy.fikhustaz.util.DatesFormat
 import com.iffy.fikhustaz.views.activity.editprof.bottomsheetfragment.EditProfBottomSheetFragment
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import org.jetbrains.anko.toast
+import java.util.*
 
 class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
 
@@ -32,6 +34,10 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
 
         save_btn_edit.setOnClickListener {
             tryToSaveData()
+        }
+
+        img_detailutd_edit.setOnClickListener {
+
         }
 
     }
@@ -72,11 +78,31 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
     }
 
     override fun showTimePicker(v: EditProfContract.View) {
-        TimePickerFragment().show(supportFragmentManager, "timePicker")
+        val c = Calendar.getInstance()
+        val hour = c.get(Calendar.HOUR_OF_DAY)
+        val minut = c.get(Calendar.MINUTE)
+
+        val datePickerDialog = TimePickerDialog(this@EditProfileActivity,
+            TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+
+            },hour, minut, false
+        )
+        datePickerDialog.show()
     }
 
     override fun showDatePicker(v: EditProfContract.View) {
-        DatePickerFragment().show(supportFragmentManager, "datePicker")
+        val calendar = Calendar.getInstance()
+        val y = calendar.get(Calendar.YEAR)
+        val m = calendar.get(Calendar.MONTH)
+        val d = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(this@EditProfileActivity,
+            DatePickerDialog.OnDateSetListener { datePicker, i, i1, i2 ->
+                val dob = i2.toString() + "/" + (i1 + 1) + "/" + i
+                date_tv_edit.text = DatesFormat.reformatStringDate(dob, DatesFormat.DATE_FORMAT, DatesFormat.DATE_FORMAT_OUTPUT)
+            }, y, m, d
+        )
+        datePickerDialog.show()
     }
 
     override fun showMsg(msg: String) {

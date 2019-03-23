@@ -2,18 +2,22 @@ package com.iffy.fikhustaz.views.activity.chat
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ListenerRegistration
 import com.iffy.fikhustaz.R
+import com.iffy.fikhustaz.data.AppConst
 import com.iffy.fikhustaz.data.model.Ustad
 import com.iffy.fikhustaz.data.model.chat.TextMessage
 import com.iffy.fikhustaz.util.FirebaseUtil
+import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Section
 import com.xwray.groupie.kotlinandroidextensions.Item
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.activity_chat.*
+import org.jetbrains.anko.startActivity
 import java.util.*
 
 class ChatActivity : AppCompatActivity(), ChatContract.View {
@@ -79,5 +83,16 @@ class ChatActivity : AppCompatActivity(), ChatContract.View {
             updateItems()
 
         rv_chat_log.scrollToPosition(rv_chat_log.adapter!!.itemCount - 1)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            android.R.id.home -> {
+                startActivity<HomeActivity>("frg" to AppConst.CHAT_ACTIVITY)
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

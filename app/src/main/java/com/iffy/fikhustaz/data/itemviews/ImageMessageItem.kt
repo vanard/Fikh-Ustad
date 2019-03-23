@@ -17,7 +17,7 @@ class ImageMessageItem(val message: ImageMessage,
     override fun bind(viewHolder: ViewHolder, position: Int) {
         super.bind(viewHolder, position)
         Picasso.get()
-            .load(File(StorageUtil.pathToReference(message.imagePath).toString()))
+            .load(File(message.imagePath))
             .placeholder(R.drawable.ic_image)
             .into(viewHolder.imageView_message_image)
     }

@@ -4,6 +4,7 @@ import android.util.Log
 import com.iffy.fikhustaz.util.FirebaseUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class PesanPresenter (v: PesanContract.View) : PesanContract.Presenter {
@@ -13,7 +14,7 @@ class PesanPresenter (v: PesanContract.View) : PesanContract.Presenter {
 
     override fun getLastMessage() {
         view.showLoad()
-        uiScope.launch {
+        uiScope.async {
             try {
                 FirebaseUtil.getChatChannel {
                     currentChannelId.addAll(it)

@@ -21,7 +21,7 @@ class PersonItem(val person: Ustad,
         viewHolder.tv_last_message.text = person.handphone
         if (person.profilePicture != null)
             Picasso.get()
-                .load(File(StorageUtil.pathToReference(person.profilePicture).toString()))
+                .load(person.profilePicture)
                 .placeholder(R.drawable.ic_account_circle)
                 .into(viewHolder.img_profile_picture)
     }

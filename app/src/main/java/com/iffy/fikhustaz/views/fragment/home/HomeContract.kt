@@ -10,5 +10,6 @@ interface HomeContract {
     }
     interface Presenter{
         fun getData()
+        fun cancelGetData()
     }
 }

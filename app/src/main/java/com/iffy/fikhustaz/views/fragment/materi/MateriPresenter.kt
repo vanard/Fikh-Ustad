@@ -3,6 +3,7 @@ package com.iffy.fikhustaz.views.fragment.materi
 import com.iffy.fikhustaz.network.RetrofitFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -14,7 +15,7 @@ class MateriPresenter (v: MateriContract.View) : MateriContract.Presenter{
     override fun getData() {
         view?.showLoading()
         val service = RetrofitFactory.makeRetrofitService()
-        uiScope.launch {
+        uiScope.async {
             val request = service.fetchFatwa()
             try {
                 val response = request.await()
@@ -33,6 +34,7 @@ class MateriPresenter (v: MateriContract.View) : MateriContract.Presenter{
                 view?.showMsg("Ooops: Something else went wrong")
             }
         }
+
     }
 
 }

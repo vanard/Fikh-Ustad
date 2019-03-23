@@ -1,11 +1,10 @@
 package com.iffy.fikhustaz.views.fragment.home
 
 import com.iffy.fikhustaz.util.FirebaseUtil
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class HomePresenter(v: HomeContract.View) : HomeContract.Presenter{
+
     private val view = v
     private val uiScope = CoroutineScope(Dispatchers.Main)
 
@@ -17,6 +16,10 @@ class HomePresenter(v: HomeContract.View) : HomeContract.Presenter{
                 view.hideLoad()
             }
         }
+    }
+
+    override fun cancelGetData(){
+        Job().cancel()
     }
 
 }

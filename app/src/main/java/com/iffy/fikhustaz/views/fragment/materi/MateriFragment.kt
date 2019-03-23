@@ -13,6 +13,7 @@ import com.iffy.fikhustaz.data.model.materi.IslamData
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.fragment_materi.*
+import kotlinx.coroutines.Job
 import org.jetbrains.anko.support.v4.toast
 
 
@@ -39,10 +40,6 @@ class MateriFragment : Fragment(), MateriContract.View {
 
     }
 
-    override fun showMsg(msg: String) {
-        toast(msg)
-    }
-
     override fun initData(list: List<IslamData>) {
         if (list.isNotEmpty()){
             adapter.clear()
@@ -51,6 +48,10 @@ class MateriFragment : Fragment(), MateriContract.View {
             }
             adapter.notifyDataSetChanged()
         }
+    }
+
+    override fun showMsg(msg: String) {
+        toast(msg)
     }
 
     override fun showLoading() {

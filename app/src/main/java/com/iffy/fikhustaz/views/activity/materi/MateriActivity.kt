@@ -3,11 +3,15 @@ package com.iffy.fikhustaz.views.activity.materi
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.iffy.fikhustaz.R
+import com.iffy.fikhustaz.data.AppConst
 import com.iffy.fikhustaz.data.model.materi.Attachment
+import com.iffy.fikhustaz.views.activity.HomeActivity
 import kotlinx.android.synthetic.main.activity_materi.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import java.io.File
 
@@ -42,6 +46,17 @@ class MateriActivity : AppCompatActivity(),MateriContract.View {
             .enableAnnotationRendering(true)
             .invalidPageColor(Color.WHITE)
             .load()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            android.R.id.home -> {
+                startActivity<HomeActivity>("frg" to AppConst.MATERI_ACTIVITY)
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun showMsg(msg: String) {

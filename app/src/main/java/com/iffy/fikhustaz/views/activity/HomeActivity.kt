@@ -9,6 +9,7 @@ import com.iffy.fikhustaz.views.fragment.materi.MateriFragment
 import com.iffy.fikhustaz.views.fragment.pesan.PesanFragment
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.R.id.*
+import com.iffy.fikhustaz.data.AppConst
 import com.iffy.fikhustaz.views.activity.login.LoginActivity
 import com.iffy.fikhustaz.util.permissionCheck
 import kotlinx.android.synthetic.main.activity_home.*
@@ -50,7 +51,22 @@ class HomeActivity : AppCompatActivity() {
             }
             true
         }
-        bottom_navigation.selectedItemId = nav_home
+
+        if (intent.getStringExtra("frg") != null){
+            val frg = intent.getStringExtra("frg")
+
+            when(frg){
+                AppConst.MATERI_ACTIVITY -> {
+                    bottom_navigation.selectedItemId = nav_materi
+                }
+                AppConst.CHAT_ACTIVITY -> {
+                    bottom_navigation.selectedItemId = nav_pesan
+                }
+
+            }
+        }else{
+            bottom_navigation.selectedItemId = nav_home
+        }
     }
 
     private fun loadFragment(savedInstanceState: Bundle?, fm: Fragment) {
