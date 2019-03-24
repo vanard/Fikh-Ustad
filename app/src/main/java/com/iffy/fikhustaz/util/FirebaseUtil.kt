@@ -166,12 +166,30 @@ object FirebaseUtil {
                     }
 
                     val items = mutableListOf<Item>()
+                    items.clear()
                     querySnapshot!!.documents.forEach {
                         items.add(ChatItem(it.toObject(Chat::class.java)!!, context))
                     }
                     onListen(items)
                 }
 
+    }
+
+    fun getLastMessage(channelId: String, context: Context, onListen: (List<Item>) -> Unit) : ListenerRegistration{
+        return chatChannelsCollectionRef.document(channelId).collection("lastmessage").document(channelId)
+            .addSnapshotListener { docSnapshot, firebaseFirestoreException ->
+                if (firebaseFirestoreException != null) {
+                    Log.e("FIRESTORE", "ChatMessagesListener error.", firebaseFirestoreException)
+                    return@addSnapshotListener
+                }
+
+                val items = mutableListOf<Item>()
+                if (docSnapshot != null && docSnapshot.exists()) {
+                    items.add(ChatItem(docSnapshot.toObject(Chat::class.java)!!, context))
+
+                }
+                onListen(items)
+            }
     }
 
     fun getChatChannel(onComplete: (channel: MutableList<String>) -> Unit) {

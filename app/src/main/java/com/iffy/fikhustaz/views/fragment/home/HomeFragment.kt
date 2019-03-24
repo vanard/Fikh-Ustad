@@ -15,7 +15,6 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.newTask
 import org.jetbrains.anko.support.v4.intentFor
-import org.jetbrains.anko.support.v4.progressDialog
 import org.jetbrains.anko.support.v4.startActivity
 
 class HomeFragment : Fragment(), HomeContract.View {
@@ -37,15 +36,14 @@ class HomeFragment : Fragment(), HomeContract.View {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         presenter.getData()
 
         edit_btn_home.setOnClickListener {
             startActivity<EditProfileActivity>()
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -71,6 +69,7 @@ class HomeFragment : Fragment(), HomeContract.View {
     override fun showLoad() {
         dialog = ProgressDialog.show(this@HomeFragment.context, "", "Please wait")
         dialog.setCancelable(false)
+        dialog.isIndeterminate
     }
 
     override fun hideLoad() {

@@ -17,6 +17,9 @@ import com.xwray.groupie.Section
 import com.xwray.groupie.kotlinandroidextensions.Item
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.activity_chat.*
+import org.jetbrains.anko.clearTask
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.newTask
 import org.jetbrains.anko.startActivity
 import java.util.*
 
@@ -88,8 +91,7 @@ class ChatActivity : AppCompatActivity(), ChatContract.View {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
             android.R.id.home -> {
-                startActivity<HomeActivity>("frg" to AppConst.CHAT_ACTIVITY)
-                finish()
+                startActivity(intentFor<HomeActivity>("frg" to AppConst.CHAT_ACTIVITY).newTask().clearTask())
                 return true
             }
         }

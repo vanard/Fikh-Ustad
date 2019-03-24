@@ -11,8 +11,7 @@ import com.iffy.fikhustaz.data.AppConst
 import com.iffy.fikhustaz.data.model.materi.Attachment
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import kotlinx.android.synthetic.main.activity_materi.*
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.*
 import java.io.File
 
 class MateriActivity : AppCompatActivity(),MateriContract.View {
@@ -51,8 +50,7 @@ class MateriActivity : AppCompatActivity(),MateriContract.View {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
             android.R.id.home -> {
-                startActivity<HomeActivity>("frg" to AppConst.MATERI_ACTIVITY)
-                finish()
+                startActivity(intentFor<HomeActivity>("frg" to AppConst.MATERI_ACTIVITY).newTask().clearTask())
                 return true
             }
         }

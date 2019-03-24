@@ -8,6 +8,6 @@ interface PesanContract{
         fun fillData(data: MutableList<String>)
     }
     interface Presenter{
-        fun getLastMessage()
+        fun getLastMessageId()
     }
 }

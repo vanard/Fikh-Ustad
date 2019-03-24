@@ -12,7 +12,7 @@ class PesanPresenter (v: PesanContract.View) : PesanContract.Presenter {
     private val uiScope = CoroutineScope(Dispatchers.Main)
     private var currentChannelId: MutableList<String> = mutableListOf()
 
-    override fun getLastMessage() {
+    override fun getLastMessageId() {
         view.showLoad()
         uiScope.async {
             try {

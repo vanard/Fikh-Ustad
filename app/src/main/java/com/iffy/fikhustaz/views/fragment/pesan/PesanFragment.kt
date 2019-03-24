@@ -1,24 +1,24 @@
 package com.iffy.fikhustaz.views.fragment.pesan
 
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.util.Log.d
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ListenerRegistration
 import com.iffy.fikhustaz.R
-import com.iffy.fikhustaz.views.activity.chat.ChatActivity
 import com.iffy.fikhustaz.data.itemviews.ChatItem
 import com.iffy.fikhustaz.data.model.Ustad
 import com.iffy.fikhustaz.util.FirebaseUtil
+import com.iffy.fikhustaz.views.activity.chat.ChatActivity
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.OnItemClickListener
-import com.xwray.groupie.Section
 import com.xwray.groupie.ViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.fragment_pesan.*
@@ -32,10 +32,10 @@ class PesanFragment : Fragment() , PesanContract.View{
     private var messagesListenerRegistration: ListenerRegistration? = null
     private lateinit var presenter: PesanPresenter
     private val user = FirebaseAuth.getInstance().currentUser!!.uid
-    private lateinit var messagesSection: Section
 
     private var shouldInitRecyclerView = true
-    private var list = mutableListOf<Item>()
+    private lateinit var dialog: ProgressDialog
+    private val mAdapter = GroupAdapter<ViewHolder>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +47,13 @@ class PesanFragment : Fragment() , PesanContract.View{
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        rv_messages.apply {
+            layoutManager = LinearLayoutManager(this@PesanFragment.context)
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            adapter = mAdapter
+        }
+
         presenter = PesanPresenter(this)
 
         FirebaseUtil.getCurrentUser {
@@ -54,16 +61,25 @@ class PesanFragment : Fragment() , PesanContract.View{
             d("Pesan_Fragment", "$currentUser")
         }
 
-        presenter.getLastMessage()
+        presenter.getLastMessageId()
 
     }
 
     override fun fillData(data: MutableList<String>) {
         d("FillData", "$data")
+        mAdapter.clear()
         for (doc in data){
-            messagesListenerRegistration =
-                FirebaseUtil.addChatListener(doc, context!!, this::updateRecyclerView)
+            messagesListenerRegistration = FirebaseUtil.getLastMessage(doc, context!!, this::refreshRecyclerViewMessages)
         }
+    }
+
+    private fun refreshRecyclerViewMessages(messages: List<Item>) {
+        d("CheckData", "$messages")
+        mAdapter.apply {
+            add(messages[0])
+            setOnItemClickListener(onItemClick)
+        }
+
     }
 
     override fun onDestroyView() {
@@ -72,33 +88,6 @@ class PesanFragment : Fragment() , PesanContract.View{
             FirebaseUtil.removeListener(messagesListenerRegistration!!)
             shouldInitRecyclerView = true
         }
-    }
-
-    private fun updateRecyclerView(messages: List<Item>) {
-        fun init() {
-            rv_messages.apply {
-                layoutManager = LinearLayoutManager(this@PesanFragment.context)
-                addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-                adapter = GroupAdapter<ViewHolder>().apply {
-                    clear()
-                    messages.apply {
-                        setOnItemClickListener(onItemClick)
-                        messagesSection = Section(messages)
-                        add(messagesSection)
-                    }
-                }
-            }
-                shouldInitRecyclerView = false
-        }
-
-        fun updateItems() = messagesSection.update(messages)
-
-        if (shouldInitRecyclerView)
-            init()
-        else
-            updateItems()
-
-
     }
 
     private val onItemClick = OnItemClickListener { it, view ->
@@ -118,11 +107,13 @@ class PesanFragment : Fragment() , PesanContract.View{
     }
 
     override fun showLoad() {
-        progressBar.visibility = View.VISIBLE
+        dialog = ProgressDialog.show(this@PesanFragment.context, "", "Please wait")
+        dialog.setCancelable(false)
+        dialog.isIndeterminate
     }
 
     override fun hideLoad() {
-        progressBar.visibility = View.GONE
+        dialog.dismiss()
     }
     override fun showMsg(msg: String) {
         toast(msg)
