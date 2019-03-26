@@ -1,6 +1,7 @@
 package com.iffy.fikhustaz.data.model
 
 import android.os.Parcelable
+import com.iffy.fikhustaz.data.UserType
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -17,7 +18,8 @@ data class Ustad (val nama: String?,
                   val sertifikat: String?,
                   val ijazah: String?,
                   val rate: String?,
+                  val type:String = UserType.USTAZ,
                   val userOnline: MutableList<String>,
                   val registrationTokens: MutableList<String>) : Parcelable{
-    constructor(): this ("","","","","","", "","","","","","", "",mutableListOf(),mutableListOf())
+    constructor(): this ("","","","","","", "","","","","","", "",UserType.USTAZ ,mutableListOf(),mutableListOf())
 }

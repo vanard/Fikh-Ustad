@@ -4,12 +4,19 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import com.iffy.fikhustaz.R
+import com.iffy.fikhustaz.data.AppConst
+import com.iffy.fikhustaz.data.UserType
 import com.iffy.fikhustaz.data.model.Ustad
 import com.iffy.fikhustaz.util.DatesFormat
+import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.iffy.fikhustaz.views.activity.editprof.bottomsheetfragment.EditProfBottomSheetFragment
 import kotlinx.android.synthetic.main.activity_edit_profile.*
+import org.jetbrains.anko.clearTask
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.newTask
 import org.jetbrains.anko.toast
 import java.util.*
 
@@ -51,7 +58,7 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
         val firkah = firkah_et_edit.text.toString()
         val mazhab = mazhab_et_edit.text.toString()
 
-        presenter.saveData(Ustad(name, "","",tempat, tanggal, pendidikan, keilmuan, firkah, mazhab,"","","","",
+        presenter.saveData(Ustad(name, "","",tempat, tanggal, pendidikan, keilmuan, firkah, mazhab,"","","","",UserType.USTAZ,
             mutableListOf(), mutableListOf()))
     }
 
@@ -103,6 +110,20 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
             }, y, m, d
         )
         datePickerDialog.show()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            android.R.id.home -> {
+                startActivity(intentFor<HomeActivity>("frg" to AppConst.EDIT_PROFILE_ACTIVITY).newTask().clearTask())
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        startActivity(intentFor<HomeActivity>("frg" to AppConst.EDIT_PROFILE_ACTIVITY).newTask().clearTask())
     }
 
     override fun showMsg(msg: String) {

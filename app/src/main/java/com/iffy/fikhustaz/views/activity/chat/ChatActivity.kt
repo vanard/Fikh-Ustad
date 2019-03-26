@@ -97,4 +97,8 @@ class ChatActivity : AppCompatActivity(), ChatContract.View {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onBackPressed() {
+        startActivity(intentFor<HomeActivity>("frg" to AppConst.CHAT_ACTIVITY).newTask().clearTask())
+    }
 }

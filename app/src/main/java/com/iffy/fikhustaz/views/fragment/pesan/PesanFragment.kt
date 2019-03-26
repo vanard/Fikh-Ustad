@@ -29,13 +29,14 @@ import org.jetbrains.anko.support.v4.toast
 class PesanFragment : Fragment() , PesanContract.View{
 
     private lateinit var currentUser: Ustad
-    private var messagesListenerRegistration: ListenerRegistration? = null
     private lateinit var presenter: PesanPresenter
     private val user = FirebaseAuth.getInstance().currentUser!!.uid
 
-    private var shouldInitRecyclerView = true
     private lateinit var dialog: ProgressDialog
     private val mAdapter = GroupAdapter<ViewHolder>()
+
+    private var listItem = mutableListOf<Item>()
+    private var listChannel = mutableListOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,26 +69,26 @@ class PesanFragment : Fragment() , PesanContract.View{
     override fun fillData(data: MutableList<String>) {
         d("FillData", "$data")
         mAdapter.clear()
+        listChannel = data
         for (doc in data){
-            messagesListenerRegistration = FirebaseUtil.getLastMessage(doc, context!!, this::refreshRecyclerViewMessages)
+            FirebaseUtil.getLastMessageListener(doc, context!!, this::updateRecyclerViewMessages)
         }
     }
 
     private fun refreshRecyclerViewMessages(messages: List<Item>) {
-        d("CheckData", "$messages")
+
+        listItem.addAll(messages)
+
         mAdapter.apply {
-            add(messages[0])
+            clear()
+            addAll(listItem)
             setOnItemClickListener(onItemClick)
         }
-
+        mAdapter.notifyDataSetChanged()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        if (messagesListenerRegistration != null){
-            FirebaseUtil.removeListener(messagesListenerRegistration!!)
-            shouldInitRecyclerView = true
-        }
+    private fun updateRecyclerViewMessages() {
+        FirebaseUtil.getLastMessage(listChannel, this::refreshRecyclerViewMessages)
     }
 
     private val onItemClick = OnItemClickListener { it, view ->

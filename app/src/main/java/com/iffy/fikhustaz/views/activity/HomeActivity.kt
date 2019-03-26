@@ -21,9 +21,9 @@ import org.jetbrains.anko.newTask
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var fragHome: Fragment
-    private lateinit var fragPesan: Fragment
-    private lateinit var fragMateri: Fragment
+    private val fragHome = HomeFragment()
+    private val fragPesan = PesanFragment()
+    private val fragMateri = MateriFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,12 +34,6 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intentFor<LoginActivity>().newTask().clearTask())
         }
         permissionCheck(this)
-
-        if (savedInstanceState == null) {
-            fragHome = HomeFragment()
-            fragPesan = PesanFragment()
-            fragMateri = MateriFragment()
-        }
 
         bottom_navigation.setOnNavigationItemSelectedListener { item ->
             when(item.itemId) {
@@ -73,7 +67,7 @@ class HomeActivity : AppCompatActivity() {
                 AppConst.CHAT_ACTIVITY -> {
                     bottom_navigation.selectedItemId = nav_pesan
                 }
-
+                AppConst.EDIT_PROFILE_ACTIVITY -> bottom_navigation.selectedItemId = nav_home
             }
         }else{
             bottom_navigation.selectedItemId = nav_home

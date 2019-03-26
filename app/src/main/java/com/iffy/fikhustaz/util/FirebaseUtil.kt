@@ -4,10 +4,8 @@ import android.content.Context
 import android.util.Log
 import android.util.Log.d
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
-import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.*
+import com.iffy.fikhustaz.data.MessageType
 import com.iffy.fikhustaz.data.itemviews.ChatItem
 import com.iffy.fikhustaz.data.itemviews.ImageMessageItem
 import com.iffy.fikhustaz.data.itemviews.PersonItem
@@ -175,21 +173,46 @@ object FirebaseUtil {
 
     }
 
-    fun getLastMessage(channelId: String, context: Context, onListen: (List<Item>) -> Unit) : ListenerRegistration{
-        return chatChannelsCollectionRef.document(channelId).collection("lastmessage").document(channelId)
-            .addSnapshotListener { docSnapshot, firebaseFirestoreException ->
+    fun getLastMessageListener(channelId: String, context: Context, onListen: () -> Unit){
+        chatChannelsCollectionRef.document(channelId).collection("lastmessage")
+            .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 if (firebaseFirestoreException != null) {
                     Log.e("FIRESTORE", "ChatMessagesListener error.", firebaseFirestoreException)
                     return@addSnapshotListener
                 }
 
-                val items = mutableListOf<Item>()
-                if (docSnapshot != null && docSnapshot.exists()) {
-                    items.add(ChatItem(docSnapshot.toObject(Chat::class.java)!!, context))
-
+                for (dc in querySnapshot!!.documentChanges) {
+                    when (dc.type) {
+                        DocumentChange.Type.ADDED -> ChatItem(querySnapshot.documents[0].toObject(Chat::class.java)!!, context)
+                        DocumentChange.Type.MODIFIED -> {
+                            ChatItem(querySnapshot.documents[0].toObject(Chat::class.java)!!, context)
+                        }
+                        DocumentChange.Type.REMOVED -> Log.d("FirebaseUtil", "Removed city: ${dc.document.data}")
+                    }
                 }
-                onListen(items)
+
+                onListen()
             }
+
+    }
+
+    fun getLastMessage(channelId: List<String>, onComplete: (List<ChatItem>) -> Unit){
+        val mList : MutableList<ChatItem> = mutableListOf()
+        channelId.forEach {channel ->
+            chatChannelsCollectionRef.document(channel).collection("lastmessage").get().addOnSuccessListener {
+                d("FirebaseUtil", "${it.documents}")
+//                for (data in it){
+//                    if (data.exists()){
+//                        val msg = data.data
+//                        mList.add(msg.keys as ChatItem)
+//                        d("FirebaseUtil", "$msg")
+//                    }
+//                }
+            }
+        }
+
+        onComplete(mList)
+
     }
 
     fun getChatChannel(onComplete: (channel: MutableList<String>) -> Unit) {

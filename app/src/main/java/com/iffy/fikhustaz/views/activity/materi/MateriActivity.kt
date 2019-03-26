@@ -57,6 +57,10 @@ class MateriActivity : AppCompatActivity(),MateriContract.View {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onBackPressed() {
+        startActivity(intentFor<HomeActivity>("frg" to AppConst.MATERI_ACTIVITY).newTask().clearTask())
+    }
+
     override fun showMsg(msg: String) {
         toast(msg)
     }

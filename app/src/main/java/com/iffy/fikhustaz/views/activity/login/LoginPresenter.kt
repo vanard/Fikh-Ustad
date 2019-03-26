@@ -6,6 +6,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.iid.FirebaseInstanceId
+import com.iffy.fikhustaz.data.UserType
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.iffy.fikhustaz.data.model.Ustad
 import com.iffy.fikhustaz.service.MyFirebaseInstanceIDService
@@ -62,7 +63,7 @@ class LoginPresenter (v: LoginContract.View, ctx: Context) : LoginContract.Prese
             if (it.isSuccessful){
                 val user = mAuth.currentUser
                 if (user != null){
-                    val data = Ustad(user.displayName, user.email, user.phoneNumber, "","", "","","","",user.photoUrl.toString(),"","","", mutableListOf(),mutableListOf())
+                    val data = Ustad(user.displayName, user.email, user.phoneNumber, "","", "","","","",user.photoUrl.toString(),"","","",UserType.USTAZ, mutableListOf(),mutableListOf())
                     FirebaseUtil.initCurrentUserIfFirstTime(data){
                         val registrationToken = FirebaseInstanceId.getInstance().token
                         MyFirebaseInstanceIDService.addTokenToFirestore(registrationToken)

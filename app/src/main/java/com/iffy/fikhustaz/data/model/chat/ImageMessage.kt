@@ -1,5 +1,6 @@
 package com.iffy.fikhustaz.data.model.chat
 
+import com.iffy.fikhustaz.data.MessageType
 import java.util.*
 
 data class ImageMessage(val imagePath: String,
