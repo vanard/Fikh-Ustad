@@ -6,8 +6,8 @@ import retrofit2.http.GET
 import retrofit2.Response
 
 interface RetrofitService {
-    @GET("articles")
+    @GET("/articles")
     fun fetchArticles() : Deferred<Response<Kajian>>
-    @GET("fatwa")
+    @GET("/fatwa")
     fun fetchFatwa() : Deferred<Response<Kajian>>
 }

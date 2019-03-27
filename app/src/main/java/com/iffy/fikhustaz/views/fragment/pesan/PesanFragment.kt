@@ -15,6 +15,7 @@ import com.google.firebase.firestore.ListenerRegistration
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.itemviews.ChatItem
 import com.iffy.fikhustaz.data.model.Ustad
+import com.iffy.fikhustaz.data.model.chat.Chat
 import com.iffy.fikhustaz.util.FirebaseUtil
 import com.iffy.fikhustaz.views.activity.chat.ChatActivity
 import com.xwray.groupie.GroupAdapter
@@ -22,6 +23,8 @@ import com.xwray.groupie.OnItemClickListener
 import com.xwray.groupie.ViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.fragment_pesan.*
+import kotlinx.coroutines.selects.select
+import org.jetbrains.anko.support.v4.selector
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
 
@@ -34,8 +37,9 @@ class PesanFragment : Fragment() , PesanContract.View{
 
     private lateinit var dialog: ProgressDialog
     private val mAdapter = GroupAdapter<ViewHolder>()
+    private var chatListener : ListenerRegistration? = null
 
-    private var listItem = mutableListOf<Item>()
+    private var listItem = mutableListOf<ChatItem>()
     private var listChannel = mutableListOf<String>()
 
     override fun onCreateView(
@@ -70,25 +74,31 @@ class PesanFragment : Fragment() , PesanContract.View{
         d("FillData", "$data")
         mAdapter.clear()
         listChannel = data
-        for (doc in data){
-            FirebaseUtil.getLastMessageListener(doc, context!!, this::updateRecyclerViewMessages)
+
+        listChannel.forEach {
+            chatListener = FirebaseUtil.getLastMessageListener(it, context!!, this::updateRecyclerViewMessages)
         }
     }
 
-    private fun refreshRecyclerViewMessages(messages: List<Item>) {
-
-        listItem.addAll(messages)
-
+    private fun refreshRecyclerViewMessages(msg:List<ChatItem>) {
+        d("FillData", "$msg")
+        listItem.clear()
+        listItem.addAll(msg)
+        listItem.sortWith(
+            compareBy<ChatItem> {it.message.type}.thenByDescending { it.message.time }
+        )
+        mAdapter.clear()
         mAdapter.apply {
             clear()
             addAll(listItem)
             setOnItemClickListener(onItemClick)
+            notifyDataSetChanged()
         }
         mAdapter.notifyDataSetChanged()
     }
 
     private fun updateRecyclerViewMessages() {
-        FirebaseUtil.getLastMessage(listChannel, this::refreshRecyclerViewMessages)
+        FirebaseUtil.getLastMessage(listChannel, context!!, this::refreshRecyclerViewMessages)
     }
 
     private val onItemClick = OnItemClickListener { it, view ->
@@ -104,6 +114,13 @@ class PesanFragment : Fragment() , PesanContract.View{
                     "USERNAME" to it.message.senderName
                 )
             }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if (chatListener != null){
+            FirebaseUtil.removeListener(chatListener!!)
         }
     }
 

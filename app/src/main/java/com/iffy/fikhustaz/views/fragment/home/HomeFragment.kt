@@ -78,12 +78,26 @@ class HomeFragment : Fragment(), HomeContract.View {
 
     override fun setData(ustad: Ustad) {
 
-        name_tv_home.text = currentUser?.displayName
+        name_tv_home.text = currentUser?.displayName ?: "Belum ada informasi"
         datebirt_tv_home.text = "${ustad.tempatLahir}, ${ustad.tanggalLahir}"
-        pendidikan_tv_home.text = ustad.pendidikan
-        keilmuan_tv_home.text = ustad.keilmuan
-        firkah_tv_home.text = ustad.firkah
-        mazhab_tv_home.text = ustad.mazhab
+        pendidikan_tv_home.text = ustad.pendidikan ?: "Belum ada informasi"
+        keilmuan_tv_home.text = ustad.keilmuan ?: "Belum ada informasi"
+        firkah_tv_home.text = ustad.firkah ?: "Belum ada informasi"
+        mazhab_tv_home.text = ustad.mazhab ?: "Belum ada informasi"
+
+        if (name_tv_home.text.isEmpty())
+            name_tv_home.text = "Belum ada informasi"
+        if (datebirt_tv_home.text == ", "){
+            datebirt_tv_home.text = "Belum ada informasi"
+        }
+        if (pendidikan_tv_home.text.isEmpty())
+            pendidikan_tv_home.text = "Belum ada informasi"
+        if (keilmuan_tv_home.text.isEmpty())
+            keilmuan_tv_home.text = "Belum ada informasi"
+        if (firkah_tv_home.text.isEmpty())
+            firkah_tv_home.text = "Belum ada informasi"
+        if (mazhab_tv_home.text.isEmpty())
+            mazhab_tv_home.text = "Belum ada informasi"
 
     }
 }

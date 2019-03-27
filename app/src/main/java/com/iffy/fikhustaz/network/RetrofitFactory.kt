@@ -9,7 +9,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitFactory {
-    const val BASE_URL = "https://ta-iffy.herokuapp.com/"
+    const val BASE_URL = "https://ta-iffy.herokuapp.com"
 
     fun makeRetrofitService(): RetrofitService {
         return Retrofit.Builder()

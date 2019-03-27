@@ -96,7 +96,6 @@ class HomeActivity : AppCompatActivity() {
         if (fragHome.isAdded)
             ft.hide(fragHome)
 
-
         if (fragMateri.isAdded)
             ft.hide(fragMateri)
 

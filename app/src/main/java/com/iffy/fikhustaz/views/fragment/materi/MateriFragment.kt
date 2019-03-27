@@ -1,6 +1,7 @@
 package com.iffy.fikhustaz.views.fragment.materi
 
 import android.os.Bundle
+import android.util.Log.d
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,6 +42,7 @@ class MateriFragment : Fragment(), MateriContract.View {
     }
 
     override fun initData(list: List<IslamData>) {
+        d("MateriFragment", "$list")
         if (list.isNotEmpty()){
             adapter.clear()
             list.forEach {
