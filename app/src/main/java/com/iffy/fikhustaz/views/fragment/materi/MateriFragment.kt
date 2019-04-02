@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.itemviews.MateriItem
+import com.iffy.fikhustaz.data.model.materi.Code
 import com.iffy.fikhustaz.data.model.materi.IslamData
+import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.fragment_materi.*
@@ -29,6 +31,12 @@ class MateriFragment : Fragment(), MateriContract.View {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_materi, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        (activity as HomeActivity).supportActionBar?.title = "Materi"
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.model.Ustad
+import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.iffy.fikhustaz.views.activity.editprof.EditProfileActivity
 import com.iffy.fikhustaz.views.activity.login.LoginActivity
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -39,6 +40,7 @@ class HomeFragment : Fragment(), HomeContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as HomeActivity).supportActionBar?.title = "Home"
         presenter.getData()
 
         edit_btn_home.setOnClickListener {

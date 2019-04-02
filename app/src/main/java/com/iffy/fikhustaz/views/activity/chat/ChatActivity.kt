@@ -20,7 +20,6 @@ import kotlinx.android.synthetic.main.activity_chat.*
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
-import org.jetbrains.anko.startActivity
 import java.util.*
 
 class ChatActivity : AppCompatActivity(), ChatContract.View {

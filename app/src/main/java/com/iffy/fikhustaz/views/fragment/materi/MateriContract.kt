@@ -1,5 +1,6 @@
 package com.iffy.fikhustaz.views.fragment.materi
 
+import com.iffy.fikhustaz.data.model.materi.Code
 import com.iffy.fikhustaz.data.model.materi.IslamData
 
 interface MateriContract {

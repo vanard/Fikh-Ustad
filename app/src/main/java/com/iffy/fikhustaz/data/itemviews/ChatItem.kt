@@ -25,6 +25,9 @@ class ChatItem(val message: Chat,
         if (message.type == MessageType.TEXT){
             viewHolder.tv_last_message.text = message.text
         }else{
+            if (message.senderId == FirebaseAuth.getInstance().currentUser!!.uid){
+                viewHolder.tv_last_message.text = "You sent a photo"
+            }
             viewHolder.tv_last_message.text = "${message.senderName} sent a photo"
         }
         val dateFormat = SimpleDateFormat

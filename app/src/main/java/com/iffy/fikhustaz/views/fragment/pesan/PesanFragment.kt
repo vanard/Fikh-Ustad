@@ -17,14 +17,14 @@ import com.iffy.fikhustaz.data.itemviews.ChatItem
 import com.iffy.fikhustaz.data.model.Ustad
 import com.iffy.fikhustaz.data.model.chat.Chat
 import com.iffy.fikhustaz.util.FirebaseUtil
+import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.iffy.fikhustaz.views.activity.chat.ChatActivity
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.OnItemClickListener
 import com.xwray.groupie.ViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.fragment_pesan.*
-import kotlinx.coroutines.selects.select
-import org.jetbrains.anko.support.v4.selector
+import org.jetbrains.anko.support.v4.act
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
 
@@ -48,6 +48,12 @@ class PesanFragment : Fragment() , PesanContract.View{
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_pesan, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        (activity as HomeActivity).supportActionBar?.title = "Pesan"
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -10,12 +10,81 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
     <TextView
+            android:gravity="center"
             android:text="Save"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/tv_save_start"
+            android:layout_height="0dp" android:id="@+id/tv_save_start"
             app:layout_constraintTop_toBottomOf="@+id/timePicker_start" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="24dp" android:textColor="@color/green_app"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:textStyle="bold" android:textSize="18sp"/>
+            android:textStyle="bold" android:textSize="18sp" android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"/>
+    <CheckBox
+            android:button="@null"
+            android:background="@drawable/selector_senin"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:id="@+id/cb_senin_day_start" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/timePicker_start"/>
+    <CheckBox
+            android:button="@null"
+            android:background="@drawable/selector_selasa"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:id="@+id/cb_selasa_day_start" app:layout_constraintStart_toEndOf="@+id/cb_senin_day_start"
+            android:layout_marginStart="8dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/timePicker_start"/>
+    <CheckBox
+            android:button="@null"
+            android:background="@drawable/selector_rabu"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:id="@+id/cb_rabu_day_start" app:layout_constraintStart_toEndOf="@+id/cb_selasa_day_start"
+            android:layout_marginStart="8dp" app:layout_constraintTop_toBottomOf="@+id/timePicker_start"
+            android:layout_marginTop="8dp"/>
+    <CheckBox
+            android:button="@null"
+            android:background="@drawable/selector_kamis"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:id="@+id/cb_kamis_day_start" app:layout_constraintStart_toEndOf="@+id/cb_rabu_day_start"
+            android:layout_marginStart="8dp" app:layout_constraintTop_toBottomOf="@+id/timePicker_start"
+            android:layout_marginTop="8dp"/>
+    <CheckBox
+            android:button="@null"
+            android:background="@drawable/selector_jumat"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:id="@+id/cb_jumat_day_start" app:layout_constraintStart_toEndOf="@+id/cb_kamis_day_start"
+            android:layout_marginStart="8dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/timePicker_start"/>
+    <CheckBox
+            android:button="@null"
+            android:background="@drawable/selector_sabtu"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:id="@+id/cb_sabtu_day_start" app:layout_constraintStart_toEndOf="@+id/cb_jumat_day_start"
+            android:layout_marginStart="8dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/timePicker_start"/>
+    <CheckBox
+            android:button="@null"
+            android:background="@drawable/selector_minggu"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:id="@+id/cb_minggu_day_start" app:layout_constraintStart_toEndOf="@+id/cb_sabtu_day_start"
+            android:layout_marginStart="8dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/timePicker_start"
+            app:layout_constraintEnd_toStartOf="@+id/tv_save_start" android:layout_marginEnd="8dp"
+            app:layout_constraintHorizontal_bias="0.0"/>
+
+    <CheckBox
+            android:text="Tiap Hari"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cb_everyday_start"
+            app:layout_constraintTop_toBottomOf="@+id/cb_senin_day_start"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

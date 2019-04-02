@@ -22,8 +22,8 @@ class MateriPresenter (v: MateriContract.View) : MateriContract.Presenter{
                 val response = request.await()
                 if (response.isSuccessful){
                     response.body()?.let {
-                        d("MateriPresenter", "${it.data}")
-                        view?.initData(it.data)
+                        d("MateriPresenter", "${it}")
+                        view?.initData(it)
                     }
                     view?.hideLoading()
                 }else{
