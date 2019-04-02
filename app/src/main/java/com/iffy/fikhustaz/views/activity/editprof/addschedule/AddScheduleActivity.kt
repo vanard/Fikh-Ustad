@@ -12,4 +12,8 @@ class AddScheduleActivity : AppCompatActivity() {
 
 
     }
+
+    override fun onBackPressed() {
+        finish()
+    }
 }
