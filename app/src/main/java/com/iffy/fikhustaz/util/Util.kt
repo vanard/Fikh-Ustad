@@ -15,7 +15,7 @@ import com.iffy.fikhustaz.R
 
 fun permissionCheck(act: Activity){
     Dexter.withActivity(act)
-        .withPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        .withPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
         .withListener(object: BaseMultiplePermissionsListener(){
             override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
                 super.onPermissionsChecked(report)

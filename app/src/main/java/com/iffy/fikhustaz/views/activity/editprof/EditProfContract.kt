@@ -1,6 +1,6 @@
 package com.iffy.fikhustaz.views.activity.editprof
 
-import com.iffy.fikhustaz.data.model.Ustad
+import com.iffy.fikhustaz.data.model.profile.Ustad
 
 interface EditProfContract {
     interface View{
@@ -13,6 +13,6 @@ interface EditProfContract {
     }
     interface Presenter{
         fun getData()
-        fun saveData(ustad:Ustad)
+        fun saveData(ustad: Ustad)
     }
 }

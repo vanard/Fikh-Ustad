@@ -34,8 +34,12 @@ class DatesFormat {
             )
         }
 
-        fun secondToDate(long: Long): String{
+        fun secondToDay(long: Long): String{
             val formatter = SimpleDateFormat(DATE, Locale.getDefault())
+            return formatter.format(Date(long * 1000L))
+        }
+        fun secondToDate(long: Long): String{
+            val formatter = SimpleDateFormat(DATE_FORMAT_TIME_LOCAL, Locale.getDefault())
             return formatter.format(Date(long * 1000L))
         }
     }

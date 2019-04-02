@@ -2,22 +2,29 @@ package com.iffy.fikhustaz.views.activity.editprof.bottomsheetfragment
 
 
 import android.os.Bundle
+import android.util.Log.d
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
 import com.iffy.fikhustaz.R
+import com.iffy.fikhustaz.data.model.profile.ItemSchedule
+import com.iffy.fikhustaz.util.DatesFormat
+import com.iffy.fikhustaz.views.activity.editprof.addschedule.AddScheduleActivity
 import kotlinx.android.synthetic.main.fragment_schedule_end.*
 import org.jetbrains.anko.sdk27.coroutines.onCheckedChange
+import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
 import java.util.*
 
+
+
 class ScheduleEndFragment : Fragment() {
 
-    private var day = Calendar.HOUR_OF_DAY
-    private var minut = Calendar.MINUTE
-    private var dayList : MutableList<String> = mutableListOf()
+    private var second: Long = 0
+    private lateinit var calendar: Calendar
+    private var dayList : MutableList<ItemSchedule> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +36,8 @@ class ScheduleEndFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        calendar = Calendar.getInstance()
 
         cb_everyday_end.onCheckedChange { buttonView, isChecked ->
             if (isChecked){
@@ -50,40 +59,52 @@ class ScheduleEndFragment : Fragment() {
             }
         }
 
+        btn_manual_schedule_end.setOnClickListener {
+            startActivity<AddScheduleActivity>()
+        }
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         timePicker_end.setOnTimeChangedListener { view, hourOfDay, minute ->
-            day = hourOfDay
-            minut = minute
+            calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+            calendar.set(Calendar.MINUTE, minute)
+            second = calendar.timeInMillis/1000
         }
 
         tv_save_end.setOnClickListener {
-            toast("$day:$minut")
+            dayList.clear()
             if (cb_senin_day_end.isChecked){
-                dayList.add("Senin")
+                dayList.add(ItemSchedule("Senin",DatesFormat.secondToDate(second)))
             }
             if (cb_selasa_day_end.isChecked){
-                dayList.add("Selasa")
+                dayList.add(ItemSchedule("Selasa",DatesFormat.secondToDate(second)))
             }
             if (cb_rabu_day_end.isChecked){
-                dayList.add("Rabu")
+                dayList.add(ItemSchedule("Rabu",DatesFormat.secondToDate(second)))
             }
             if (cb_kamis_day_end.isChecked){
-                dayList.add("Kamis")
+                dayList.add(ItemSchedule("Kamis",DatesFormat.secondToDate(second)))
             }
             if (cb_jumat_day_end.isChecked){
-                dayList.add("Jumat")
+                dayList.add(ItemSchedule("Jumat",DatesFormat.secondToDate(second)))
             }
             if (cb_sabtu_day_end.isChecked){
-                dayList.add("Sabtu")
+                dayList.add(ItemSchedule("Sabtu",DatesFormat.secondToDate(second)))
             }
             if (cb_minggu_day_end.isChecked){
-                dayList.add("Minggu")
+                dayList.add(ItemSchedule("Minggu",DatesFormat.secondToDate(second)))
             }
-            toast(dayList.toString())
+
+            if (dayList.isEmpty()){
+                toast("Pilih hari terlebih dahulu")
+            }else{
+                toast(DatesFormat.secondToDate(second))
+                d("ScheduleEnd",dayList.toString())
+            }
+
         }
     }
 

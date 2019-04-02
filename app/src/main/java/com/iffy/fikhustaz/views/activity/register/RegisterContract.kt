@@ -1,6 +1,6 @@
 package com.iffy.fikhustaz.views.activity.register
 
-import com.iffy.fikhustaz.data.model.Ustad
+import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.iffy.fikhustaz.data.model.Verify
 
 interface RegisterContract {

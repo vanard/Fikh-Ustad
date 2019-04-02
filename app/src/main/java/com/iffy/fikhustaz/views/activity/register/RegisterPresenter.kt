@@ -6,7 +6,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.iid.FirebaseInstanceId
 import com.iffy.fikhustaz.views.activity.HomeActivity
-import com.iffy.fikhustaz.data.model.Ustad
+import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.iffy.fikhustaz.data.model.Verify
 import com.iffy.fikhustaz.service.MyFirebaseInstanceIDService
 import com.iffy.fikhustaz.util.FirebaseUtil

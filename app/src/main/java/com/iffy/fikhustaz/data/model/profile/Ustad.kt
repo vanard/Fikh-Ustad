@@ -1,4 +1,4 @@
-package com.iffy.fikhustaz.data.model
+package com.iffy.fikhustaz.data.model.profile
 
 import android.os.Parcelable
 import com.iffy.fikhustaz.data.UserType
@@ -12,14 +12,14 @@ data class Ustad (val nama: String?,
                   val tanggalLahir: String?,
                   val pendidikan: String?,
                   val keilmuan: String?,
-                  val firkah: String?,
                   val mazhab: String?,
                   val profilePicture: String?,
                   val sertifikat: String?,
                   val ijazah: String?,
                   val rate: String?,
+                  val sch: MutableList<ItemSchedule>,
                   val type:String = UserType.USTAZ,
                   val userOnline: MutableList<String>,
                   val registrationTokens: MutableList<String>) : Parcelable{
-    constructor(): this ("","","","","","", "","","","","","", "",UserType.USTAZ ,mutableListOf(),mutableListOf())
+    constructor(): this ("","","","","","", "","","","","","", mutableListOf(),UserType.USTAZ ,mutableListOf(),mutableListOf())
 }

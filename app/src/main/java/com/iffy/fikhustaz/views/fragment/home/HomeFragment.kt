@@ -2,13 +2,12 @@ package com.iffy.fikhustaz.views.fragment.home
 
 import android.app.ProgressDialog
 import android.os.Bundle
-import android.util.Log.d
 import android.view.*
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.iffy.fikhustaz.R
-import com.iffy.fikhustaz.data.model.Ustad
+import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.iffy.fikhustaz.views.activity.editprof.EditProfileActivity
 import com.iffy.fikhustaz.views.activity.login.LoginActivity
@@ -84,7 +83,6 @@ class HomeFragment : Fragment(), HomeContract.View {
         datebirt_tv_home.text = "${ustad.tempatLahir}, ${ustad.tanggalLahir}"
         pendidikan_tv_home.text = ustad.pendidikan ?: "Belum ada informasi"
         keilmuan_tv_home.text = ustad.keilmuan ?: "Belum ada informasi"
-        firkah_tv_home.text = ustad.firkah ?: "Belum ada informasi"
         mazhab_tv_home.text = ustad.mazhab ?: "Belum ada informasi"
 
         if (name_tv_home.text.isEmpty())

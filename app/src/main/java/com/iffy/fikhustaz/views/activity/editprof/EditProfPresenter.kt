@@ -1,6 +1,6 @@
 package com.iffy.fikhustaz.views.activity.editprof
 
-import com.iffy.fikhustaz.data.model.Ustad
+import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.iffy.fikhustaz.util.FirebaseUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +24,7 @@ class EditProfPresenter(v: EditProfContract.View) : EditProfContract.Presenter {
     override fun saveData(ustad: Ustad) {
         view.showLoad()
         uiScope.launch {
-            FirebaseUtil.updateCurrentUser(ustad.nama!!,ustad.email!!,ustad.handphone!!,ustad.tempatLahir!!,ustad.tanggalLahir!!,ustad.pendidikan!!,ustad.keilmuan!!,ustad.firkah!!,ustad.mazhab!!)
+            FirebaseUtil.updateCurrentUser(ustad.nama!!,ustad.email!!,ustad.handphone!!,ustad.tempatLahir!!,ustad.tanggalLahir!!,ustad.pendidikan!!,ustad.keilmuan!!,ustad.mazhab!!)
             view.showMsg("Update Successfully")
         }
         view.hideLoad()

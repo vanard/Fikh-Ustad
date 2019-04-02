@@ -1,6 +1,6 @@
 package com.iffy.fikhustaz.views.fragment.home
 
-import com.iffy.fikhustaz.data.model.Ustad
+import com.iffy.fikhustaz.data.model.profile.Ustad
 
 interface HomeContract {
     interface View{

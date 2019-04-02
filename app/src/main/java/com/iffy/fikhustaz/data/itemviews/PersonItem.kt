@@ -2,13 +2,11 @@ package com.iffy.fikhustaz.data.itemviews
 
 import android.content.Context
 import com.iffy.fikhustaz.R
-import com.iffy.fikhustaz.data.model.Ustad
-import com.iffy.fikhustaz.util.StorageUtil
+import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.kotlinandroidextensions.Item
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.item_person.*
-import java.io.File
 
 class PersonItem(val person: Ustad,
                  val userId: String,

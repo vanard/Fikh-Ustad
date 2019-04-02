@@ -1,33 +1,46 @@
 package com.iffy.fikhustaz.views.activity.editprof
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.ContentValues
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.MenuItem
 import android.view.View
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.AppConst
 import com.iffy.fikhustaz.data.UserType
-import com.iffy.fikhustaz.data.model.Ustad
+import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.iffy.fikhustaz.util.DatesFormat
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.iffy.fikhustaz.views.activity.editprof.bottomsheetfragment.EditProfBottomSheetFragment
 import kotlinx.android.synthetic.main.activity_edit_profile.*
-import org.jetbrains.anko.clearTask
-import org.jetbrains.anko.intentFor
-import org.jetbrains.anko.newTask
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.*
 import java.util.*
+import android.util.Log.d
+import java.io.IOException
+
 
 class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
 
+    companion object {
+        private const val REQUEST_GET_SINGLE_FILE = 101
+        private const val REQUEST_CAPTURE_IMAGE = 102
+
+    }
+
     private lateinit var presenter:EditProfPresenter
+    private var imgUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
 
+        val fighter = listOf("Camera", "Gallery")
         presenter = EditProfPresenter(this)
         presenter.getData()
 
@@ -43,9 +56,35 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
             tryToSaveData()
         }
 
-        img_detailutd_edit.setOnClickListener {
-
+        img_edit_prof.setOnClickListener {
+            selector("Choose your fighter?", fighter, { dialogInterface, i ->
+                when(fighter[i]){
+                    "Camera" -> openCamera()
+                    "Gallery" -> openGallery()
+                }
+            })
         }
+
+    }
+
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        intent.type = "image/*"
+        startActivityForResult(
+            Intent.createChooser(intent, "Select Picture"),
+            REQUEST_GET_SINGLE_FILE
+        )
+    }
+
+    private fun  openCamera(){
+        val values = ContentValues()
+        values.put(MediaStore.Images.Media.TITLE, "New Picture")
+        imgUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+
+        val camIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        camIntent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri)
+        startActivityForResult(camIntent, REQUEST_CAPTURE_IMAGE)
 
     }
 
@@ -58,8 +97,12 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
         val firkah = firkah_et_edit.text.toString()
         val mazhab = mazhab_et_edit.text.toString()
 
-        presenter.saveData(Ustad(name, "","",tempat, tanggal, pendidikan, keilmuan, firkah, mazhab,"","","","",UserType.USTAZ,
-            mutableListOf(), mutableListOf()))
+        presenter.saveData(
+            Ustad(
+                name, "", "", tempat, tanggal, pendidikan, keilmuan, firkah, mazhab, "", "", "", mutableListOf(), UserType.USTAZ,
+                mutableListOf(), mutableListOf()
+            )
+        )
     }
 
     override fun setData(ustad: Ustad) {
@@ -72,8 +115,36 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
         }
         pendidikan_et_edit.setText("${ustad.pendidikan}")
         keilmuan_et_edit.setText("${ustad.keilmuan}")
-        firkah_et_edit.setText("${ustad.firkah}")
         mazhab_et_edit.setText("${ustad.mazhab}")
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode){
+            REQUEST_GET_SINGLE_FILE -> {
+                if (resultCode == Activity.RESULT_OK && data != null){
+                    val uri = data.data
+                    val imagePath = uri.path
+                    d("EditProfile", imagePath)
+                    try {
+                        val bitmap = MediaStore.Images.Media.getBitmap(
+                            contentResolver,
+                            uri
+                        )
+                        // Log.d(TAG, String.valueOf(bitmap));
+                        img_edit_prof.setImageBitmap(bitmap)
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+
+                }
+            }
+            REQUEST_CAPTURE_IMAGE -> {
+                if (resultCode == Activity.RESULT_OK && data != null){
+                    img_edit_prof.setImageURI(imgUri)
+                }
+            }
+        }
     }
 
     override fun showLoad() {

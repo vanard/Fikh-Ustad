@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.iffy.fikhustaz.views.activity.login.LoginActivity
-import com.iffy.fikhustaz.data.model.Ustad
+import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.iffy.fikhustaz.data.model.Verify
 import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.*
@@ -56,7 +56,24 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
         val mConfpass = confpass_et_register.text.toString()
 
         val info = Verify(mName, mEmail, mPhone, mPass, mConfpass)
-        val newUser = Ustad(mName, mEmail, mPhone, "", "", "", "","", "","","","","","USTAZ",mutableListOf(),mutableListOf())
+        val newUser = Ustad(
+            mName,
+            mEmail,
+            mPhone,
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            mutableListOf(),
+            "USTAZ",
+            mutableListOf(),
+            mutableListOf()
+        )
 
         if (!presenter.verifyEntries(info)){
             return

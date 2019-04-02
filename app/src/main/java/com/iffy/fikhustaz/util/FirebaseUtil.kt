@@ -2,7 +2,6 @@ package com.iffy.fikhustaz.util
 
 import android.content.Context
 import android.util.Log
-import android.util.Log.d
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.iffy.fikhustaz.data.MessageType
@@ -10,8 +9,8 @@ import com.iffy.fikhustaz.data.itemviews.ChatItem
 import com.iffy.fikhustaz.data.itemviews.ImageMessageItem
 import com.iffy.fikhustaz.data.itemviews.PersonItem
 import com.iffy.fikhustaz.data.itemviews.TextMessageItem
-import com.iffy.fikhustaz.data.model.*
 import com.iffy.fikhustaz.data.model.chat.*
+import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.xwray.groupie.kotlinandroidextensions.Item
 
 object FirebaseUtil {
@@ -43,7 +42,6 @@ object FirebaseUtil {
                           tanggalLahir: String = "",
                           pendidikan: String = "",
                           keilmuan: String = "",
-                          firkah: String = "",
                           mazhab: String = "",
                           profilePicture: String? = null,
                           sertifikat: String? = null,
@@ -58,7 +56,6 @@ object FirebaseUtil {
         if (tanggalLahir.isNotBlank()) userFieldMap["tanggalLahir"] = tanggalLahir
         if (pendidikan.isNotBlank()) userFieldMap["pendidikan"] = pendidikan
         if (keilmuan.isNotBlank()) userFieldMap["keilmuan"] = keilmuan
-        if (firkah.isNotBlank()) userFieldMap["firkah"] = firkah
         if (mazhab.isNotBlank()) userFieldMap["mazhab"] = mazhab
         if (profilePicture != null)
             userFieldMap["profilePicture"] = profilePicture
