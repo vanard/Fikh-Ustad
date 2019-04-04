@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.model.profile.ItemSchedule
 import com.iffy.fikhustaz.util.DatesFormat
+import com.iffy.fikhustaz.util.FirebaseUtil
 import com.iffy.fikhustaz.views.activity.editprof.addschedule.AddScheduleActivity
 import kotlinx.android.synthetic.main.fragment_schedule_end.*
 import org.jetbrains.anko.sdk27.coroutines.onCheckedChange
@@ -101,8 +102,7 @@ class ScheduleEndFragment : Fragment() {
             if (dayList.isEmpty()){
                 toast("Pilih hari terlebih dahulu")
             }else{
-                toast(DatesFormat.secondToDate(second))
-                d("ScheduleEnd",dayList.toString())
+                FirebaseUtil.updateCurrentUser("","","","","","","","","","","","",dayList)
             }
 
         }

@@ -19,7 +19,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name="com.iffy.fikhustaz.views.activity.editprof.addschedule.AddScheduleActivity">
+        <activity android:name="com.iffy.fikhustaz.views.activity.editprof.addschedule.AddScheduleActivity" android:label="Isi Jadwal Manual">
         </activity>
         <activity
                 android:name="com.iffy.fikhustaz.views.activity.editprof.EditProfileActivity"

@@ -17,7 +17,7 @@ data class Ustad (val nama: String?,
                   val sertifikat: String?,
                   val ijazah: String?,
                   val rate: String?,
-                  val sch: MutableList<ItemSchedule>,
+                  val schedule: MutableList<ItemSchedule>,
                   val type:String = UserType.USTAZ,
                   val userOnline: MutableList<String>,
                   val registrationTokens: MutableList<String>) : Parcelable{

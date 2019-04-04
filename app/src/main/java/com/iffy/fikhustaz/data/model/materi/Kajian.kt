@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Kajian(@SerializedName("data") val data: MutableList<Code>
-,@SerializedName("links") val links: IslamLink) : Parcelable
+data class Kajian(@SerializedName("data") val data: MutableList<IslamData>,
+                  @SerializedName("links") val links: IslamLink) : Parcelable

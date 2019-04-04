@@ -23,7 +23,7 @@ class MateriPresenter (v: MateriContract.View) : MateriContract.Presenter{
                 if (response.isSuccessful){
                     response.body()?.let {
                         d("MateriPresenter", "${it}")
-                        view?.initData(it)
+                        view?.initData(it.data)
                     }
                     view?.hideLoading()
                 }else{

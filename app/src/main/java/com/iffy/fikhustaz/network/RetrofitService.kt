@@ -8,7 +8,7 @@ import retrofit2.Response
 
 interface RetrofitService {
     @GET("/articles")
-    fun fetchArticles() : Deferred<Response<List<IslamData>>>
+    fun fetchArticles() : Deferred<Response<Kajian>>
     @GET("/fatwa")
-    fun fetchFatwa() : Deferred<Response<List<IslamData>>>
+    fun fetchFatwa() : Deferred<Response<Kajian>>
 }
