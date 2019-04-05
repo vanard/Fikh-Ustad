@@ -36,6 +36,23 @@ class MateriPresenter (v: MateriContract.View) : MateriContract.Presenter{
                 view?.showMsg("$e")
                 d("MateriPresenter", "$e")
             }
+
+//            val requestFatwa = service.fetchFatwa()
+//            try {
+//                val responseFatwa = requestFatwa.await()
+//                if (responseFatwa.isSuccessful){
+//                    responseFatwa.body()?.let {
+//                        d("MateriPresenter", "${it}")
+//                        view?.initData(it.data)
+//                    }
+//                    view?.hideLoading()
+//                }else{
+//                    view?.showMsg("${responseFatwa.errorBody()}")
+//                    view?.hideLoading()
+//                }
+//            } catch (e: HttpException){
+//                view?.showMsg(e.code().toString())
+//            }
         }
 
     }
