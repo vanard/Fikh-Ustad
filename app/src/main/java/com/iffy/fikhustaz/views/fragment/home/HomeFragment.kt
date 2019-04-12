@@ -68,7 +68,7 @@ class HomeFragment : Fragment(), HomeContract.View {
     }
 
     override fun showLoad() {
-        dialog = ProgressDialog.show(this@HomeFragment.context, "", "Please wait")
+        dialog = ProgressDialog.show(this@HomeFragment.context, "", "Loading data")
         dialog.setCancelable(false)
         dialog.isIndeterminate
     }

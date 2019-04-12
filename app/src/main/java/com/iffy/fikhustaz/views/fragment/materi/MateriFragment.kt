@@ -57,6 +57,16 @@ class MateriFragment : Fragment(), MateriContract.View {
                 adapter.add(MateriItem(it))
             }
             adapter.notifyDataSetChanged()
+            presenter.getDataFatwa()
+        }
+    }
+
+    override fun initDataFatwa(list: List<IslamData>) {
+        if (list.isNotEmpty()){
+            list.forEach {
+                adapter.add(MateriItem(it))
+            }
+            adapter.notifyDataSetChanged()
         }
     }
 

@@ -59,7 +59,7 @@ object FirebaseUtil {
         if (pendidikan.isNotBlank()) userFieldMap["pendidikan"] = pendidikan
         if (keilmuan.isNotBlank()) userFieldMap["keilmuan"] = keilmuan
         if (mazhab.isNotBlank()) userFieldMap["mazhab"] = mazhab
-        if (profilePicture != null)
+        if (profilePicture != null )
             userFieldMap["profilePicture"] = profilePicture
         if (sertifikat != null)
             userFieldMap["sertifikat"] = sertifikat

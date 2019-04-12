@@ -18,7 +18,7 @@ class MateriItem(val message: IslamData) : Item(){
         viewHolder.itemView.tv_day_materi.text = DatesFormat.secondToDay(message.date)
 
         Picasso.get()
-            .load("https://scontent.fcgk16-1.fna.fbcdn.net/v/t1.0-9/14264084_1329675737050247_1489589864657686165_n.jpg?_nc_cat=107&_nc_ht=scontent.fcgk16-1.fna&oh=b1422c78338fdd45fc3a2891a72b2497&oe=5D1AF67C")
+            .load(R.drawable.logo_islam_house)
             .placeholder(R.drawable.ic_image)
             .into(viewHolder.itemView.img_materi)
 

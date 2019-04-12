@@ -1,8 +1,12 @@
 package com.iffy.fikhustaz.views.activity.materi
 
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log.d
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -13,10 +17,14 @@ import com.iffy.fikhustaz.views.activity.HomeActivity
 import kotlinx.android.synthetic.main.activity_materi.*
 import org.jetbrains.anko.*
 import java.io.File
+import android.os.StrictMode
+
+
 
 class MateriActivity : AppCompatActivity(),MateriContract.View {
 
     private lateinit var presenter : MateriPresenter
+    private lateinit var uri: Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,13 +35,18 @@ class MateriActivity : AppCompatActivity(),MateriContract.View {
         if(intent != null){
             val data = intent.getParcelableArrayListExtra<Attachment>("materi")
             if (data != null){
-                supportActionBar?.title = data[0].title
+                supportActionBar?.title = data[0].title.split(" ")[0    ]
                 presenter.showFile(data[0].url)
+
+                val builder = StrictMode.VmPolicy.Builder()
+                StrictMode.setVmPolicy(builder.build())
             }
         }
     }
 
     override fun materiToUI(pdfFile: File?) {
+        uri = Uri.fromFile(pdfFile)
+
         pdf_view.fromFile(pdfFile)
             .password(null)
             .defaultPage(0)
@@ -47,11 +60,24 @@ class MateriActivity : AppCompatActivity(),MateriContract.View {
             .load()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.materi_menu, menu)
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
             android.R.id.home -> {
                 startActivity(intentFor<HomeActivity>("frg" to AppConst.MATERI_ACTIVITY).newTask().clearTask())
                 return true
+            }
+            R.id.menu_share -> {
+                val i = Intent()
+                i.action = Intent.ACTION_SEND
+                i.type = "application/pdf"
+                i.putExtra(Intent.EXTRA_STREAM, uri)
+
+                this@MateriActivity.startActivity(i)
             }
         }
         return super.onOptionsItemSelected(item)

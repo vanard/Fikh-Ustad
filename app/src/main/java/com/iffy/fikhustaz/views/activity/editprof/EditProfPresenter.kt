@@ -24,7 +24,8 @@ class EditProfPresenter(v: EditProfContract.View) : EditProfContract.Presenter {
     override fun saveData(ustad: Ustad) {
         view.showLoad()
         uiScope.launch {
-            FirebaseUtil.updateCurrentUser(ustad.nama!!,ustad.email!!,ustad.handphone!!,ustad.tempatLahir!!,ustad.tanggalLahir!!,ustad.pendidikan!!,ustad.keilmuan!!,ustad.mazhab!!)
+            FirebaseUtil.updateCurrentUser(ustad.nama!!,ustad.email!!,ustad.handphone!!,ustad.tempatLahir!!,ustad.tanggalLahir!!,ustad.pendidikan!!,ustad.keilmuan!!,ustad.mazhab!!, "", "", "","",
+                mutableListOf())
             view.showMsg("Update Successfully")
         }
         view.hideLoad()

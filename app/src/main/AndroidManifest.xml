@@ -19,8 +19,18 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name="com.iffy.fikhustaz.views.activity.editprof.addschedule.AddScheduleActivity" android:label="Isi Jadwal Manual">
-        </activity>
+
+        <provider
+                android:name="androidx.core.content.FileProvider"
+                android:authorities="com.iffy.fikhustaz.provider_paths"
+                android:exported="false"
+                android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/provider_paths" />
+        </provider>
+
+
         <activity
                 android:name="com.iffy.fikhustaz.views.activity.editprof.EditProfileActivity"
                 android:label="Edit Profile">

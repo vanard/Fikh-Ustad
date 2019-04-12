@@ -27,8 +27,8 @@ class EditProfBottomSheetFragment : BottomSheetDialogFragment() {
         super.onActivityCreated(savedInstanceState)
 
         val adapter = MyViewPagerAdapter(childFragmentManager)
-        adapter.addFragment(ScheduleStartFragment() , " Starts From ")
-        adapter.addFragment(ScheduleEndFragment() , " Ends At ")
+        adapter.addFragment(ScheduleFragment() , " Auto Input ")
+        adapter.addFragment(ScheduleManualFragment() , " Manual Input ")
         viewPager_editProf.adapter = adapter
         tabLayout_editProf.setupWithViewPager(viewPager_editProf)
 

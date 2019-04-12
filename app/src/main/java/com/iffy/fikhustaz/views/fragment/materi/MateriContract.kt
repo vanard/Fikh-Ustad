@@ -7,10 +7,12 @@ interface MateriContract {
     interface View{
         fun showMsg(msg: String)
         fun initData(list:List<IslamData>)
+        fun initDataFatwa(list:List<IslamData>)
         fun showLoading()
         fun hideLoading()
     }
     interface Presenter{
         fun getData()
+        fun getDataFatwa()
     }
 }

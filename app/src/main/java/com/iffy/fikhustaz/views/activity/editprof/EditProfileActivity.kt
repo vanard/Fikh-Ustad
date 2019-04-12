@@ -2,6 +2,7 @@ package com.iffy.fikhustaz.views.activity.editprof
 
 import android.app.Activity
 import android.app.DatePickerDialog
+import android.app.ProgressDialog
 import android.app.TimePickerDialog
 import android.content.ContentValues
 import android.content.Intent
@@ -35,6 +36,8 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
 
     private lateinit var presenter:EditProfPresenter
     private var imgUri: Uri? = null
+
+    private lateinit var dialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -148,11 +151,13 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
     }
 
     override fun showLoad() {
-        progressBar.visibility = View.VISIBLE
+        dialog = ProgressDialog.show(this, "", "Tunggu sebentar")
+        dialog.setCancelable(false)
+        dialog.isIndeterminate
     }
 
     override fun hideLoad() {
-        progressBar.visibility = View.GONE
+        dialog.dismiss()
     }
 
     override fun showTimePicker(v: EditProfContract.View) {

@@ -12,10 +12,10 @@ class MateriPresenter (v: MateriContract.View) : MateriContract.Presenter{
 
     private var view: MateriContract.View? = v
     private val uiScope = CoroutineScope(Dispatchers.Main)
+    val service = RetrofitFactory.makeRetrofitService()
 
     override fun getData() {
         view?.showLoading()
-        val service = RetrofitFactory.makeRetrofitService()
         uiScope.async {
             val request = service.fetchArticles()
             try {
@@ -36,25 +36,30 @@ class MateriPresenter (v: MateriContract.View) : MateriContract.Presenter{
                 view?.showMsg("$e")
                 d("MateriPresenter", "$e")
             }
-
-//            val requestFatwa = service.fetchFatwa()
-//            try {
-//                val responseFatwa = requestFatwa.await()
-//                if (responseFatwa.isSuccessful){
-//                    responseFatwa.body()?.let {
-//                        d("MateriPresenter", "${it}")
-//                        view?.initData(it.data)
-//                    }
-//                    view?.hideLoading()
-//                }else{
-//                    view?.showMsg("${responseFatwa.errorBody()}")
-//                    view?.hideLoading()
-//                }
-//            } catch (e: HttpException){
-//                view?.showMsg(e.code().toString())
-//            }
         }
 
+    }
+
+    override fun getDataFatwa() {
+        view?.showLoading()
+        uiScope.async {
+            val requestFatwa = service.fetchFatwa()
+            try {
+                val responseFatwa = requestFatwa.await()
+                if (responseFatwa.isSuccessful) {
+                    responseFatwa.body()?.let {
+                        d("MateriPresenter", "${it}")
+                        view?.initDataFatwa(it.data)
+                    }
+                    view?.hideLoading()
+                } else {
+                    view?.showMsg("${responseFatwa.errorBody()}")
+                    view?.hideLoading()
+                }
+            } catch (e: HttpException) {
+                view?.showMsg(e.code().toString())
+            }
+        }
     }
 
 }

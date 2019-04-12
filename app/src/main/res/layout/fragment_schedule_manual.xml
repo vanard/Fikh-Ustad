@@ -85,7 +85,8 @@
                 android:weightSum="22"
                 app:layout_constraintStart_toEndOf="@+id/cb_senin" android:layout_marginStart="8dp"
                 app:layout_constraintTop_toTopOf="@+id/cb_senin" app:layout_constraintBottom_toBottomOf="@+id/cb_senin"
-                app:layout_constraintEnd_toEndOf="parent" android:padding="4dp">
+                app:layout_constraintEnd_toEndOf="parent" android:padding="4dp"
+                android:id="@+id/senin_timepicker_dialog">
 
             <EditText
                     android:layout_marginStart="8dp"
@@ -139,7 +140,8 @@
                 app:layout_constraintStart_toEndOf="@+id/cb_selasa" android:layout_marginStart="8dp"
                 app:layout_constraintTop_toTopOf="@+id/cb_selasa"
                 app:layout_constraintBottom_toBottomOf="@+id/cb_selasa"
-                app:layout_constraintEnd_toEndOf="parent" android:padding="4dp">
+                app:layout_constraintEnd_toEndOf="parent" android:padding="4dp"
+                android:id="@+id/selasa_timepicker_dialog">
 
             <EditText
                     android:layout_marginStart="8dp"
@@ -190,7 +192,8 @@
                 android:weightSum="22"
                 app:layout_constraintStart_toEndOf="@+id/cb_rabu" android:layout_marginStart="8dp"
                 app:layout_constraintTop_toTopOf="@+id/cb_rabu" app:layout_constraintBottom_toBottomOf="@+id/cb_rabu"
-                app:layout_constraintEnd_toEndOf="parent" android:padding="4dp">
+                app:layout_constraintEnd_toEndOf="parent" android:padding="4dp"
+                android:id="@+id/rabu_timepicker_dialog">
 
             <EditText
                     android:layout_marginStart="8dp"
@@ -241,7 +244,8 @@
                 android:weightSum="22"
                 app:layout_constraintStart_toEndOf="@+id/cb_kamis" android:layout_marginStart="8dp"
                 app:layout_constraintTop_toTopOf="@+id/cb_kamis" app:layout_constraintBottom_toBottomOf="@+id/cb_kamis"
-                app:layout_constraintEnd_toEndOf="parent" android:padding="4dp">
+                app:layout_constraintEnd_toEndOf="parent" android:padding="4dp"
+                android:id="@+id/kamis_timepicker_dialog">
 
             <EditText
                     android:layout_marginStart="8dp"
@@ -293,7 +297,8 @@
                 android:weightSum="22"
                 app:layout_constraintStart_toEndOf="@+id/cb_jumat" android:layout_marginStart="8dp"
                 app:layout_constraintTop_toTopOf="@+id/cb_jumat" app:layout_constraintBottom_toBottomOf="@+id/cb_jumat"
-                app:layout_constraintEnd_toEndOf="parent" android:padding="4dp">
+                app:layout_constraintEnd_toEndOf="parent" android:padding="4dp"
+                android:id="@+id/jumat_timepicker_dialog">
 
             <EditText
                     android:layout_marginStart="8dp"
@@ -346,7 +351,8 @@
                 android:weightSum="22"
                 app:layout_constraintStart_toEndOf="@+id/cb_sabtu" android:layout_marginStart="8dp"
                 app:layout_constraintTop_toTopOf="@+id/cb_sabtu" app:layout_constraintBottom_toBottomOf="@+id/cb_sabtu"
-                app:layout_constraintEnd_toEndOf="parent" android:padding="4dp">
+                app:layout_constraintEnd_toEndOf="parent" android:padding="4dp"
+                android:id="@+id/sabtu_timepicker_dialog">
 
             <EditText
                     android:layout_marginStart="8dp"
@@ -398,7 +404,8 @@
                 app:layout_constraintStart_toEndOf="@+id/cb_minggu" android:layout_marginStart="8dp"
                 app:layout_constraintTop_toTopOf="@+id/cb_minggu"
                 app:layout_constraintBottom_toBottomOf="@+id/cb_minggu"
-                app:layout_constraintEnd_toEndOf="parent" android:padding="4dp">
+                app:layout_constraintEnd_toEndOf="parent" android:padding="4dp"
+                android:id="@+id/minggu_timepicker_dialog">
 
             <EditText
                     android:layout_marginStart="8dp"
