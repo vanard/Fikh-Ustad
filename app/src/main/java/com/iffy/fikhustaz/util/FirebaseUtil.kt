@@ -10,7 +10,7 @@ import com.iffy.fikhustaz.data.itemviews.ImageMessageItem
 import com.iffy.fikhustaz.data.itemviews.PersonItem
 import com.iffy.fikhustaz.data.itemviews.TextMessageItem
 import com.iffy.fikhustaz.data.model.chat.*
-import com.iffy.fikhustaz.data.model.profile.ItemSchedule
+import com.iffy.fikhustaz.data.model.profile.ItSchedule
 import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.xwray.groupie.kotlinandroidextensions.Item
 
@@ -48,7 +48,7 @@ object FirebaseUtil {
                           sertifikat: String? = null,
                           ijazah: String? = null,
                           rate: String? = null,
-                          schedule: List<ItemSchedule>? = mutableListOf()
+                          schedule: List<ItSchedule>? = mutableListOf()
     ) {
         val userFieldMap = mutableMapOf<String, Any>()
         if (nama.isNotBlank()) userFieldMap["nama"] = nama
@@ -155,7 +155,7 @@ object FirebaseUtil {
             }
     }
 
-    fun addChatListener(channelId: String, context: Context,
+    fun addChatListener(channelId: String,
                                 onListen: (List<Item>) -> Unit): ListenerRegistration {
             return chatChannelsCollectionRef.document(channelId).collection("lastmessage").orderBy("time", Query.Direction.DESCENDING)
                 .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
@@ -167,14 +167,14 @@ object FirebaseUtil {
                     val items = mutableListOf<Item>()
                     items.clear()
                     querySnapshot!!.documents.forEach {
-                        items.add(ChatItem(it.toObject(Chat::class.java)!!, context))
+                        items.add(ChatItem(it.toObject(Chat::class.java)!!))
                     }
                     onListen(items)
                 }
 
     }
 
-    fun getLastMessageListener(channelId: String, context: Context, onListen: () -> Unit): ListenerRegistration{
+    fun getLastMessageListener(channelId: String, onListen: () -> Unit): ListenerRegistration{
         return chatChannelsCollectionRef.document(channelId).collection("lastmessage")
             .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 if (firebaseFirestoreException != null) {
@@ -197,12 +197,12 @@ object FirebaseUtil {
 
     }
 
-    fun getLastMessage(channelId: List<String>, context: Context, onComplete: (List<ChatItem>) -> Unit){
+    fun getLastMessage(channelId: List<String>, onComplete: (List<ChatItem>) -> Unit){
         val mList : MutableList<ChatItem> = mutableListOf()
         channelId.forEach {channel ->
             chatChannelsCollectionRef.document(channel).collection("lastmessage").orderBy("time").get().addOnSuccessListener {
                 it!!.documents.forEach {doc ->
-                    mList.add(ChatItem(doc.toObject(Chat::class.java)!!, context))
+                    mList.add(ChatItem(doc.toObject(Chat::class.java)!!))
                 }
                 onComplete(mList)
             }

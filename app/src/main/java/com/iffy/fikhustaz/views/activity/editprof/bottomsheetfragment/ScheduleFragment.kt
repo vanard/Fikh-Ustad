@@ -2,14 +2,13 @@ package com.iffy.fikhustaz.views.activity.editprof.bottomsheetfragment
 
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
 import com.iffy.fikhustaz.R
-import com.iffy.fikhustaz.data.model.profile.ItemSchedule
+import com.iffy.fikhustaz.data.model.profile.ItSchedule
 import com.iffy.fikhustaz.util.DatesFormat
 import com.iffy.fikhustaz.util.FirebaseUtil
 import kotlinx.android.synthetic.main.fragment_schedule_start.*
@@ -21,7 +20,7 @@ class ScheduleFragment : Fragment() {
 
     private lateinit var calendarStart: Calendar
     private lateinit var calendarEnd: Calendar
-    private var dayList : MutableList<ItemSchedule> = mutableListOf()
+    private var dayList : MutableList<ItSchedule> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -91,25 +90,25 @@ class ScheduleFragment : Fragment() {
             dayList.clear()
 
             if (cb_senin_day_start.isChecked){
-                dayList.add(ItemSchedule("Senin",tv_time_start.text.toString(), tv_time_end.text.toString()))
+                dayList.add(ItSchedule("Senin",tv_time_start.text.toString(), tv_time_end.text.toString()))
             }
             if (cb_selasa_day_start.isChecked){
-                dayList.add(ItemSchedule("Selasa",tv_time_start.text.toString(), tv_time_end.text.toString()))
+                dayList.add(ItSchedule("Selasa",tv_time_start.text.toString(), tv_time_end.text.toString()))
             }
             if (cb_rabu_day_start.isChecked){
-                dayList.add(ItemSchedule("Rabu",tv_time_start.text.toString(), tv_time_end.text.toString()))
+                dayList.add(ItSchedule("Rabu",tv_time_start.text.toString(), tv_time_end.text.toString()))
             }
             if (cb_kamis_day_start.isChecked){
-                dayList.add(ItemSchedule("Kamis",tv_time_start.text.toString(), tv_time_end.text.toString()))
+                dayList.add(ItSchedule("Kamis",tv_time_start.text.toString(), tv_time_end.text.toString()))
             }
             if (cb_jumat_day_start.isChecked){
-                dayList.add(ItemSchedule("Jumat",tv_time_start.text.toString(), tv_time_end.text.toString()))
+                dayList.add(ItSchedule("Jumat",tv_time_start.text.toString(), tv_time_end.text.toString()))
             }
             if (cb_sabtu_day_start.isChecked){
-                dayList.add(ItemSchedule("Sabtu",tv_time_start.text.toString(), tv_time_end.text.toString()))
+                dayList.add(ItSchedule("Sabtu",tv_time_start.text.toString(), tv_time_end.text.toString()))
             }
             if (cb_minggu_day_start.isChecked){
-                dayList.add(ItemSchedule("Minggu",tv_time_start.text.toString(), tv_time_end.text.toString()))
+                dayList.add(ItSchedule("Minggu",tv_time_start.text.toString(), tv_time_end.text.toString()))
             }
             if (dayList.isEmpty()){
                 toast("Pilih hari terlebih dahulu")

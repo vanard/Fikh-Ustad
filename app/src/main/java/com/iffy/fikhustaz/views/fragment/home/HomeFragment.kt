@@ -2,15 +2,24 @@ package com.iffy.fikhustaz.views.fragment.home
 
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.util.Log.d
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.iffy.fikhustaz.R
+import com.iffy.fikhustaz.data.itemviews.ScheduleItem
+import com.iffy.fikhustaz.data.model.profile.ItSchedule
 import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.iffy.fikhustaz.views.activity.editprof.EditProfileActivity
 import com.iffy.fikhustaz.views.activity.login.LoginActivity
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.Section
+import com.xwray.groupie.kotlinandroidextensions.Item
+import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.newTask
@@ -23,6 +32,10 @@ class HomeFragment : Fragment(), HomeContract.View {
     private lateinit var mAuth: FirebaseAuth
     private var currentUser: FirebaseUser? = null
     private lateinit var dialog: ProgressDialog
+
+    private var mSchedule = mutableListOf<Item>()
+    private var mScheduleList = mutableListOf<ItSchedule>()
+    private lateinit var scheduleSection: Section
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +54,8 @@ class HomeFragment : Fragment(), HomeContract.View {
 
         (activity as HomeActivity).supportActionBar?.title = "Home"
         presenter.getData()
+
+        rv_home.layoutManager = GridLayoutManager(this@HomeFragment.context, 2)
 
         edit_btn_home.setOnClickListener {
             startActivity<EditProfileActivity>()
@@ -94,10 +109,22 @@ class HomeFragment : Fragment(), HomeContract.View {
             pendidikan_tv_home.text = "Belum ada informasi"
         if (keilmuan_tv_home.text.isEmpty())
             keilmuan_tv_home.text = "Belum ada informasi"
-        if (firkah_tv_home.text.isEmpty())
-            firkah_tv_home.text = "Belum ada informasi"
         if (mazhab_tv_home.text.isEmpty())
             mazhab_tv_home.text = "Belum ada informasi"
+
+        mScheduleList.addAll(ustad.schedule)
+
+        if (mScheduleList.isNotEmpty()){
+            mScheduleList.forEach {
+                mSchedule.add(ScheduleItem(it))
+            }
+
+            rv_home.apply {
+                adapter = GroupAdapter<ViewHolder>().apply {
+                    addAll(mSchedule)
+                }
+            }
+        }
 
     }
 }

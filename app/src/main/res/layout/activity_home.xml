@@ -22,7 +22,7 @@
 
         <View
                 android:layout_width="match_parent"
-                android:layout_height="4dp"
+                android:layout_height="1dp"
                 android:background="@drawable/shadow"/>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -34,7 +34,7 @@
                 app:itemTextColor="@drawable/nav_item_color_state"
                 app:labelVisibilityMode="labeled"
                 app:menu="@menu/bottom_navigation"
-                app:elevation="1dp"/>
+                app:elevation="0dp"/>
 
     </LinearLayout>
 

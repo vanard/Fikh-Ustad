@@ -35,7 +35,8 @@ class MateriActivity : AppCompatActivity(),MateriContract.View {
         if(intent != null){
             val data = intent.getParcelableArrayListExtra<Attachment>("materi")
             if (data != null){
-                supportActionBar?.title = data[0].title.split(" ")[0    ]
+                val mTitle = data[0].title.split(" ")
+                supportActionBar?.title = "${mTitle[0]} ${mTitle[1]} ${mTitle[2]}"
                 presenter.showFile(data[0].url)
 
                 val builder = StrictMode.VmPolicy.Builder()

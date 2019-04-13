@@ -6,6 +6,7 @@ import android.app.ProgressDialog
 import android.app.TimePickerDialog
 import android.content.ContentValues
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,6 +24,7 @@ import kotlinx.android.synthetic.main.activity_edit_profile.*
 import org.jetbrains.anko.*
 import java.util.*
 import android.util.Log.d
+import java.io.File
 import java.io.IOException
 
 
@@ -36,6 +38,7 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
 
     private lateinit var presenter:EditProfPresenter
     private var imgUri: Uri? = null
+    private var photo: File? = null
 
     private lateinit var dialog: ProgressDialog
 
@@ -81,14 +84,11 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
     }
 
     private fun  openCamera(){
-        val values = ContentValues()
-        values.put(MediaStore.Images.Media.TITLE, "New Picture")
-        imgUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-
-        val camIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        camIntent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri)
-        startActivityForResult(camIntent, REQUEST_CAPTURE_IMAGE)
-
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(packageManager)?.also {
+                startActivityForResult(takePictureIntent, REQUEST_CAPTURE_IMAGE)
+            }
+        }
     }
 
     private fun tryToSaveData() {
@@ -97,12 +97,11 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
         val tanggal = date_tv_edit.text.toString()
         val pendidikan = pendidikan_et_edit.text.toString()
         val keilmuan = keilmuan_et_edit.text.toString()
-        val firkah = firkah_et_edit.text.toString()
         val mazhab = mazhab_et_edit.text.toString()
 
         presenter.saveData(
             Ustad(
-                name, "", "", tempat, tanggal, pendidikan, keilmuan, firkah, mazhab, "", "", "", mutableListOf(), UserType.USTAZ,
+                name, "", "", tempat, tanggal, pendidikan, keilmuan, mazhab, "","", "", "", mutableListOf(), UserType.USTAZ,
                 mutableListOf(), mutableListOf()
             )
         )
@@ -127,14 +126,11 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
             REQUEST_GET_SINGLE_FILE -> {
                 if (resultCode == Activity.RESULT_OK && data != null){
                     val uri = data.data
-                    val imagePath = uri.path
-                    d("EditProfile", imagePath)
                     try {
                         val bitmap = MediaStore.Images.Media.getBitmap(
                             contentResolver,
                             uri
                         )
-                        // Log.d(TAG, String.valueOf(bitmap));
                         img_edit_prof.setImageBitmap(bitmap)
                     } catch (e: IOException) {
                         e.printStackTrace()
@@ -144,7 +140,8 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
             }
             REQUEST_CAPTURE_IMAGE -> {
                 if (resultCode == Activity.RESULT_OK && data != null){
-                    img_edit_prof.setImageURI(imgUri)
+                    val imageBitmap = data.extras?.get("data") as Bitmap
+                    img_edit_prof.setImageBitmap(imageBitmap)
                 }
             }
         }

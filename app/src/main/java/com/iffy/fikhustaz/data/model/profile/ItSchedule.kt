@@ -4,6 +4,6 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class ItemSchedule(val day: String, val timeStart: String, val timeEnd: String) : Parcelable {
+data class ItSchedule(val day: String, val timeStart: String, val timeEnd: String) : Parcelable {
     constructor() : this("", "", "")
 }

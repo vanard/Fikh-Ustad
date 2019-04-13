@@ -79,7 +79,7 @@ class PesanFragment : Fragment() , PesanContract.View{
         listChannel = data
 
         listChannel.forEach {
-            chatListener = FirebaseUtil.getLastMessageListener(it, context!!, this::updateRecyclerViewMessages)
+            chatListener = FirebaseUtil.getLastMessageListener(it, this::updateRecyclerViewMessages)
         }
     }
 
@@ -101,7 +101,7 @@ class PesanFragment : Fragment() , PesanContract.View{
     }
 
     private fun updateRecyclerViewMessages() {
-        FirebaseUtil.getLastMessage(listChannel, context!!, this::refreshRecyclerViewMessages)
+        FirebaseUtil.getLastMessage(listChannel, this::refreshRecyclerViewMessages)
     }
 
     private val onItemClick = OnItemClickListener { it, view ->

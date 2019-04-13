@@ -1,6 +1,5 @@
 package com.iffy.fikhustaz.data.itemviews
 
-import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.MessageType
@@ -11,8 +10,7 @@ import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.item_person.*
 import java.text.SimpleDateFormat
 
-class ChatItem(val message: Chat,
-               private val context: Context
+class ChatItem(val message: Chat
 )
     : Item() {
 
