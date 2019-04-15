@@ -95,7 +95,7 @@ class ScheduleManualFragment : Fragment() {
             toast("Pilih hari terlebih dahulu")
         }else{
             FirebaseUtil.updateCurrentUser("","","","","","","","","","","","",dayList)
-            toast("Schedule Updated")
+            toast("Jadwal berhasil diubah")
         }
     }
 

@@ -99,8 +99,8 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
 
         presenter.saveData(
             Ustad(
-                name, "", "", tempat, tanggal, pendidikan, keilmuan, mazhab, selectedImageBytes.toString(),"", "", "", mutableListOf(), UserType.USTAZ,
-                mutableListOf(), mutableListOf()
+                name, "", "", tempat, tanggal, pendidikan, keilmuan, mazhab, selectedImageBytes.toString(),"", "", "", null, UserType.USTAZ,
+                null, mutableListOf()
             ),
             selectedImageBytes
         )

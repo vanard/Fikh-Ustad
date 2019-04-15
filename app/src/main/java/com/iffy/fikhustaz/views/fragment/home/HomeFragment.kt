@@ -119,7 +119,9 @@ class HomeFragment : Fragment(), HomeContract.View {
         if (mazhab_tv_home.text.isEmpty())
             mazhab_tv_home.text = "Belum ada informasi"
 
-        mScheduleList.addAll(ustad.schedule)
+        if (ustad.schedule != null){
+            mScheduleList.addAll(ustad.schedule)
+        }
 
         if (mScheduleList.isNotEmpty()){
             mScheduleList.forEach {

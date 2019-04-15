@@ -32,7 +32,7 @@ class EditProfPresenter(v: EditProfContract.View) : EditProfContract.Presenter {
         if (ustad.profilePicture == null || selectedImageBytes == null){
             uiScope.launch {
                 FirebaseUtil.updateCurrentUser(ustad.nama!!,ustad.email!!,ustad.handphone!!,ustad.tempatLahir!!,ustad.tanggalLahir!!,ustad.pendidikan!!,ustad.keilmuan!!,ustad.mazhab!!, "", "", "","",
-                    mutableListOf())
+                    ustad.schedule)
                 view.showMsg("Update Successfully")
 
                 view.hideLoad()
@@ -58,7 +58,7 @@ class EditProfPresenter(v: EditProfContract.View) : EditProfContract.Presenter {
                             user!!.updateProfile(profile)
 
                             FirebaseUtil.updateCurrentUser(ustad.nama!!,ustad.email!!,ustad.handphone!!,ustad.tempatLahir!!,ustad.tanggalLahir!!,ustad.pendidikan!!,ustad.keilmuan!!,ustad.mazhab!!, uri.toString(), "", "","",
-                                mutableListOf())
+                                ustad.schedule)
                             view.showMsg("Update Successfully")
 
                             view.hideLoad()

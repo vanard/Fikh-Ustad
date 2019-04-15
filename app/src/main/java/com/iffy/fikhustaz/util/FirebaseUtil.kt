@@ -48,7 +48,7 @@ object FirebaseUtil {
                           sertifikat: String? = null,
                           ijazah: String? = null,
                           rate: String? = null,
-                          schedule: List<ItSchedule>? = mutableListOf()
+                          schedule: List<ItSchedule>? = null
     ) {
         val userFieldMap = mutableMapOf<String, Any>()
         if (nama.isNotBlank()) userFieldMap["nama"] = nama
