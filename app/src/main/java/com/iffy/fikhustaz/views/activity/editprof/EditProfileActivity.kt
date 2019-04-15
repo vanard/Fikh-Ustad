@@ -97,8 +97,6 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
         val keilmuan = keilmuan_et_edit.text.toString()
         val mazhab = mazhab_et_edit.text.toString()
 
-        d("PTK", "$selectedImageBytes")
-
         presenter.saveData(
             Ustad(
                 name, "", "", tempat, tanggal, pendidikan, keilmuan, mazhab, selectedImageBytes.toString(),"", "", "", mutableListOf(), UserType.USTAZ,

@@ -16,7 +16,7 @@ class MateriPresenter (v: MateriContract.View) : MateriContract.Presenter{
 
     override fun getData() {
         view?.showLoading()
-        uiScope.async {
+        uiScope.launch {
             val request = service.fetchArticles()
             try {
                 val response = request.await()

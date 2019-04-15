@@ -58,9 +58,10 @@
                             android:gravity="center_horizontal">
 
                 <Button android:gravity="center"
-                        android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="add"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Ubah jadwal"
                         android:id="@+id/btn_add_schedule" android:textColor="@android:color/white"
-                        android:background="@color/grey_app"/>
+                        android:background="@color/grey_app" android:paddingEnd="4dp" android:paddingStart="4dp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
@@ -140,7 +141,7 @@
                     android:background="@android:color/transparent" android:textSize="14sp" android:hint="Syafi'i"
                     android:maxLines="1" android:textColor="@android:color/white"/>
             <Button android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:id="@+id/save_btn_edit" android:text="Save Profile" android:layout_margin="8dp"
+                    android:id="@+id/save_btn_edit" android:text="Simpan Perubahan Profile" android:layout_margin="8dp"
                     android:background="@drawable/bg_gradient_ustad" android:textColor="@android:color/white"/>
         </LinearLayout>
 

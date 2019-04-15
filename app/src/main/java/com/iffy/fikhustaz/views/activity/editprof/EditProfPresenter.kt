@@ -34,6 +34,8 @@ class EditProfPresenter(v: EditProfContract.View) : EditProfContract.Presenter {
                 FirebaseUtil.updateCurrentUser(ustad.nama!!,ustad.email!!,ustad.handphone!!,ustad.tempatLahir!!,ustad.tanggalLahir!!,ustad.pendidikan!!,ustad.keilmuan!!,ustad.mazhab!!, "", "", "","",
                     mutableListOf())
                 view.showMsg("Update Successfully")
+
+                view.hideLoad()
             }
         }else{
             uiScope.launch {
@@ -59,6 +61,7 @@ class EditProfPresenter(v: EditProfContract.View) : EditProfContract.Presenter {
                                 mutableListOf())
                             view.showMsg("Update Successfully")
 
+                            view.hideLoad()
                         }
 
                     }
@@ -66,7 +69,6 @@ class EditProfPresenter(v: EditProfContract.View) : EditProfContract.Presenter {
 
             }
         }
-        view.hideLoad()
     }
 
 }

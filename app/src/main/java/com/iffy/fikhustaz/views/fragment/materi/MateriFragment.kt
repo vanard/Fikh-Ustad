@@ -1,6 +1,5 @@
 package com.iffy.fikhustaz.views.fragment.materi
 
-import android.app.ProgressDialog
 import android.os.Bundle
 import android.util.Log.d
 import androidx.fragment.app.Fragment
@@ -25,7 +24,6 @@ class MateriFragment : Fragment(), MateriContract.View {
 
     val presenter = MateriPresenter(this)
     val adapter = GroupAdapter<ViewHolder>()
-    private lateinit var dialog: ProgressDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,12 +75,10 @@ class MateriFragment : Fragment(), MateriContract.View {
     }
 
     override fun showLoading() {
-        dialog = ProgressDialog.show(this@MateriFragment.context, "", "Loading materi data")
-        dialog.setCancelable(false)
-        dialog.isIndeterminate
+        progressBar.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
-        dialog.dismiss()
+        progressBar.visibility = View.INVISIBLE
     }
 }

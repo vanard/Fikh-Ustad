@@ -135,7 +135,7 @@
                     android:layout_marginStart="12dp" android:textColor="@android:color/white"
                     android:layout_marginBottom="4dp"/>
             <Button android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:id="@+id/edit_btn_home" android:text="Edit Profile" android:layout_margin="8dp"
+                    android:id="@+id/edit_btn_home" android:text="Ubah Profile" android:layout_margin="8dp"
                     android:background="@drawable/bg_gradient_ustad" android:textColor="@android:color/white"/>
         </LinearLayout>
 
