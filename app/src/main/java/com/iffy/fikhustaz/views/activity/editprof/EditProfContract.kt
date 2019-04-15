@@ -13,6 +13,6 @@ interface EditProfContract {
     }
     interface Presenter{
         fun getData()
-        fun saveData(ustad: Ustad)
+        fun saveData(ustad: Ustad, selectedImageBytes: ByteArray?)
     }
 }

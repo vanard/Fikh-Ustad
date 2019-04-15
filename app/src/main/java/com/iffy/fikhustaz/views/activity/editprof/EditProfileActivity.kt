@@ -4,15 +4,14 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
 import android.app.TimePickerDialog
-import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log.d
 import android.view.MenuItem
-import android.view.View
+import com.google.firebase.auth.FirebaseAuth
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.AppConst
 import com.iffy.fikhustaz.data.UserType
@@ -20,11 +19,11 @@ import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.iffy.fikhustaz.util.DatesFormat
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.iffy.fikhustaz.views.activity.editprof.bottomsheetfragment.EditProfBottomSheetFragment
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import org.jetbrains.anko.*
 import java.util.*
-import android.util.Log.d
-import java.io.File
+import java.io.ByteArrayOutputStream
 import java.io.IOException
 
 
@@ -37,8 +36,7 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
     }
 
     private lateinit var presenter:EditProfPresenter
-    private var imgUri: Uri? = null
-    private var photo: File? = null
+    private var selectedImageBytes: ByteArray? = null
 
     private lateinit var dialog: ProgressDialog
 
@@ -99,11 +97,14 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
         val keilmuan = keilmuan_et_edit.text.toString()
         val mazhab = mazhab_et_edit.text.toString()
 
+        d("PTK", "$selectedImageBytes")
+
         presenter.saveData(
             Ustad(
-                name, "", "", tempat, tanggal, pendidikan, keilmuan, mazhab, "","", "", "", mutableListOf(), UserType.USTAZ,
+                name, "", "", tempat, tanggal, pendidikan, keilmuan, mazhab, selectedImageBytes.toString(),"", "", "", mutableListOf(), UserType.USTAZ,
                 mutableListOf(), mutableListOf()
-            )
+            ),
+            selectedImageBytes
         )
     }
 
@@ -118,6 +119,12 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
         pendidikan_et_edit.setText("${ustad.pendidikan}")
         keilmuan_et_edit.setText("${ustad.keilmuan}")
         mazhab_et_edit.setText("${ustad.mazhab}")
+
+        if (FirebaseAuth.getInstance().currentUser?.photoUrl != null) {
+            Picasso.get()
+                .load(FirebaseAuth.getInstance().currentUser!!.photoUrl.toString())
+                .into(img_edit_prof)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -131,6 +138,12 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
                             contentResolver,
                             uri
                         )
+
+                        val outputStream = ByteArrayOutputStream()
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
+
+                        selectedImageBytes = outputStream.toByteArray()
+
                         img_edit_prof.setImageBitmap(bitmap)
                     } catch (e: IOException) {
                         e.printStackTrace()
@@ -141,6 +154,12 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
             REQUEST_CAPTURE_IMAGE -> {
                 if (resultCode == Activity.RESULT_OK && data != null){
                     val imageBitmap = data.extras?.get("data") as Bitmap
+
+                    val outputStream = ByteArrayOutputStream()
+                    imageBitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
+
+                    selectedImageBytes = outputStream.toByteArray()
+
                     img_edit_prof.setImageBitmap(imageBitmap)
                 }
             }

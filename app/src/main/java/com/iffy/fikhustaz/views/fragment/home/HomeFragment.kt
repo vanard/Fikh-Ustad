@@ -16,6 +16,7 @@ import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.iffy.fikhustaz.views.activity.editprof.EditProfileActivity
 import com.iffy.fikhustaz.views.activity.login.LoginActivity
+import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Section
 import com.xwray.groupie.kotlinandroidextensions.Item
@@ -93,6 +94,12 @@ class HomeFragment : Fragment(), HomeContract.View {
     }
 
     override fun setData(ustad: Ustad) {
+
+        if (FirebaseAuth.getInstance().currentUser?.photoUrl != null) {
+            Picasso.get()
+                .load(FirebaseAuth.getInstance().currentUser!!.photoUrl.toString())
+                .into(img_home)
+        }
 
         name_tv_home.text = currentUser?.displayName ?: "Belum ada informasi"
         datebirt_tv_home.text = "${ustad.tempatLahir}, ${ustad.tanggalLahir}"

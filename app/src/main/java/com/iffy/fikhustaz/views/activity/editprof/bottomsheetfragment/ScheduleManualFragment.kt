@@ -27,30 +27,10 @@ class ScheduleManualFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        prepare()
+
         senin_timepicker_dialog.setOnClickListener {
-            val calendarStart = Calendar.getInstance()
-            val calendarEnd = Calendar.getInstance()
-
-            val timePickerStart = TimePickerDialog(this@ScheduleManualFragment.context, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                val selectedTime = Calendar.getInstance()
-                selectedTime.set(Calendar.HOUR_OF_DAY,hourOfDay)
-                selectedTime.set(Calendar.MINUTE,minute)
-
-                et_senin_fromone.setText(DatesFormat.dateToTime(selectedTime.time))
-                et_senin_fromtwo.setText(DatesFormat.dateToTime(selectedTime.time))
-
-                val timePickerEnd = TimePickerDialog(this@ScheduleManualFragment.context, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                    selectedTime.set(Calendar.HOUR_OF_DAY,hourOfDay)
-                    selectedTime.set(Calendar.MINUTE,minute)
-
-                    et_senin_toone.setText(DatesFormat.dateToTime(selectedTime.time))
-                    et_senin_totwo.setText(DatesFormat.dateToTime(selectedTime.time))
-                },
-                    calendarEnd.get(Calendar.HOUR_OF_DAY), calendarEnd.get(Calendar.MINUTE),true)
-                timePickerEnd.show()
-            },
-                calendarStart.get(Calendar.HOUR_OF_DAY), calendarStart.get(Calendar.MINUTE),true)
-            timePickerStart.show()
+            seninPickerDialog()
         }
 
         selasa_timepicker_dialog.setOnClickListener {
@@ -76,6 +56,80 @@ class ScheduleManualFragment : Fragment() {
         minggu_timepicker_dialog.setOnClickListener {
 
         }
+    }
+
+    private fun seninPickerDialog() {
+        val calendarStart = Calendar.getInstance()
+        val calendarEnd = Calendar.getInstance()
+
+        val timePickerStart = TimePickerDialog(this@ScheduleManualFragment.context, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+            val selectedTime = Calendar.getInstance()
+            selectedTime.set(Calendar.HOUR_OF_DAY,hourOfDay)
+            selectedTime.set(Calendar.MINUTE,minute)
+
+            var time = DatesFormat.dateToTime(selectedTime.time).split(":")
+
+            et_senin_fromone.setText(time[0])
+            et_senin_fromtwo.setText(time[1])
+
+            val timePickerEnd = TimePickerDialog(this@ScheduleManualFragment.context, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                selectedTime.set(Calendar.HOUR_OF_DAY,hourOfDay)
+                selectedTime.set(Calendar.MINUTE,minute)
+
+                time = DatesFormat.dateToTime(selectedTime.time).split(":")
+
+                et_senin_toone.setText(time[0])
+                et_senin_totwo.setText(time[1])
+            },
+                calendarEnd.get(Calendar.HOUR_OF_DAY), calendarEnd.get(Calendar.MINUTE),true)
+            timePickerEnd.show()
+        },
+            calendarStart.get(Calendar.HOUR_OF_DAY), calendarStart.get(Calendar.MINUTE),true)
+        timePickerStart.show()
+    }
+
+    private fun selasaPickerDialog(){
+        val calendarStart = Calendar.getInstance()
+        val calendarEnd = Calendar.getInstance()
+
+        val timePickerStart = TimePickerDialog(this@ScheduleManualFragment.context, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+            val selectedTime = Calendar.getInstance()
+            selectedTime.set(Calendar.HOUR_OF_DAY,hourOfDay)
+            selectedTime.set(Calendar.MINUTE,minute)
+
+            var time = DatesFormat.dateToTime(selectedTime.time).split(":")
+
+            et_senin_fromone.setText(time[0])
+            et_senin_fromtwo.setText(time[1])
+
+            val timePickerEnd = TimePickerDialog(this@ScheduleManualFragment.context, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                selectedTime.set(Calendar.HOUR_OF_DAY,hourOfDay)
+                selectedTime.set(Calendar.MINUTE,minute)
+
+                time = DatesFormat.dateToTime(selectedTime.time).split(":")
+
+                et_senin_toone.setText(time[0])
+                et_senin_totwo.setText(time[1])
+            },
+                calendarEnd.get(Calendar.HOUR_OF_DAY), calendarEnd.get(Calendar.MINUTE),true)
+            timePickerEnd.show()
+        },
+            calendarStart.get(Calendar.HOUR_OF_DAY), calendarStart.get(Calendar.MINUTE),true)
+        timePickerStart.show()
+    }
+
+    private fun prepare(){
+        et_senin_fromone.isFocusable = false
+        et_senin_fromtwo.isFocusable = false
+        et_senin_toone.isFocusable = false
+        et_senin_totwo.isFocusable = false
+
+
+
+        et_senin_fromone.setOnClickListener { seninPickerDialog() }
+        et_senin_fromtwo.setOnClickListener { seninPickerDialog() }
+        et_senin_toone.setOnClickListener { seninPickerDialog() }
+        et_senin_totwo.setOnClickListener { seninPickerDialog() }
     }
 
 }

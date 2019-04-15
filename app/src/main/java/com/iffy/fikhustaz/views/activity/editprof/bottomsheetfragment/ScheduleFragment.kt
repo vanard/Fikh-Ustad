@@ -9,6 +9,7 @@ import android.view.ViewGroup
 
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.model.profile.ItSchedule
+import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.iffy.fikhustaz.util.DatesFormat
 import com.iffy.fikhustaz.util.FirebaseUtil
 import kotlinx.android.synthetic.main.fragment_schedule_start.*
@@ -21,6 +22,8 @@ class ScheduleFragment : Fragment() {
     private lateinit var calendarStart: Calendar
     private lateinit var calendarEnd: Calendar
     private var dayList : MutableList<ItSchedule> = mutableListOf()
+
+    private var mUstad: Ustad? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,10 +38,17 @@ class ScheduleFragment : Fragment() {
 
         tv_time_start.text = DatesFormat.secondToTime(Calendar.getInstance(Locale.getDefault()).timeInMillis/1000L)
         tv_time_end.text = DatesFormat.secondToTime(Calendar.getInstance(Locale.getDefault()).timeInMillis/1000L)
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        FirebaseUtil.getCurrentUser {
+            mUstad = it
+
+            checkCb()
+        }
 
         cb_everyday_start.onCheckedChange { buttonView, isChecked ->
             if (isChecked){
@@ -116,6 +126,19 @@ class ScheduleFragment : Fragment() {
                 FirebaseUtil.updateCurrentUser("","","","","","","","","","","","",dayList)
                 toast("Schedule Updated")
             }
+        }
+    }
+
+    private fun checkCb() {
+        mUstad?.schedule!!.forEach {
+            if (it.day == "Senin") cb_senin_day_start.isChecked = true
+            if (it.day == "Selasa") cb_selasa_day_start.isChecked = true
+            if (it.day == "Rabu") cb_rabu_day_start.isChecked = true
+            if (it.day == "Kamis") cb_kamis_day_start.isChecked = true
+            if (it.day == "Jumat") cb_jumat_day_start.isChecked = true
+            if (it.day == "Sabtu") cb_sabtu_day_start.isChecked = true
+            if (it.day == "Minggu") cb_minggu_day_start.isChecked = true
+
         }
     }
 }
