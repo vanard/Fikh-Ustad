@@ -10,16 +10,23 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log.d
+import android.view.Menu
 import android.view.MenuItem
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.AppConst
 import com.iffy.fikhustaz.data.UserType
+import com.iffy.fikhustaz.data.itemviews.ScheduleItem
+import com.iffy.fikhustaz.data.model.profile.ItSchedule
 import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.iffy.fikhustaz.util.DatesFormat
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.iffy.fikhustaz.views.activity.editprof.bottomsheetfragment.EditProfBottomSheetFragment
 import com.squareup.picasso.Picasso
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.kotlinandroidextensions.Item
+import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import org.jetbrains.anko.*
 import java.util.*
@@ -40,6 +47,9 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
 
     private lateinit var dialog: ProgressDialog
 
+    private var mSchedule = mutableListOf<Item>()
+    private var mScheduleList = mutableListOf<ItSchedule>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
@@ -48,16 +58,14 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
         presenter = EditProfPresenter(this)
         presenter.getData()
 
-        btn_add_schedule.setOnClickListener {
+        rv_edit_schedule.layoutManager = GridLayoutManager(this@EditProfileActivity, 2)
+
+        img_edit_schedule.setOnClickListener {
             val bottomSheetFragment = EditProfBottomSheetFragment()
             bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
         }
         date_tv_edit.setOnClickListener {
             showDatePicker(this)
-        }
-
-        save_btn_edit.setOnClickListener {
-            tryToSaveData()
         }
 
         img_edit_prof.setOnClickListener {
@@ -90,7 +98,7 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
     }
 
     private fun tryToSaveData() {
-        val name = name_tv_edit.text.toString()
+        val name = name_et_edit.text.toString()
         val tempat = datebirt_et_edit.text.toString()
         val tanggal = date_tv_edit.text.toString()
         val pendidikan = pendidikan_et_edit.text.toString()
@@ -107,7 +115,13 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
     }
 
     override fun setData(ustad: Ustad) {
-        name_tv_edit.text = ustad.nama
+        if (FirebaseAuth.getInstance().currentUser?.photoUrl != null) {
+            Picasso.get()
+                .load(FirebaseAuth.getInstance().currentUser!!.photoUrl.toString())
+                .into(img_edit_prof)
+        }
+
+        name_et_edit.setText(ustad.nama)
         datebirt_et_edit.setText("${ustad.tempatLahir}")
         if (ustad.tanggalLahir == "" || ustad.tanggalLahir == null){
             date_tv_edit.text = "--/--/--"
@@ -118,10 +132,20 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
         keilmuan_et_edit.setText("${ustad.keilmuan}")
         mazhab_et_edit.setText("${ustad.mazhab}")
 
-        if (FirebaseAuth.getInstance().currentUser?.photoUrl != null) {
-            Picasso.get()
-                .load(FirebaseAuth.getInstance().currentUser!!.photoUrl.toString())
-                .into(img_edit_prof)
+        if (ustad.schedule != null){
+            mScheduleList.addAll(ustad.schedule)
+        }
+
+        if (mScheduleList.isNotEmpty()){
+            mScheduleList.forEach {
+                mSchedule.add(ScheduleItem(it))
+            }
+
+            rv_edit_schedule.apply {
+                adapter = GroupAdapter<ViewHolder>().apply {
+                    addAll(mSchedule)
+                }
+            }
         }
     }
 
@@ -202,11 +226,19 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
         datePickerDialog.show()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.edit_profile_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
             android.R.id.home -> {
                 startActivity(intentFor<HomeActivity>("frg" to AppConst.EDIT_PROFILE_ACTIVITY).newTask().clearTask())
                 return true
+            }
+            R.id.menu_save_profile -> {
+                tryToSaveData()
             }
         }
         return super.onOptionsItemSelected(item)

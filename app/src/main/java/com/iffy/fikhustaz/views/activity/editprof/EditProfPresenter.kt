@@ -29,21 +29,25 @@ class EditProfPresenter(v: EditProfContract.View) : EditProfContract.Presenter {
 
     override fun saveData(ustad: Ustad, selectedImageBytes: ByteArray?) {
         view.showLoad()
+        val user = FirebaseAuth.getInstance().currentUser
+
         if (ustad.profilePicture == null || selectedImageBytes == null){
             uiScope.launch {
                 FirebaseUtil.updateCurrentUser(ustad.nama!!,ustad.email!!,ustad.handphone!!,ustad.tempatLahir!!,ustad.tanggalLahir!!,ustad.pendidikan!!,ustad.keilmuan!!,ustad.mazhab!!, "", "", "","",
                     ustad.schedule)
+                val profile = UserProfileChangeRequest.Builder()
+                    .setDisplayName(ustad.nama)
+                    .build()
+
+                user!!.updateProfile(profile)
                 view.showMsg("Update Successfully")
 
                 view.hideLoad()
             }
         }else{
             uiScope.launch {
-                val user = FirebaseAuth.getInstance().currentUser
-
                 val profileImageRef =
                     FirebaseStorage.getInstance().getReference("${user?.uid}/profilepics/${user?.uid}")
-
 
                 profileImageRef.putBytes(selectedImageBytes).addOnCompleteListener {
                     profileImageRef.downloadUrl.addOnSuccessListener { uri ->
@@ -53,6 +57,7 @@ class EditProfPresenter(v: EditProfContract.View) : EditProfContract.Presenter {
                         if (uri != null) {
                             val profile = UserProfileChangeRequest.Builder()
                                 .setPhotoUri(uri)
+                                .setDisplayName(ustad.nama)
                                 .build()
 
                             user!!.updateProfile(profile)

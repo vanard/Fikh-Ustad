@@ -35,7 +35,6 @@ class HomeFragment : Fragment(), HomeContract.View {
 
     private var mSchedule = mutableListOf<Item>()
     private var mScheduleList = mutableListOf<ItSchedule>()
-    private lateinit var scheduleSection: Section
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
