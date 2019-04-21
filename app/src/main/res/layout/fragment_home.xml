@@ -103,11 +103,11 @@
                     android:layout_marginStart="12dp" android:layout_marginTop="12dp"
                     android:layout_marginBottom="4dp"/>
             <TextView
-                    android:text="S2 Dar El Hadith El Hassania, Kerajaan Maroko"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/pendidikan_tv_home"
                     android:layout_marginEnd="12dp"
-                    android:layout_marginStart="12dp" android:textColor="@android:color/white"/>
+                    android:layout_marginStart="12dp" android:textColor="@android:color/white"
+                    android:text="S2 Dar El Hadith El Hassania, Kerajaan Maroko"/>
             <TextView
                     android:text="Bidang Keilmuan"
                     android:layout_width="match_parent"

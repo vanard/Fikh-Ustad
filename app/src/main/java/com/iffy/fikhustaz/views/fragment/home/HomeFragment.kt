@@ -6,7 +6,6 @@ import android.util.Log.d
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.iffy.fikhustaz.R
@@ -21,7 +20,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Section
 import com.xwray.groupie.kotlinandroidextensions.Item
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
-import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.activity_profile.*
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.newTask
 import org.jetbrains.anko.support.v4.intentFor
@@ -47,7 +46,7 @@ class HomeFragment : Fragment(), HomeContract.View {
         currentUser = mAuth.currentUser
         presenter = HomePresenter(this)
         setHasOptionsMenu(true)
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.activity_profile, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,10 +56,6 @@ class HomeFragment : Fragment(), HomeContract.View {
         presenter.getData()
 
         rv_home.layoutManager = GridLayoutManager(this@HomeFragment.context, 2)
-
-        edit_btn_home.setOnClickListener {
-            startActivity<EditProfileActivity>()
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -72,6 +67,10 @@ class HomeFragment : Fragment(), HomeContract.View {
             R.id.menu_logout ->{
                 mAuth.signOut()
                 startActivity(intentFor<LoginActivity>().newTask().clearTask())
+                true
+            }
+            R.id.menu_edit_profile -> {
+                startActivity<EditProfileActivity>()
                 true
             }
             else -> super.onOptionsItemSelected(item)
