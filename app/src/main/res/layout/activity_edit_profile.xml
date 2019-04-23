@@ -9,7 +9,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            android:background="@drawable/bg_gradient_ustad">
+            android:background="@color/white_gray_app">
 
         <View
                 android:layout_width="0dp"
@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/img_edit_prof" app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="16dp" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="16dp" android:layout_marginTop="8dp" android:orientation="vertical"
+                android:layout_marginStart="16dp" android:layout_marginTop="20dp" android:orientation="vertical"
                 android:id="@+id/cardView"
                 app:cardBackgroundColor="@android:color/white"
                 app:cardElevation="3dp"
@@ -40,18 +40,19 @@
         >
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:text="Jadwal Online"
-                      android:textAlignment="viewStart" android:textStyle="bold" android:textSize="14sp"
-                      android:layout_marginBottom="2dp" android:layout_marginTop="4dp"
+                      android:textAlignment="viewStart" android:textStyle="bold" android:textSize="16sp"
+                      android:layout_marginBottom="2dp" android:layout_marginTop="8dp"
                       android:layout_marginStart="8dp"/>
             <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
                                                        android:layout_height="wrap_content"
                                                        android:layout_marginTop="24dp"
-                                                       android:id="@+id/rv_edit_schedule">
+                                                       android:id="@+id/rv_edit_schedule"
+                                                       android:layout_marginBottom="12dp">
 
             </androidx.recyclerview.widget.RecyclerView>
             <ImageView
                     android:layout_width="40dp"
-                    android:layout_height="32dp" app:srcCompat="@android:drawable/ic_menu_edit"
+                    android:layout_height="36dp" app:srcCompat="@android:drawable/ic_menu_edit"
                     android:id="@+id/img_edit_schedule" android:layout_gravity="end" android:paddingBottom="8dp"
                     android:paddingEnd="4dp" android:paddingStart="8dp" android:paddingTop="4dp"/>
         </androidx.cardview.widget.CardView>
@@ -96,7 +97,7 @@
                         app:layout_constraintTop_toTopOf="@+id/imageView5"
                         android:id="@+id/linearLayout2">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                              android:text="Tempat, Tanggal Lahir" android:textSize="12sp"
+                              android:text="Tempat, Tanggal Lahir" android:textSize="13sp"
                               app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
                               app:layout_constraintEnd_toEndOf="parent"
                               android:id="@+id/textView4"/>
@@ -150,7 +151,7 @@
                         app:layout_constraintBottom_toBottomOf="@+id/imageView6"
                         app:layout_constraintTop_toTopOf="@+id/imageView6">
                     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                              android:text="Riwayat Pendidikan" android:textSize="12sp"/>
+                              android:text="Riwayat Pendidikan" android:textSize="13sp"/>
                     <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
                               android:textColor="@android:color/black" android:id="@+id/pendidikan_et_edit"
                               android:hint="S2 Dar El Hadith El Hassania, Kerajaan Maroko" android:maxLines="1"
@@ -180,7 +181,7 @@
                         app:layout_constraintTop_toTopOf="@+id/imageView7"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView7">
                     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                              android:text="Bidang Keilmuan" android:textSize="12sp"/>
+                              android:text="Bidang Keilmuan" android:textSize="13sp"/>
                     <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
                               android:textColor="@android:color/black" android:id="@+id/keilmuan_et_edit"
                               android:hint="Ilmu Hadist" android:maxLines="1"
@@ -209,7 +210,7 @@
                         app:layout_constraintTop_toTopOf="@+id/imageView8"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView8">
                     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                              android:text="Mazhab Fikih" android:textSize="12sp"/>
+                              android:text="Mazhab Fikih" android:textSize="13sp"/>
                     <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
                               android:textColor="@android:color/black" android:id="@+id/mazhab_et_edit"
                               android:hint="Syafi'i" android:maxLines="1"
@@ -232,7 +233,7 @@
                         app:layout_constraintTop_toTopOf="@+id/imageView11"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView11" android:layout_marginEnd="2dp">
                     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                              android:text="Nama" android:textSize="12sp"/>
+                              android:text="Nama" android:textSize="13sp"/>
                     <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
                               android:textColor="@android:color/black" android:id="@+id/name_et_edit"
                               android:textSize="14sp" android:hint="Abdul Somad"/>
@@ -254,12 +255,12 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/textView6" android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/cardView" app:layout_constraintStart_toStartOf="@+id/cardView"
-                android:textSize="16sp" android:textStyle="bold" android:textColor="@android:color/white"/>
+                android:textSize="16sp" android:textStyle="bold"/>
         <Switch
                 android:text="Online"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/sw_status_edit" android:textColor="@android:color/white"
+                android:id="@+id/sw_status_edit"
                 android:switchPadding="8dp" app:layout_constraintTop_toTopOf="@+id/img_edit_prof"
                 app:layout_constraintBottom_toBottomOf="@+id/img_edit_prof"
                 app:layout_constraintStart_toEndOf="@+id/img_edit_prof" android:layout_marginStart="8dp"

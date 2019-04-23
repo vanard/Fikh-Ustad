@@ -58,7 +58,7 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
         presenter = EditProfPresenter(this)
         presenter.getData()
 
-        rv_edit_schedule.layoutManager = GridLayoutManager(this@EditProfileActivity, 2)
+        rv_edit_schedule.layoutManager = GridLayoutManager(this@EditProfileActivity, 3)
 
         img_edit_schedule.setOnClickListener {
             val bottomSheetFragment = EditProfBottomSheetFragment()
@@ -69,12 +69,12 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
         }
 
         img_edit_prof.setOnClickListener {
-            selector("Choose your fighter?", fighter, { dialogInterface, i ->
+            selector("Choose your fighter?", fighter) { dialogInterface, i ->
                 when(fighter[i]){
                     "Camera" -> openCamera()
                     "Gallery" -> openGallery()
                 }
-            })
+            }
         }
 
     }
@@ -147,6 +147,7 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
                 }
             }
         }
+        sw_status_edit.isChecked = sw_status_edit.isChecked
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

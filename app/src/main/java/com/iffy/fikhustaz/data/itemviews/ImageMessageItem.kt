@@ -1,9 +1,10 @@
 package com.iffy.fikhustaz.data.itemviews
 
 import android.content.Context
+import android.util.Log.d
+import com.bumptech.glide.Glide
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.model.chat.ImageMessage
-import com.iffy.fikhustaz.util.StorageUtil
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.item_image_message.*
@@ -16,10 +17,11 @@ class ImageMessageItem(val message: ImageMessage,
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
         super.bind(viewHolder, position)
+
         Picasso.get()
-            .load(File(message.imagePath))
+            .load(message.imagePath)
             .placeholder(R.drawable.ic_image)
-            .into(viewHolder.imageView_message_image)
+            .into(viewHolder.image_message_image)
     }
 
     override fun getLayout() = R.layout.item_image_message

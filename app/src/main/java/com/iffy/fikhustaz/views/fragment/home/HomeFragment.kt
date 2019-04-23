@@ -54,7 +54,7 @@ class HomeFragment : Fragment(), HomeContract.View {
         (activity as HomeActivity).supportActionBar?.title = "Home"
         presenter.getData()
 
-        rv_home.layoutManager = GridLayoutManager(this@HomeFragment.context, 2)
+        rv_home.layoutManager = GridLayoutManager(this@HomeFragment.context, 3)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -63,7 +63,7 @@ class HomeFragment : Fragment(), HomeContract.View {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return (when(item.itemId){
-            R.id.menu_logout ->{
+            R.id.menu_logout -> {
                 mAuth.signOut()
                 startActivity(intentFor<LoginActivity>().newTask().clearTask())
                 true

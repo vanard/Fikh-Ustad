@@ -4,14 +4,7 @@
                                                    xmlns:tools="http://schemas.android.com/tools"
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
-                                                   android:background="@drawable/bg_gradient_ustad">
-    <View
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:id="@+id/view5"
-            android:background="@drawable/shadow"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+                                                   android:background="@color/white_gray_app">
 
     <TextView
             android:text="Ustad Name"
@@ -22,7 +15,7 @@
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="20dp"
             android:layout_marginTop="8dp" android:textSize="18sp" android:textStyle="bold"
             android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/img_home"
-            android:textColor="@android:color/white"/>
+    />
     <TextView
             android:text="Rate pesan dibalas"
             android:layout_width="0dp"
@@ -31,7 +24,7 @@
             app:layout_constraintStart_toEndOf="@+id/imageView4" android:layout_marginStart="8dp"
             android:textSize="12sp" app:layout_constraintTop_toTopOf="@+id/imageView4"
             app:layout_constraintBottom_toBottomOf="@+id/imageView4" app:layout_constraintEnd_toStartOf="@+id/img_home"
-            android:layout_marginEnd="8dp" android:textColor="@android:color/white"/>
+            android:layout_marginEnd="8dp"/>
     <de.hdodenhof.circleimageview.CircleImageView android:layout_width="76dp"
                                                   android:layout_height="76dp"
                                                   app:layout_constraintEnd_toEndOf="parent"
@@ -61,11 +54,11 @@
             app:cardCornerRadius="5dp"
             app:cardBackgroundColor="@android:color/white">
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Jadwal Online"
-                  android:textAlignment="viewStart" android:textStyle="bold" android:textSize="14sp"
-                  android:layout_marginBottom="2dp" android:layout_marginTop="4dp" android:layout_marginStart="8dp"/>
+                  android:textAlignment="viewStart" android:textStyle="bold" android:textSize="16sp"
+                  android:layout_marginBottom="2dp" android:layout_marginTop="8dp" android:layout_marginStart="8dp"/>
         <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
                                                    android:layout_height="wrap_content" android:layout_marginTop="24dp"
-                                                   android:id="@+id/rv_home">
+                                                   android:id="@+id/rv_home" android:layout_marginBottom="12dp">
 
         </androidx.recyclerview.widget.RecyclerView>
     </androidx.cardview.widget.CardView>
@@ -105,7 +98,7 @@
                     app:layout_constraintTop_toTopOf="@+id/imageView5" android:layout_marginEnd="2dp"
                     android:id="@+id/linearLayout2">
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                          android:text="Tempat, Tanggal Lahir" android:textSize="12sp"/>
+                          android:text="Tempat, Tanggal Lahir" android:textSize="13sp"/>
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:text="Sumatera Utara, 18 Mei 1977" android:textColor="@android:color/black"
                           android:id="@+id/datebirt_tv_home"/>
@@ -117,7 +110,7 @@
                     android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout2" app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="12dp" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="12dp" android:background="@color/grey_app"/>
+                    android:layout_marginStart="12dp" android:background="@drawable/shadow"/>
 
             <ImageView
                     android:layout_width="40dp"
@@ -135,7 +128,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/imageView6"
                     app:layout_constraintTop_toTopOf="@+id/imageView6">
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                          android:text="Riwayat Pendidikan" android:textSize="12sp"/>
+                          android:text="Riwayat Pendidikan" android:textSize="13sp"/>
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:text="S2 Dar El Hadith El Hassania, Kerajaan Maroko"
                           android:textColor="@android:color/black" android:id="@+id/pendidikan_tv_home"/>
@@ -146,7 +139,7 @@
                     android:id="@+id/view1"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="12dp" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="12dp" android:background="@color/grey_app"
+                    android:layout_marginStart="12dp" android:background="@drawable/shadow"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout1" android:layout_marginTop="8dp"/>
             <ImageView
                     android:layout_width="40dp"
@@ -164,7 +157,7 @@
                     app:layout_constraintTop_toTopOf="@+id/imageView7"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView7">
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                          android:text="Bidang Keilmuan" android:textSize="12sp"/>
+                          android:text="Bidang Keilmuan" android:textSize="13sp"/>
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:text="Ilmu Hadist"
                           android:textColor="@android:color/black" android:id="@+id/keilmuan_tv_home"/>
@@ -175,7 +168,7 @@
                     android:id="@+id/view3"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="12dp" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="12dp" android:background="@color/grey_app"
+                    android:layout_marginStart="12dp" android:background="@drawable/shadow"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout3" android:layout_marginTop="8dp"/>
             <ImageView
                     android:layout_width="40dp"
@@ -192,7 +185,7 @@
                     app:layout_constraintTop_toTopOf="@+id/imageView8"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView8">
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                          android:text="Mazhab Fikih" android:textSize="12sp"/>
+                          android:text="Mazhab Fikih" android:textSize="13sp"/>
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:text="Syafi'i"
                           android:textColor="@android:color/black" android:id="@+id/mazhab_tv_home"/>
@@ -206,5 +199,5 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView6" android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/cardView" app:layout_constraintStart_toStartOf="@+id/cardView"
-            android:textSize="16sp" android:textStyle="bold" android:textColor="@android:color/white"/>
+            android:textSize="16sp" android:textStyle="bold"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

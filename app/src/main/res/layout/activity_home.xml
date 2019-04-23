@@ -22,8 +22,8 @@
 
         <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/white_gray_app"/>
+                android:layout_height="2dp"
+                android:background="@drawable/shadow"/>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottom_navigation"

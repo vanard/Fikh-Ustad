@@ -15,7 +15,7 @@
             android:layout_gravity="end"
             android:background="@drawable/round_text_message">
         <ImageView
-                android:id="@+id/imageView_message_image"
+                android:id="@+id/image_message_image"
                 android:layout_width="196dp"
                 android:layout_height="wrap_content"
                 android:scaleType="fitCenter"
@@ -23,13 +23,13 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:paddingTop="4dp"
-                tools:src="@drawable/ic_image" />
+                tools:src="@drawable/ic_image"/>
         <TextView
                 android:id="@+id/textView_message_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/imageView_message_image"
-                android:layout_alignEnd="@id/imageView_message_image"
+                android:layout_below="@id/image_message_image"
+                android:layout_alignEnd="@id/image_message_image"
                 android:layout_marginEnd="8dp"
                 android:textSize="12sp"
                 tools:text="3/15/2018 3:00 PM" android:textColor="@android:color/white"/>
