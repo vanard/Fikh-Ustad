@@ -6,9 +6,11 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera"
-                  android:required="true" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-feature
+            android:name="android.hardware.camera"
+            android:required="true"/>
 
     <dist:module dist:instant="true"/>
 
@@ -19,6 +21,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".views.activity.detailmateri.DetailMateriActivity">
+        </activity>
 
         <provider
                 android:name="androidx.core.content.FileProvider"
@@ -27,33 +31,32 @@
                 android:grantUriPermissions="true">
             <meta-data
                     android:name="android.support.FILE_PROVIDER_PATHS"
-                    android:resource="@xml/provider_paths" />
+                    android:resource="@xml/provider_paths"/>
         </provider>
 
-
         <activity
-                android:name="com.iffy.fikhustaz.views.activity.editprof.EditProfileActivity"
+                android:name=".views.activity.editprof.EditProfileActivity"
                 android:label="Edit Profile">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.iffy.fikhustaz.views.activity.HomeActivity"/>
         </activity>
-        <activity android:name="com.iffy.fikhustaz.views.activity.chat.ChatActivity">
+        <activity android:name=".views.activity.chat.ChatActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.iffy.fikhustaz.views.activity.HomeActivity"/>
         </activity>
         <activity
-                android:name="com.iffy.fikhustaz.views.activity.reset.ResetActivity"
+                android:name=".views.activity.reset.ResetActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name="com.iffy.fikhustaz.views.activity.materi.MateriActivity">
+        <activity android:name=".views.activity.materi.MateriActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.iffy.fikhustaz.views.activity.HomeActivity"/>
         </activity>
         <activity
-                android:name="com.iffy.fikhustaz.views.activity.SplashActivity"
+                android:name=".views.activity.SplashActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -61,10 +64,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.iffy.fikhustaz.views.activity.HomeActivity">
+        <activity android:name=".views.activity.HomeActivity">
         </activity>
         <activity
-                android:name="com.iffy.fikhustaz.views.activity.register.RegisterActivity"
+                android:name=".views.activity.register.RegisterActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -73,7 +76,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name="com.iffy.fikhustaz.views.activity.login.LoginActivity"
+                android:name=".views.activity.login.LoginActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity> <!-- FCM -->
         <meta-data

@@ -10,13 +10,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.itemviews.MateriItem
-import com.iffy.fikhustaz.data.model.materi.Code
-import com.iffy.fikhustaz.data.model.materi.IslamData
+import com.iffy.fikhustaz.data.model.materi.islamhouse.IslamData
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.fragment_materi.*
-import kotlinx.coroutines.Job
 import org.jetbrains.anko.support.v4.toast
 
 

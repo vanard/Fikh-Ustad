@@ -5,14 +5,13 @@ import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log.d
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.AppConst
-import com.iffy.fikhustaz.data.model.materi.Attachment
+import com.iffy.fikhustaz.data.model.materi.islamhouse.Attachment
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import kotlinx.android.synthetic.main.activity_materi.*
 import org.jetbrains.anko.*

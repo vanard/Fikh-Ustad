@@ -1,4 +1,4 @@
-package com.iffy.fikhustaz.data.model.materi
+package com.iffy.fikhustaz.data.model.materi.islamhouse
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
