@@ -10,6 +10,7 @@ import com.iffy.fikhustaz.data.itemviews.ImageMessageItem
 import com.iffy.fikhustaz.data.itemviews.PersonItem
 import com.iffy.fikhustaz.data.itemviews.TextMessageItem
 import com.iffy.fikhustaz.data.model.chat.*
+import com.iffy.fikhustaz.data.model.profile.ItOnline
 import com.iffy.fikhustaz.data.model.profile.ItSchedule
 import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.xwray.groupie.kotlinandroidextensions.Item
@@ -48,6 +49,7 @@ object FirebaseUtil {
                           sertifikat: String? = null,
                           ijazah: String? = null,
                           rate: String? = null,
+                          userOnline : List<ItOnline>? = null,
                           schedule: List<ItSchedule>? = null
     ) {
         val userFieldMap = mutableMapOf<String, Any>()
@@ -67,6 +69,8 @@ object FirebaseUtil {
             userFieldMap["ijazah"] = ijazah
         if (schedule != null)
             userFieldMap["schedule"] = schedule
+        if (userOnline != null)
+            userFieldMap["userOnline"] = userOnline
         currentUserDocRef.update(userFieldMap)
     }
 

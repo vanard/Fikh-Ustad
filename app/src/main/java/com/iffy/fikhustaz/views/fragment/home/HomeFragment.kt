@@ -17,7 +17,6 @@ import com.iffy.fikhustaz.views.activity.editprof.EditProfileActivity
 import com.iffy.fikhustaz.views.activity.login.LoginActivity
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.Section
 import com.xwray.groupie.kotlinandroidextensions.Item
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.activity_profile.*
@@ -98,6 +97,19 @@ class HomeFragment : Fragment(), HomeContract.View {
                 .load(FirebaseAuth.getInstance().currentUser!!.photoUrl.toString())
                 .into(img_home)
         }
+
+        if (!ustad.userOnline.isNullOrEmpty()){
+            if (ustad.userOnline[0].status == "Online"){
+                img_home.borderColor = resources.getColor(R.color.green_app)
+            }else{
+                img_home.borderColor = resources.getColor(R.color.colorTextHint)
+            }
+
+
+        }else{
+            img_home.borderColor = resources.getColor(R.color.colorTextHint)
+        }
+
 
         name_tv_home.text = currentUser?.displayName ?: "Belum ada informasi"
         datebirt_tv_home.text = "${ustad.tempatLahir}, ${ustad.tanggalLahir}"

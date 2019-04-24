@@ -2,13 +2,11 @@ package com.iffy.fikhustaz.data.itemviews
 
 import android.content.Context
 import android.util.Log.d
-import com.bumptech.glide.Glide
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.model.chat.ImageMessage
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.item_image_message.*
-import java.io.File
 
 class ImageMessageItem(val message: ImageMessage,
                        val context: Context

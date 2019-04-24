@@ -18,6 +18,7 @@ import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.AppConst
 import com.iffy.fikhustaz.data.UserType
 import com.iffy.fikhustaz.data.itemviews.ScheduleItem
+import com.iffy.fikhustaz.data.model.profile.ItOnline
 import com.iffy.fikhustaz.data.model.profile.ItSchedule
 import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.iffy.fikhustaz.util.DatesFormat
@@ -29,6 +30,7 @@ import com.xwray.groupie.kotlinandroidextensions.Item
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import org.jetbrains.anko.*
+import org.jetbrains.anko.sdk27.coroutines.onCheckedChange
 import java.util.*
 import java.io.ByteArrayOutputStream
 import java.io.IOException
@@ -49,6 +51,7 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
 
     private var mSchedule = mutableListOf<Item>()
     private var mScheduleList = mutableListOf<ItSchedule>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +77,14 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
                     "Camera" -> openCamera()
                     "Gallery" -> openGallery()
                 }
+            }
+        }
+
+        sw_status_edit.onCheckedChange { buttonView, isChecked ->
+            if (isChecked){
+                sw_status_edit.text = "Online"
+            }else{
+                sw_status_edit.text = "Offline"
             }
         }
 
@@ -104,11 +115,20 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
         val pendidikan = pendidikan_et_edit.text.toString()
         val keilmuan = keilmuan_et_edit.text.toString()
         val mazhab = mazhab_et_edit.text.toString()
+        val userOnline: MutableList<ItOnline> = mutableListOf()
+
+        if (sw_status_edit.isChecked){
+            userOnline.clear()
+            userOnline.add(ItOnline("Online", System.currentTimeMillis()))
+        }else{
+            userOnline.clear()
+            userOnline.add(ItOnline("Offline", System.currentTimeMillis()))
+        }
 
         presenter.saveData(
             Ustad(
                 name, "", "", tempat, tanggal, pendidikan, keilmuan, mazhab, selectedImageBytes.toString(),"", "", "", null, UserType.USTAZ,
-                null, mutableListOf()
+                userOnline, mutableListOf()
             ),
             selectedImageBytes
         )
@@ -119,6 +139,20 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
             Picasso.get()
                 .load(FirebaseAuth.getInstance().currentUser!!.photoUrl.toString())
                 .into(img_edit_prof)
+        }
+
+        if (!ustad.userOnline.isNullOrEmpty()){
+            if (ustad.userOnline[0].status == "Online"){
+                sw_status_edit.text = "Online"
+                sw_status_edit.isChecked = true
+            }else{
+                sw_status_edit.text = "Offline"
+                sw_status_edit.isChecked = false
+            }
+
+        }else{
+            sw_status_edit.text = "Offline"
+            sw_status_edit.isChecked = false
         }
 
         name_et_edit.setText(ustad.nama)
@@ -147,7 +181,6 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
                 }
             }
         }
-        sw_status_edit.isChecked = sw_status_edit.isChecked
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

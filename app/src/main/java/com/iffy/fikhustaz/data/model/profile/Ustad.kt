@@ -19,7 +19,7 @@ data class Ustad (val nama: String?,
                   val rate: String?,
                   val schedule: MutableList<ItSchedule>?,
                   val type:String = UserType.USTAZ,
-                  val userOnline: MutableList<Long>?,
+                  val userOnline: MutableList<ItOnline>?,
                   val registrationTokens: MutableList<String>) : Parcelable{
     constructor(): this ("","","","","","", "","","","","","", mutableListOf(),UserType.USTAZ ,mutableListOf(),mutableListOf())
 }
