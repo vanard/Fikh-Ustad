@@ -14,7 +14,7 @@ interface RetrofitService {
     @GET("/fatwa")
     fun fetchFatwa() : Deferred<Response<Kajian>>
     @GET("/page/{page_id}")
-    fun fetchFikih(@Path("page_id") page_id: Int): Deferred<Response<Fikih>>
+    fun fetchFikih(@Path("page_id") page_id: Int): Deferred<Response<List<Fikih>>>
     @GET("/link/{link_page}")
-    fun fetchIsiFikh(@Path("link_page") link_page: String): Deferred<Response<IsiFikh>>
+    fun fetchIsiFikh(@Path("link_page") link_page: String): Deferred<Response<List<IsiFikh>>>
 }

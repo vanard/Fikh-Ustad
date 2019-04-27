@@ -12,7 +12,7 @@ class MateriPresenter (v: MateriContract.View) : MateriContract.Presenter{
 
     private var view: MateriContract.View? = v
     private val uiScope = CoroutineScope(Dispatchers.Main)
-    val service = RetrofitFactory.makeRetrofitService()
+    val service = RetrofitFactory.makeRetrofitService(RetrofitFactory.BASE_URL_FIKH)
 
     override fun getData() {
         view?.showLoading()
@@ -22,7 +22,7 @@ class MateriPresenter (v: MateriContract.View) : MateriContract.Presenter{
                 val response = request.await()
                 if (response.isSuccessful){
                     response.body()?.let {
-                        d("MateriPresenter", "${it}")
+                        d("MateriPresenter", "$it")
                         view?.initData(it.data)
                     }
                     view?.hideLoading()
@@ -42,7 +42,7 @@ class MateriPresenter (v: MateriContract.View) : MateriContract.Presenter{
 
     override fun getDataFatwa() {
         view?.showLoading()
-        uiScope.async {
+        uiScope.launch {
             val requestFatwa = service.fetchFatwa()
             try {
                 val responseFatwa = requestFatwa.await()

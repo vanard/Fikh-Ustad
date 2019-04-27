@@ -9,19 +9,25 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iffy.fikhustaz.R
-import com.iffy.fikhustaz.data.itemviews.MateriItem
-import com.iffy.fikhustaz.data.model.materi.islamhouse.IslamData
+import com.iffy.fikhustaz.data.itemviews.MateriFikhItem
+import com.iffy.fikhustaz.data.model.materi.konsulsyariah.Fikih
+import com.iffy.fikhustaz.data.model.materi.konsulsyariah.IsiFikh
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.fragment_materi.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.async
 import org.jetbrains.anko.support.v4.toast
 
 
-class MateriFragment : Fragment(), MateriContract.View {
+class MateriFragment : Fragment(), MateriSyariahContract.View {
 
-    val presenter = MateriPresenter(this)
+    val presenter = MateriSyariahPresenter(this)
     val adapter = GroupAdapter<ViewHolder>()
+    private var listFikh = mutableListOf<Fikih>()
+    private var isiFikh = mutableListOf<IsiFikh>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,29 +49,29 @@ class MateriFragment : Fragment(), MateriContract.View {
         rv_materi.layoutManager = LinearLayoutManager(context)
         rv_materi.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
-        presenter.getData()
+        presenter.getData(1)
 
     }
 
-    override fun initData(list: List<IslamData>) {
-        d("MateriFragment", "$list")
-        if (list.isNotEmpty()){
-            adapter.clear()
-            list.forEach {
-                adapter.add(MateriItem(it))
-            }
-            adapter.notifyDataSetChanged()
-            presenter.getDataFatwa()
+    override fun listData(fikh: IsiFikh) {
+        adapter.clear()
+        isiFikh.add(fikh)
+        isiFikh.forEachIndexed { index, fikih ->
+            adapter.add(MateriFikhItem(listFikh[index],fikih))
         }
     }
 
-    override fun initDataFatwa(list: List<IslamData>) {
+    override fun initData(list: List<Fikih>) {
+        isiFikh.clear()
+        listFikh.clear()
+
         if (list.isNotEmpty()){
-            list.forEach {
-                adapter.add(MateriItem(it))
+            listFikh.addAll(list)
+            listFikh.forEach {
+                presenter.getDetailData(it.link)
             }
-            adapter.notifyDataSetChanged()
         }
+
     }
 
     override fun showMsg(msg: String) {

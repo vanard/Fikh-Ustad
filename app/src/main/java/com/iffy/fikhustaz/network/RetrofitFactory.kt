@@ -9,11 +9,12 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitFactory {
-    const val BASE_URL = "https://ta-iffy.herokuapp.com"
+    const val BASE_URL_FIKH = "https://ta-iffy.herokuapp.com"
+    const val BASE_URL_SYARIAH = "https://iffy-ta.herokuapp.com"
 
-    fun makeRetrofitService(): RetrofitService {
+    fun makeRetrofitService(url : String): RetrofitService {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(url)
             .client(makeOkHttpClient())
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
@@ -23,9 +24,9 @@ object RetrofitFactory {
     private fun makeOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(makeLoggingInterceptor())
-            .connectTimeout(240, TimeUnit.SECONDS)
-            .readTimeout(240, TimeUnit.SECONDS)
-            .writeTimeout(120, TimeUnit.SECONDS)
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(5, TimeUnit.SECONDS)
             .build()
     }
 
