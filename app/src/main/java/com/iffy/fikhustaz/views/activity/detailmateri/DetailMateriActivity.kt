@@ -2,6 +2,7 @@ package com.iffy.fikhustaz.views.activity.detailmateri
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.model.materi.konsulsyariah.IsiFikh
 import com.squareup.picasso.Picasso
@@ -16,10 +17,11 @@ class DetailMateriActivity : AppCompatActivity() {
         if (intent != null) {
             val a = intent.getParcelableExtra<IsiFikh>("data")
             if (a != null){
+                supportActionBar?.title = a.title
                 Picasso.get().load(a.image).placeholder(R.drawable.logo_app_fikh).into(img_detailmateri)
                 tv_author_detailmateri.text = a.author
                 tv_date_detailmateri.text = a.date
-                tv_description_detailmateri.text = a.description
+                tv_description_detailmateri.text = Html.fromHtml(a.description)
             }
         }
     }
