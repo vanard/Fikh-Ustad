@@ -77,6 +77,7 @@ dependencies {
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
     implementation 'com.github.kk121:File-Loader:1.2'
     implementation 'com.karumi:dexter:5.0.0'
+    implementation 'com.itextpdf:itextg:5.5.10'
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'

@@ -17,11 +17,6 @@ class PersonItem(val person: Ustad,
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.tv_person_name.text = person.nama
         viewHolder.tv_last_message.text = person.handphone
-        if (person.profilePicture != null)
-            Picasso.get()
-                .load(person.profilePicture)
-                .placeholder(R.drawable.ic_account_circle)
-                .into(viewHolder.img_profile_picture)
     }
 
     override fun getLayout() = R.layout.item_person

@@ -33,6 +33,9 @@
         </provider>
 
         <activity android:name=".views.activity.detailmateri.DetailMateriActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.iffy.fikhustaz.views.activity.HomeActivity"/>
         </activity>
 
         <activity

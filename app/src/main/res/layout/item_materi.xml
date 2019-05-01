@@ -26,7 +26,7 @@
                 android:id="@+id/tv_title_materi"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/img_profile_picture"
+                android:layout_toEndOf="@id/img_materi"
                 android:textSize="14sp"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat"
                 tools:text="Title"
