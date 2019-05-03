@@ -4,6 +4,10 @@
           android:title="Home"
           android:icon="@drawable/ic_home"
           app:showAsAction="ifRoom"/>
+    <item android:id="@+id/nav_quran"
+          android:title="Al-Qur'an"
+          android:icon="@drawable/ic_quran_1"
+    />
     <item android:id="@+id/nav_materi"
           android:title="Materi"
           android:icon="@drawable/ic_books_stack"

@@ -22,6 +22,22 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
 
+        <!-- FCM -->
+        <meta-data
+                android:name="com.google.firebase.messaging.default_notification_icon"
+                android:resource="@drawable/logo_app_fikh"/>
+
+        <service android:name=".service.MyFirebaseMessagingService" android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <service android:name=".service.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
         <provider
                 android:name="androidx.core.content.FileProvider"
                 android:authorities="com.iffy.fikhustaz.provider_paths"
@@ -82,21 +98,7 @@
         <activity
                 android:name=".views.activity.login.LoginActivity"
                 android:theme="@style/AppTheme.NoActionBar">
-        </activity> <!-- FCM -->
-        <meta-data
-                android:name="com.google.firebase.messaging.default_notification_icon"
-                android:resource="@drawable/logo_app_fikh"/>
-
-        <service android:name=".service.MyFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-            </intent-filter>
-        </service>
-        <service android:name=".service.MyFirebaseInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-            </intent-filter>
-        </service>
+        </activity>
     </application>
 
 </manifest>
