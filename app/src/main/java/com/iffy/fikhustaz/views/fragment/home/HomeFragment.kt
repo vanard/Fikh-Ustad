@@ -40,10 +40,6 @@ class HomeFragment : Fragment(), HomeContract.View {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        mAuth = FirebaseAuth.getInstance()
-        currentUser = mAuth.currentUser
-        presenter = HomePresenter(this)
-        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.activity_profile, container, false)
     }
 
@@ -51,6 +47,12 @@ class HomeFragment : Fragment(), HomeContract.View {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as HomeActivity).supportActionBar?.title = "Home"
+
+        mAuth = FirebaseAuth.getInstance()
+        currentUser = mAuth.currentUser
+        presenter = HomePresenter(this)
+        setHasOptionsMenu(true)
+
         presenter.getData()
 
         rv_home.layoutManager = GridLayoutManager(this@HomeFragment.context, 3)

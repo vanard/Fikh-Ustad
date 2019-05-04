@@ -22,12 +22,19 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
 
+        <activity android:name=".views.activity.quran.SurahActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.iffy.fikhustaz.views.activity.HomeActivity"/>
+        </activity>
         <!-- FCM -->
         <meta-data
                 android:name="com.google.firebase.messaging.default_notification_icon"
                 android:resource="@drawable/logo_app_fikh"/>
 
-        <service android:name=".service.MyFirebaseMessagingService" android:exported="false">
+        <service
+                android:name=".service.MyFirebaseMessagingService"
+                android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
@@ -53,7 +60,6 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.iffy.fikhustaz.views.activity.HomeActivity"/>
         </activity>
-
         <activity
                 android:name=".views.activity.editprof.EditProfileActivity"
                 android:label="Edit Profile">

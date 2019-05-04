@@ -1,36 +1,39 @@
 package com.iffy.fikhustaz.views.fragment.quran
 
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.itemviews.QuranItem
 import com.iffy.fikhustaz.data.model.quran.Quran
-import com.iffy.fikhustaz.network.RetrofitFactory
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
-import kotlinx.android.synthetic.main.fragment_materi.*
 import kotlinx.android.synthetic.main.fragment_quran.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import retrofit2.HttpException
+import org.jetbrains.anko.support.v4.toast
 
-class QuranFragment : Fragment() {
+class QuranFragment : Fragment(), QuranContract.View {
 
+    override fun setData(it: List<Quran>) {
+        adapter.clear()
+        listQuran.addAll(it)
+        listDisplay.addAll(it)
+        listQuran.forEach {
+            adapter.add(QuranItem(it))
+        }
+    }
+
+    private lateinit var dialog: ProgressDialog
+    val presenter = QuranPresenter(this)
     val adapter = GroupAdapter<ViewHolder>()
     private var listQuran = mutableListOf<Quran>()
-
-    private val uiScope = CoroutineScope(Dispatchers.Main)
-    private val service = RetrofitFactory.makeRetrofitService(RetrofitFactory.BASE_URL_SYARIAH)
+    private var listDisplay = mutableListOf<Quran>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +46,7 @@ class QuranFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as HomeActivity).supportActionBar?.title = "Quran"
+        (activity as HomeActivity).supportActionBar?.title = "Al - Qur'an"
 
         rv_quran.adapter = adapter
         rv_quran.layoutManager = LinearLayoutManager(context)
@@ -53,32 +56,31 @@ class QuranFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        uiScope.launch {
-            val request = service.fetchQuran()
-            try {
-                val response = request.await()
-                if (response.isSuccessful){
-                    response.body()?.let {
-                        initData(it)
-                    }
-                }else{
-                    Log.d("MateriSyariah", "${response.errorBody()}")
-                }
-            } catch (e: HttpException) {
-                Log.d("MateriSyariah", e.code().toString())
-            } catch (e: Throwable) {
-                Log.d("MateriSyariah", "$e")
-            }
-
-        }
+        presenter.initData()
     }
 
-    private fun initData(it: List<Quran>) {
-        adapter.clear()
-        listQuran.addAll(it)
-        listQuran.forEach {
-            adapter.add(QuranItem(it))
-        }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.quran_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return (when(item.itemId){
+            R.id.menu_search -> {
+                toast("Search Coming Soon")
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        })
+    }
+
+    override fun showLoad() {
+        dialog = ProgressDialog.show(this@QuranFragment.context, "", "Loading")
+        dialog.setCancelable(false)
+        dialog.isIndeterminate
+    }
+
+    override fun hideLoad() {
+        dialog.dismiss()
     }
 
 }
