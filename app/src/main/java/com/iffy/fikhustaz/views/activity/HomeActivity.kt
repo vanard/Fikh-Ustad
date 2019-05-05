@@ -99,6 +99,7 @@ class HomeActivity : AppCompatActivity() {
             ft.add(R.id.main_container,fragHome)
 
         ft.commit()
+        supportActionBar?.title = "Home"
     }
 
     private fun showFragmentPesan() {
@@ -119,6 +120,7 @@ class HomeActivity : AppCompatActivity() {
             ft.add(R.id.main_container,fragPesan)
 
         ft.commit()
+        supportActionBar?.title = "Pesan"
     }
 
     private fun showFragmentMateri() {
@@ -139,6 +141,7 @@ class HomeActivity : AppCompatActivity() {
             ft.add(R.id.main_container,fragMateri)
 
         ft.commit()
+        supportActionBar?.title = "Materi"
     }
 
     private fun showFgQuran() {
@@ -159,5 +162,6 @@ class HomeActivity : AppCompatActivity() {
             ft.add(R.id.main_container,fgQuran)
 
         ft.commit()
+        supportActionBar?.title = "Al - Qur'an"
     }
 }

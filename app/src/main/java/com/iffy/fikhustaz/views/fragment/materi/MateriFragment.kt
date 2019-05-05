@@ -2,10 +2,8 @@ package com.iffy.fikhustaz.views.fragment.materi
 
 import android.os.Bundle
 import android.util.Log.d
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iffy.fikhustaz.R
@@ -41,6 +39,7 @@ class MateriFragment : Fragment(), MateriSyariahContract.View {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as HomeActivity).supportActionBar?.title = "Materi"
+        setHasOptionsMenu(true)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -72,6 +71,20 @@ class MateriFragment : Fragment(), MateriSyariahContract.View {
             }
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.quran_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return (when(item.itemId){
+            R.id.menu_search -> {
+                toast("Search Coming Soon")
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        })
     }
 
     override fun showMsg(msg: String) {
