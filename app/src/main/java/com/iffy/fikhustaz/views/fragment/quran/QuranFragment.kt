@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteConstraintException
 import android.os.Bundle
 import android.util.Log.d
 import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -95,6 +96,32 @@ class QuranFragment : Fragment(), QuranContract.View {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.quran_menu, menu)
+
+        val searchView = menu.findItem(R.id.menu_search)?.actionView as SearchView
+        searchView.queryHint = "Pencarian"
+
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                listDisplay.clear()
+                if (p0!!.isNotEmpty()){
+                    val search = p0.toLowerCase()
+                    listQuran.forEach {
+                        if (it.nama.toLowerCase().contains(search) || it.nomor.toLowerCase().contains(search)){
+                            listDisplay.add(it)
+                        }
+                    }
+                }else{
+                    listDisplay.addAll(listQuran)
+                }
+                rv_quran.adapter?.notifyDataSetChanged()
+                return true
+            }
+
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
