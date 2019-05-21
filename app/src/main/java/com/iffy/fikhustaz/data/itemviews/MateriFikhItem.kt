@@ -12,11 +12,11 @@ import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.item_materi.view.*
 import org.jetbrains.anko.startActivity
 
-class MateriFikhItem(val message: Fikih, val fikh: IsiFikh) : Item(){
+class MateriFikhItem(val fikh: IsiFikh) : Item(){
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
 
-        viewHolder.itemView.tv_title_materi.text = message.title
+        viewHolder.itemView.tv_title_materi.text = fikh.title
         viewHolder.itemView.tv_desc_materi.text = fikh.category.split("\n").toString()
         viewHolder.itemView.tv_day_materi.text = ""
 

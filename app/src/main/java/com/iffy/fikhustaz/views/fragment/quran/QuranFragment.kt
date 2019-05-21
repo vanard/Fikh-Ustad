@@ -60,7 +60,7 @@ class QuranFragment : Fragment(), QuranContract.View {
         adapter.clear()
         listQuran.addAll(it)
         listDisplay.addAll(it)
-        listQuran.forEach {
+        listDisplay.forEach {
             adapter.add(QuranItem(it))
 
             try{
@@ -89,7 +89,7 @@ class QuranFragment : Fragment(), QuranContract.View {
         adapter.clear()
         listQuran.addAll(it)
         listDisplay.addAll(it)
-        listQuran.forEach {
+        listDisplay.forEach {
             adapter.add(QuranItem(it))
         }
     }
@@ -106,18 +106,20 @@ class QuranFragment : Fragment(), QuranContract.View {
             }
 
             override fun onQueryTextChange(p0: String?): Boolean {
-                listDisplay.clear()
+                adapter.clear()
                 if (p0!!.isNotEmpty()){
                     val search = p0.toLowerCase()
                     listQuran.forEach {
-                        if (it.nama.toLowerCase().contains(search) || it.nomor.toLowerCase().contains(search)){
-                            listDisplay.add(it)
+                        if (it.nama.toLowerCase().contains(search) or it.nomor.toLowerCase().contentEquals(search)){
+                            adapter.add(QuranItem(it))
                         }
                     }
                 }else{
-                    listDisplay.addAll(listQuran)
+                    listQuran.forEach{
+                        adapter.add(QuranItem(it))
+                    }
                 }
-                rv_quran.adapter?.notifyDataSetChanged()
+                adapter.notifyDataSetChanged()
                 return true
             }
 
@@ -127,7 +129,6 @@ class QuranFragment : Fragment(), QuranContract.View {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return (when(item.itemId){
             R.id.menu_search -> {
-                toast("Search Coming Soon")
                 true
             }
             else -> super.onOptionsItemSelected(item)
