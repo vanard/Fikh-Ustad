@@ -1,9 +1,6 @@
 package com.iffy.fikhustaz.data.itemviews
 
-import android.util.Log.d
-import com.bumptech.glide.Glide
 import com.iffy.fikhustaz.R
-import com.iffy.fikhustaz.data.model.materi.konsulsyariah.Fikih
 import com.iffy.fikhustaz.data.model.materi.konsulsyariah.IsiFikh
 import com.iffy.fikhustaz.views.activity.detailmateri.DetailMateriActivity
 import com.squareup.picasso.Picasso
@@ -24,8 +21,6 @@ class MateriFikhItem(val fikh: IsiFikh) : Item(){
             .load(fikh.image)
             .placeholder(R.drawable.logo_app_fikh)
             .into(viewHolder.itemView.img_materi)
-
-//        Glide.with(viewHolder.containerView).load(fikh.image).placeholder(R.drawable.logo_app_fikh).into(viewHolder.itemView.img_materi)
 
         viewHolder.itemView.setOnClickListener {
             viewHolder.itemView.context.startActivity<DetailMateriActivity>("data" to fikh)

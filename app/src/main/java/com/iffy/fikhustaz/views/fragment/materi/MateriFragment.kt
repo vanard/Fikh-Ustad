@@ -3,22 +3,26 @@ package com.iffy.fikhustaz.views.fragment.materi
 import android.os.Bundle
 import android.util.Log.d
 import android.view.*
+import android.widget.ArrayAdapter
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.marginLeft
+import androidx.core.view.marginRight
+import androidx.core.view.marginStart
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.itemviews.MateriFikhItem
-import com.iffy.fikhustaz.data.itemviews.QuranItem
 import com.iffy.fikhustaz.data.model.materi.konsulsyariah.Fikih
 import com.iffy.fikhustaz.data.model.materi.konsulsyariah.IsiFikh
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.fragment_materi.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.async
+import com.iffy.fikhustaz.R.array.filter
+import org.jetbrains.anko.*
+import org.jetbrains.anko.support.v4.alert
+import org.jetbrains.anko.support.v4.selector
 import org.jetbrains.anko.support.v4.toast
 
 
@@ -60,9 +64,7 @@ class MateriFragment : Fragment(), MateriSyariahContract.View {
 
     override fun listData(fikh: IsiFikh) {
         isiFikh.add(fikh)
-//        isiFikh.forEachIndexed { index, fikih ->
-            adapter.add(MateriFikhItem(fikh))
-//        }
+        adapter.add(MateriFikhItem(fikh))
     }
 
     override fun initData(list: List<Fikih>) {
@@ -77,7 +79,7 @@ class MateriFragment : Fragment(), MateriSyariahContract.View {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.quran_menu, menu)
+        inflater.inflate(R.menu.daftar_materi_menu, menu)
 
         val searchView = menu.findItem(R.id.menu_search)?.actionView as SearchView
         searchView.queryHint = "Pencarian"
@@ -111,6 +113,28 @@ class MateriFragment : Fragment(), MateriSyariahContract.View {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return (when(item.itemId){
             R.id.menu_search -> {
+                true
+            }
+            R.id.menu_filter -> {
+                val spinnerItems = listOf("Semua","Ramadhan", "Muamalah", "Ibadah", "Aqidah", "Kitab", "Puasa", "Hadits", "Zakat", "Sholat", "Dzikir dan Doa", "Sejarah Islam", "Anak", "Jenazah", "Hutang Piutang", "Pernikahan")
+                selector("Filter Kategori", spinnerItems, { dialogInterface, i ->
+                    toast("Filter ${spinnerItems[i]}")
+
+                    adapter.clear()
+                    val search = spinnerItems[i].toLowerCase()
+                    if (search.equals("semua")){
+                        isiFikh.forEach{
+                            adapter.add(MateriFikhItem(it))
+                        }
+                    }else{
+                        isiFikh.forEach {
+                            if (it.category.toLowerCase().contains(search)){
+                                adapter.add(MateriFikhItem(it))
+                            }
+                        }
+                    }
+                    adapter.notifyDataSetChanged()
+                })
                 true
             }
             else -> super.onOptionsItemSelected(item)

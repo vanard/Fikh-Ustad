@@ -19,4 +19,13 @@
             <p>Anda bisa membaca artikel ini melalui aplikasi&#xA0;<a href=\"https://play.google.com/store/apps/details?id=org.yufid.tanyaustadz\" target=\"_blank\" rel=\"noopener\"><strong>Tanya Ustadz untuk Android</strong></a>.<br>\n<a href=\"https://play.google.com/store/apps/details?id=org.yufid.tanyaustadz\" target=\"_blank\" rel=\"noopener\"><strong>Download Sekarang !!</strong></a></p>\n<p><strong>Dukung Yufid dengan menjadi SPONSOR dan DONATUR.</strong></p>\n<ul>\n<li><strong>REKENING DONASI</strong>&#xA0;: BNI SYARIAH 0381346658 /&#xA0;BANK SYARIAH MANDIRI 7086882242 a.n. YAYASAN YUFID NETWORK</li>\n<li><strong>KONFIRMASI DONASI</strong>&#xA0;hubungi: 087-738-394-989</li>\n</ul>\n</div>
         ]]>
     </string>
+    <string name="text_filter">Filter</string>
+    <string-array name="filter">
+        <item>Ramadhan</item>
+        <item>Muamalah</item>
+        <item>Ibadah</item>
+        <item>Aqidah</item>
+        <item>Kitab</item>
+        <item>Sejarah Islam</item>
+    </string-array>
 </resources>
