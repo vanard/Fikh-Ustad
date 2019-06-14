@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:fitsSystemWindows="true"
+              android:padding="16dp"
+              android:minWidth="720dp"
+>
+
+    <TextView
+            android:text="Upload Bukti"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/textView7" android:textSize="16sp"
+            android:textStyle="bold"/>
+    <ImageView
+            android:layout_marginTop="8dp"
+            android:layout_width="172dp"
+            android:layout_height="172dp"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center_horizontal"
+            app:srcCompat="@mipmap/ic_launcher" android:id="@+id/img_dialog"/>
+    <Button
+            android:layout_marginTop="16dp"
+            android:text="Pilih gambar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/btn_pick_dialog"/>
+    <Button
+            android:layout_marginTop="8dp"
+            android:text="Upload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/btn_upload_dialog"/>
+</LinearLayout>

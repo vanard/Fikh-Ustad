@@ -24,6 +24,7 @@ import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.iffy.fikhustaz.util.DatesFormat
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.iffy.fikhustaz.views.activity.editprof.bottomsheetfragment.EditProfBottomSheetFragment
+import com.iffy.fikhustaz.views.activity.editprof.upload.DialogUploadFragment
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.Item
@@ -39,8 +40,8 @@ import java.io.IOException
 class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
 
     companion object {
-        private const val REQUEST_GET_SINGLE_FILE = 101
-        private const val REQUEST_CAPTURE_IMAGE = 102
+        const val REQUEST_GET_SINGLE_FILE = 101
+        const val REQUEST_CAPTURE_IMAGE = 102
 
     }
 
@@ -86,6 +87,11 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
             }else{
                 sw_status_edit.text = "Offline"
             }
+        }
+
+        btn_upload_edit_prof.setOnClickListener {
+            val d = DialogUploadFragment()
+            d.show(supportFragmentManager, "Crot")
         }
 
     }
