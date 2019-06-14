@@ -16,10 +16,10 @@ data class Ustad (val nama: String?,
                   val profilePicture: String?,
                   val sertifikat: String?,
                   val ijazah: String?,
-                  val rate: String?,
+                  val rate: Long?,
                   val schedule: MutableList<ItSchedule>?,
                   val type:String = UserType.USTAZ,
                   val userOnline: MutableList<ItOnline>?,
                   val registrationTokens: MutableList<String>) : Parcelable {
-    constructor(): this ("","","","","","", "","","","","","", mutableListOf(),UserType.USTAZ ,mutableListOf(),mutableListOf())
+    constructor(): this ("","","","","","", "","","","","",100, mutableListOf(),UserType.USTAZ ,mutableListOf(),mutableListOf())
 }

@@ -94,7 +94,7 @@ class ScheduleManualFragment : Fragment() {
         if (dayList.isEmpty()){
             toast("Pilih hari terlebih dahulu")
         }else{
-            FirebaseUtil.updateCurrentUser("","","","","","","","","","","","", null, dayList)
+            FirebaseUtil.updateCurrentUser("","","","","","","","","","","",null, null, dayList)
             toast("Jadwal berhasil diubah")
         }
     }

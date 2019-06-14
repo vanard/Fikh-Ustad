@@ -51,7 +51,7 @@ class DetailMateriActivity : AppCompatActivity() {
             tv_date_detailmateri.text = a.date
             tv_description_detailmateri.text = Html.fromHtml(a.description)
 
-            val mFilePath = "${getExternalStorageDirectory()}/WebPageToPDF/${a.title}.pdf"
+            val mFilePath = "${getExternalStorageDirectory()}/${a.title}.pdf"
 
             val builder = StrictMode.VmPolicy.Builder()
             StrictMode.setVmPolicy(builder.build())

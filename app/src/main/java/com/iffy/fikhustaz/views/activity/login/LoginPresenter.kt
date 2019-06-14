@@ -75,7 +75,7 @@ class LoginPresenter (v: LoginContract.View, ctx: Context) : LoginContract.Prese
                         "",
                         user.photoUrl.toString(),
                         "",
-                        "",
+                        100,
                         mutableListOf(),
                         UserType.USTAZ,
                         mutableListOf(),

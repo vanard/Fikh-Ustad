@@ -6,6 +6,8 @@ object AppConst {
     const val MATERI_ACTIVITY = "Materi"
     const val EDIT_PROFILE_ACTIVITY = "Edit_Profile"
     const val QURAN_ACTIVITY = "Quran"
+
+    const val RATE = 64800000
 }
 
 object MessageType {

@@ -68,7 +68,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
             "",
             "",
             "",
-            "",
+            100,
             mutableListOf(),
             "USTAZ",
             mutableListOf(),

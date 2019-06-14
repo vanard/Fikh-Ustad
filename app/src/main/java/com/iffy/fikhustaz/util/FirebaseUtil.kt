@@ -48,7 +48,7 @@ object FirebaseUtil {
                           profilePicture: String? = null,
                           sertifikat: String? = null,
                           ijazah: String? = null,
-                          rate: String? = null,
+                          rate: Long? = null,
                           userOnline : List<ItOnline>? = null,
                           schedule: List<ItSchedule>? = null
     ) {
@@ -71,6 +71,8 @@ object FirebaseUtil {
             userFieldMap["schedule"] = schedule
         if (userOnline != null)
             userFieldMap["userOnline"] = userOnline
+        if (rate != null)
+
         currentUserDocRef.update(userFieldMap)
     }
 
