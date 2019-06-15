@@ -1,18 +1,25 @@
 package com.iffy.fikhustaz.views.activity.editprof.upload
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
 import com.iffy.fikhustaz.R
+import com.iffy.fikhustaz.util.FirebaseUtil
 import com.iffy.fikhustaz.views.activity.editprof.EditProfileActivity
+import kotlinx.android.synthetic.main.dialog_upload.*
 import kotlinx.android.synthetic.main.dialog_upload.view.*
 import org.jetbrains.anko.selector
+import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.toast
 import java.io.ByteArrayOutputStream
 import java.io.IOException
@@ -29,6 +36,14 @@ class DialogUploadFragment: DialogFragment() {
 
         val fighter = listOf("Camera", "Gallery")
 
+        v.img_dialog.setOnClickListener {
+            context!!.selector("Choose your fighter?", fighter) { dialogInterface, i ->
+                when(fighter[i]){
+                    "Camera" -> openCamera()
+                    "Gallery" -> openGallery()
+                }
+            }
+        }
         v.btn_pick_dialog.setOnClickListener {
             context!!.selector("Choose your fighter?", fighter) { dialogInterface, i ->
                 when(fighter[i]){
@@ -39,7 +54,30 @@ class DialogUploadFragment: DialogFragment() {
         }
 
         v.btn_upload_dialog.setOnClickListener {
-            context!!.toast("ptk")
+            val user = FirebaseAuth.getInstance().currentUser
+
+            val upImageRef =
+                FirebaseStorage.getInstance().getReference("${user?.uid}/sertifikat/${user?.uid}")
+
+            if (selectedImageBytes != null) {
+                val mDialg = ProgressDialog.show(context, "Uploading", "Tunggu sebentar")
+                mDialg.setCancelable(false)
+                mDialg.isIndeterminate
+                upImageRef.putBytes(selectedImageBytes!!).addOnCompleteListener {
+                    upImageRef.downloadUrl.addOnSuccessListener { uri ->
+                        val userFieldMap = mutableMapOf<String, Any>()
+                        userFieldMap["sertifikat"] = uri.toString()
+                        FirebaseUtil.currentUserDocRef.update(userFieldMap)
+
+                        toast("Upload success")
+
+                        dialog?.dismiss()
+                        mDialg.dismiss()
+                    }
+                }
+            }else{
+                toast("Pilih gambar terlebih dahulu")
+            }
         }
 
         return v
@@ -81,6 +119,12 @@ class DialogUploadFragment: DialogFragment() {
                         selectedImageBytes = outputStream.toByteArray()
 
                         v.img_dialog.setImageBitmap(bitmap)
+                        v.btn_pick_dialog.setBackgroundDrawable(resources.getDrawable(R.drawable.bg_chip))
+                        v.btn_pick_dialog.text = "Ganti Gambar"
+                        v.btn_pick_dialog.setTextColor(Color.GRAY)
+
+                        v.btn_upload_dialog.setBackgroundDrawable(resources.getDrawable(R.drawable.btn_green_register))
+                        v.btn_upload_dialog.setTextColor(Color.WHITE)
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
@@ -97,6 +141,12 @@ class DialogUploadFragment: DialogFragment() {
                     selectedImageBytes = outputStream.toByteArray()
 
                     v.img_dialog.setImageBitmap(imageBitmap)
+                    v.btn_pick_dialog.setBackgroundDrawable(resources.getDrawable(R.drawable.bg_chip))
+                    v.btn_pick_dialog.text = "Ganti Gambar"
+                    v.btn_pick_dialog.setTextColor(Color.GRAY)
+
+                    v.btn_upload_dialog.setBackgroundDrawable(resources.getDrawable(R.drawable.btn_green_register))
+                    v.btn_upload_dialog.setTextColor(Color.WHITE)
                 }
             }
         }

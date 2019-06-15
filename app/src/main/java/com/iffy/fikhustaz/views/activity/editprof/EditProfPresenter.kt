@@ -44,6 +44,7 @@ class EditProfPresenter(v: EditProfContract.View) : EditProfContract.Presenter {
 
                 view.hideLoad()
             }
+
         }else{
             uiScope.launch {
                 val profileImageRef =

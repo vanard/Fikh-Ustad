@@ -91,7 +91,7 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
 
         btn_upload_edit_prof.setOnClickListener {
             val d = DialogUploadFragment()
-            d.show(supportFragmentManager, "Crot")
+            d.show(supportFragmentManager, "Upload Fragment")
         }
 
     }

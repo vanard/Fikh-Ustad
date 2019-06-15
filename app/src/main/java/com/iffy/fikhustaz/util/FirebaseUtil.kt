@@ -63,15 +63,14 @@ object FirebaseUtil {
         if (mazhab.isNotBlank()) userFieldMap["mazhab"] = mazhab
         if (profilePicture != null && profilePicture.isNotBlank())
             userFieldMap["profilePicture"] = profilePicture
-        if (sertifikat != null)
+        if (sertifikat != null && sertifikat.isNotBlank())
             userFieldMap["sertifikat"] = sertifikat
-        if (ijazah != null)
+        if (ijazah != null && ijazah.isNotBlank())
             userFieldMap["ijazah"] = ijazah
         if (schedule != null)
             userFieldMap["schedule"] = schedule
         if (userOnline != null)
             userFieldMap["userOnline"] = userOnline
-        if (rate != null)
 
         currentUserDocRef.update(userFieldMap)
     }

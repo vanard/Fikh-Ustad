@@ -112,6 +112,9 @@ class HomeFragment : Fragment(), HomeContract.View {
             img_home.borderColor = resources.getColor(R.color.colorTextHint)
         }
 
+        if (ustad.rate != null){
+            rate_tv_home.text = "Pesan dibalas ${ustad.rate}%"
+        }
 
         name_tv_home.text = currentUser?.displayName ?: "Belum ada informasi"
         datebirt_tv_home.text = "${ustad.tempatLahir}, ${ustad.tanggalLahir}"
