@@ -9,9 +9,9 @@ import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log.d
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.iffy.fikhustaz.R
@@ -22,9 +22,10 @@ import com.iffy.fikhustaz.data.model.profile.ItOnline
 import com.iffy.fikhustaz.data.model.profile.ItSchedule
 import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.iffy.fikhustaz.util.DatesFormat
+import com.iffy.fikhustaz.util.FirebaseUtil
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.iffy.fikhustaz.views.activity.editprof.bottomsheetfragment.EditProfBottomSheetFragment
-import com.iffy.fikhustaz.views.activity.editprof.upload.DialogUploadFragment
+import com.iffy.fikhustaz.views.activity.editprof.upload.VerifyActivity
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.Item
@@ -89,9 +90,13 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
             }
         }
 
+        FirebaseUtil.getCurrentUser {
+            if (it.ijazah != null && it.ijazah.isNotBlank() && it.sertifikat != null && it.sertifikat.isNotBlank())
+                btn_upload_edit_prof.text = "Ubah persyaratan data?"
+        }
+
         btn_upload_edit_prof.setOnClickListener {
-            val d = DialogUploadFragment()
-            d.show(supportFragmentManager, "Upload Fragment")
+           startActivity<VerifyActivity>()
         }
 
     }

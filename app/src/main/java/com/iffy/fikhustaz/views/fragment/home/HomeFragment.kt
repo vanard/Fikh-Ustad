@@ -2,7 +2,6 @@ package com.iffy.fikhustaz.views.fragment.home
 
 import android.app.ProgressDialog
 import android.os.Bundle
-import android.util.Log.d
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,8 +11,10 @@ import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.itemviews.ScheduleItem
 import com.iffy.fikhustaz.data.model.profile.ItSchedule
 import com.iffy.fikhustaz.data.model.profile.Ustad
+import com.iffy.fikhustaz.util.FirebaseUtil
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.iffy.fikhustaz.views.activity.editprof.EditProfileActivity
+import com.iffy.fikhustaz.views.activity.editprof.upload.VerifyActivity
 import com.iffy.fikhustaz.views.activity.login.LoginActivity
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
@@ -56,6 +57,15 @@ class HomeFragment : Fragment(), HomeContract.View {
         presenter.getData()
 
         rv_home.layoutManager = GridLayoutManager(this@HomeFragment.context, 3)
+
+        FirebaseUtil.getCurrentUser {
+            if (it.ijazah != null && it.ijazah.isNotBlank() && it.sertifikat != null && it.sertifikat.isNotBlank())
+               btn_fulfill_profile_home.visibility = View.GONE
+        }
+
+        btn_fulfill_profile_home.setOnClickListener {
+            startActivity<VerifyActivity>()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

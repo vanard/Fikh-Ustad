@@ -21,13 +21,16 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-
-        <activity android:name=".views.activity.quran.SurahActivity">
+        <activity android:name=".views.activity.editprof.upload.VerifyActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.iffy.fikhustaz.views.activity.HomeActivity"/>
         </activity>
-        <!-- FCM -->
+        <activity android:name=".views.activity.quran.SurahActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.iffy.fikhustaz.views.activity.HomeActivity"/>
+        </activity> <!-- FCM -->
         <meta-data
                 android:name="com.google.firebase.messaging.default_notification_icon"
                 android:resource="@drawable/logo_app_fikh"/>

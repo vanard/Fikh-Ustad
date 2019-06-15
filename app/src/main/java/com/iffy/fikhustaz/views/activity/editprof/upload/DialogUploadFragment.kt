@@ -13,9 +13,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.util.FirebaseUtil
 import com.iffy.fikhustaz.views.activity.editprof.EditProfileActivity
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.dialog_upload.*
 import kotlinx.android.synthetic.main.dialog_upload.view.*
 import org.jetbrains.anko.selector
@@ -30,11 +32,25 @@ class DialogUploadFragment: DialogFragment() {
 
     private var selectedImageBytes: ByteArray? = null
     lateinit var v : View
+    lateinit var upImageRef : StorageReference
+
+    companion object{
+        private val ARG_CAUGHT = "myFragment_caught"
+
+        fun newInstance(type: String):DialogUploadFragment{
+            val args: Bundle = Bundle()
+            args.putString(ARG_CAUGHT, type)
+            val fragment = DialogUploadFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         v = inflater.inflate(R.layout.dialog_upload, container, false)
 
         val fighter = listOf("Camera", "Gallery")
+        val tipe = arguments?.getString(ARG_CAUGHT)
 
         v.img_dialog.setOnClickListener {
             context!!.selector("Choose your fighter?", fighter) { dialogInterface, i ->
@@ -53,34 +69,56 @@ class DialogUploadFragment: DialogFragment() {
             }
         }
 
-        v.btn_upload_dialog.setOnClickListener {
+        if (tipe != null) {
+            loadPage(tipe)
+
             val user = FirebaseAuth.getInstance().currentUser
 
-            val upImageRef =
-                FirebaseStorage.getInstance().getReference("${user?.uid}/sertifikat/${user?.uid}")
+            upImageRef =
+                FirebaseStorage.getInstance().getReference("${user?.uid}/$tipe/${user?.uid}")
 
-            if (selectedImageBytes != null) {
-                val mDialg = ProgressDialog.show(context, "Uploading", "Tunggu sebentar")
-                mDialg.setCancelable(false)
-                mDialg.isIndeterminate
-                upImageRef.putBytes(selectedImageBytes!!).addOnCompleteListener {
-                    upImageRef.downloadUrl.addOnSuccessListener { uri ->
-                        val userFieldMap = mutableMapOf<String, Any>()
-                        userFieldMap["sertifikat"] = uri.toString()
-                        FirebaseUtil.currentUserDocRef.update(userFieldMap)
+            v.btn_upload_dialog.setOnClickListener {
 
-                        toast("Upload success")
+                if (selectedImageBytes != null) {
+                    val mDialg = ProgressDialog.show(context, "Uploading", "Tunggu sebentar")
+                    mDialg.setCancelable(false)
+                    mDialg.isIndeterminate
+                    upImageRef.putBytes(selectedImageBytes!!).addOnCompleteListener {
+                        upImageRef.downloadUrl.addOnSuccessListener { uri ->
+                            val userFieldMap = mutableMapOf<String, Any>()
+                            userFieldMap[tipe] = uri.toString()
+                            FirebaseUtil.currentUserDocRef.update(userFieldMap)
 
-                        dialog?.dismiss()
-                        mDialg.dismiss()
+                            toast("Upload success")
+
+                            dialog?.dismiss()
+                            mDialg.dismiss()
+                        }
                     }
+                }else{
+                    toast("Pilih gambar terlebih dahulu")
                 }
-            }else{
-                toast("Pilih gambar terlebih dahulu")
             }
         }
 
         return v
+    }
+
+    private fun loadPage(tipe: String) {
+        val mDial = ProgressDialog.show(context, "", "Tunggu sebentar")
+        mDial.setCancelable(false)
+        mDial.isIndeterminate
+
+        FirebaseUtil.getCurrentUser {
+            if (tipe == "ijazah"){
+                if (it.ijazah != null && it.ijazah.isNotBlank())
+                    Picasso.get().load(it.ijazah).into(v.img_dialog)
+            }else{
+                if (it.sertifikat != null && it.sertifikat.isNotBlank())
+                    Picasso.get().load(it.sertifikat).into(v.img_dialog)
+            }
+            mDial.dismiss()
+        }
     }
 
     private fun openGallery() {

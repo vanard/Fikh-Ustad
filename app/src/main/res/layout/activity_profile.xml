@@ -63,15 +63,14 @@
         </androidx.recyclerview.widget.RecyclerView>
     </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView android:layout_width="0dp"
-                                       android:layout_height="0dp"
+                                       android:layout_height="wrap_content"
                                        app:layout_constraintTop_toBottomOf="@+id/textView6"
                                        app:layout_constraintEnd_toEndOf="@+id/cardView"
                                        app:layout_constraintStart_toStartOf="@+id/textView6"
-                                       android:layout_marginBottom="20dp"
-                                       app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
+                                       android:layout_marginTop="8dp"
                                        app:cardElevation="3dp"
                                        app:cardCornerRadius="5dp"
-                                       app:cardBackgroundColor="@android:color/white">
+                                       app:cardBackgroundColor="@android:color/white" android:id="@+id/cardView3">
         <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
                                                            android:layout_height="match_parent"
                                                            app:layout_constraintEnd_toEndOf="parent"
@@ -200,4 +199,14 @@
             android:id="@+id/textView6" android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/cardView" app:layout_constraintStart_toStartOf="@+id/cardView"
             android:textSize="16sp" android:textStyle="bold"/>
+    <Button
+            android:text="Lengkapi persyaratan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_fulfill_profile_home"
+            app:layout_constraintTop_toBottomOf="@+id/cardView3" app:layout_constraintEnd_toEndOf="@+id/cardView3"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@+id/cardView3"
+            android:background="@drawable/round_white" android:drawableEnd="@drawable/ic_keyboard_arrow_right"
+            android:paddingRight="8dp" android:textColor="@color/red_app"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

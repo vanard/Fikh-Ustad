@@ -218,7 +218,7 @@
                 <ImageView
                         android:layout_width="40dp"
                         android:layout_height="54dp" app:srcCompat="@drawable/ic_portfolio"
-                        android:id="@+id/imageView11" android:layout_marginTop="8dp"
+                        android:id="@+id/img_verify_certif" android:layout_marginTop="8dp"
                         app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginStart="4dp"/>
                 <LinearLayout
@@ -228,8 +228,8 @@
                         android:id="@+id/linearLayout5"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/imageView8" android:layout_marginStart="8dp"
-                        app:layout_constraintTop_toTopOf="@+id/imageView11"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView11" android:layout_marginEnd="2dp">
+                        app:layout_constraintTop_toTopOf="@+id/img_verify_certif"
+                        app:layout_constraintBottom_toBottomOf="@+id/img_verify_certif" android:layout_marginEnd="2dp">
                     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                               android:text="Nama" android:textSize="13sp"/>
                     <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
@@ -243,7 +243,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         android:layout_marginEnd="12dp" app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginStart="12dp" android:background="@color/grey_app"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView11" android:layout_marginTop="4dp"/>
+                        app:layout_constraintTop_toBottomOf="@+id/img_verify_certif" android:layout_marginTop="4dp"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
@@ -264,14 +264,14 @@
                 app:layout_constraintStart_toEndOf="@+id/img_edit_prof" android:layout_marginStart="8dp"
                 app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"/>
         <Button
-                android:text="Upload Bukti"
+                android:text="Lengkapi persyaratan"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_upload_edit_prof" app:layout_constraintStart_toStartOf="@+id/cardView2"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="2dp"
                 app:layout_constraintTop_toBottomOf="@+id/cardView2" app:layout_constraintEnd_toEndOf="@+id/cardView2"
                 android:layout_marginTop="16dp" android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent" android:background="@drawable/btn_green_register"
-                android:layout_marginEnd="4dp" android:textColor="@android:color/white"/>
+                android:layout_marginEnd="2dp" android:textColor="@color/orange_app"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

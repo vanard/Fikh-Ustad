@@ -9,4 +9,7 @@
     <color name="blue_app">#5CBCEB</color>
     <color name="grey_app">#1AFFE99F</color>
     <color name="white_gray_app">#fafafa</color>
+    <color name="red_app" >#b00</color>
+    <color name="yellow_app">#FFF59D</color>
+    <color name="orange_app">#FFE0B2</color>
 </resources>
