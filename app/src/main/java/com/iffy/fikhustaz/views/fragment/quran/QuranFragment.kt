@@ -52,10 +52,6 @@ class QuranFragment : Fragment(), QuranContract.View {
         presenter.initDataSQL()
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
-
     override fun setData(it: List<Quran>) {
         adapter.clear()
         listQuran.addAll(it)

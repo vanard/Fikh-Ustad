@@ -2,8 +2,6 @@ package com.iffy.fikhustaz.views.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log.d
-import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.iffy.fikhustaz.views.fragment.home.HomeFragment
 import com.iffy.fikhustaz.views.fragment.materi.MateriFragment
@@ -11,9 +9,9 @@ import com.iffy.fikhustaz.views.fragment.pesan.PesanFragment
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.R.id.*
 import com.iffy.fikhustaz.data.AppConst
-import com.iffy.fikhustaz.util.performNoBackStackTransaction
 import com.iffy.fikhustaz.views.activity.login.LoginActivity
 import com.iffy.fikhustaz.util.permissionCheck
+import com.iffy.fikhustaz.views.fragment.hadits.HadistFragment
 import com.iffy.fikhustaz.views.fragment.quran.QuranFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import org.jetbrains.anko.clearTask
@@ -26,6 +24,7 @@ class HomeActivity : AppCompatActivity() {
     private val fragPesan = PesanFragment()
     private val fragMateri = MateriFragment()
     private val fgQuran = QuranFragment()
+    private val fgHadist = HadistFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,19 +39,19 @@ class HomeActivity : AppCompatActivity() {
         bottom_navigation.setOnNavigationItemSelectedListener { item ->
             when(item.itemId) {
                 nav_home -> {
-//                    performNoBackStackTransaction(supportFragmentManager, "Home", HomeFragment(), savedInstanceState)
                     showFragmentHome()
                     supportActionBar?.elevation = 0f
                 }
                 nav_pesan -> {
-//                    performNoBackStackTransaction(supportFragmentManager,"Pesan",PesanFragment(),savedInstanceState)
                     showFragmentPesan()
                     supportActionBar?.elevation = 0f
                 }
-
                 nav_materi -> {
-//                    performNoBackStackTransaction(supportFragmentManager,"Materi",MateriFragment(),savedInstanceState)
                     showFragmentMateri()
+                    supportActionBar?.elevation = 0f
+                }
+                nav_kitab -> {
+                    showFragmentHadist()
                     supportActionBar?.elevation = 0f
                 }
                 nav_quran -> {
@@ -75,6 +74,8 @@ class HomeActivity : AppCompatActivity() {
                 }
                 AppConst.EDIT_PROFILE_ACTIVITY -> bottom_navigation.selectedItemId = nav_home
                 AppConst.QURAN_ACTIVITY -> bottom_navigation.selectedItemId = nav_quran
+                AppConst.HADIST_ACTIVITY -> bottom_navigation.selectedItemId = nav_kitab
+
             }
         }else{
             bottom_navigation.selectedItemId = nav_home
@@ -91,6 +92,9 @@ class HomeActivity : AppCompatActivity() {
         }
         if (fgQuran.isAdded) {
             ft.hide(fgQuran)
+        }
+        if (fgHadist.isAdded) {
+            ft.hide(fgHadist)
         }
 
         if (fragHome.isAdded)
@@ -113,6 +117,9 @@ class HomeActivity : AppCompatActivity() {
         if (fgQuran.isAdded) {
             ft.hide(fgQuran)
         }
+        if (fgHadist.isAdded) {
+            ft.hide(fgHadist)
+        }
 
         if (fragPesan.isAdded)
             ft.show(fragPesan)
@@ -134,6 +141,9 @@ class HomeActivity : AppCompatActivity() {
         if (fgQuran.isAdded) {
             ft.hide(fgQuran)
         }
+        if (fgHadist.isAdded) {
+            ft.hide(fgHadist)
+        }
 
         if (fragMateri.isAdded)
             ft.show(fragMateri)
@@ -142,6 +152,30 @@ class HomeActivity : AppCompatActivity() {
 
         ft.commit()
         supportActionBar?.title = "Materi"
+    }
+
+    private fun showFragmentHadist() {
+        val ft = supportFragmentManager.beginTransaction()
+        if (fragPesan.isAdded)
+            ft.hide(fragPesan)
+
+        if (fragHome.isAdded)
+            ft.hide(fragHome)
+
+        if (fgQuran.isAdded) {
+            ft.hide(fgQuran)
+        }
+        if (fragMateri.isAdded) {
+            ft.hide(fragMateri)
+        }
+
+        if (fgHadist.isAdded)
+            ft.show(fgHadist)
+        else
+            ft.add(R.id.main_container,fgHadist)
+
+        ft.commit()
+        supportActionBar?.title = "Hadist"
     }
 
     private fun showFgQuran() {
@@ -154,6 +188,9 @@ class HomeActivity : AppCompatActivity() {
 
         if (fragMateri.isAdded) {
             ft.hide(fragMateri)
+        }
+        if (fgHadist.isAdded) {
+            ft.hide(fgHadist)
         }
 
         if (fgQuran.isAdded)

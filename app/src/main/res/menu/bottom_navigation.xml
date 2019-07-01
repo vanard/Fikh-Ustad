@@ -10,6 +10,11 @@
     />
     <item android:id="@+id/nav_materi"
           android:title="Materi"
+          android:icon="@drawable/ic_content_writing"
+          app:showAsAction="ifRoom"
+    />
+    <item android:id="@+id/nav_kitab"
+          android:title="Hadist"
           android:icon="@drawable/ic_books_stack"
           app:showAsAction="ifRoom"
     />
