@@ -24,6 +24,12 @@ import java.util.*
 
 class ChatActivity : AppCompatActivity(), ChatContract.View {
 
+    companion object {
+        const val CHANNEL_ID = "chat"
+        private const val CHANNEL_NAME= "Fikh Chat"
+        private const val CHANNEL_DESC = "Fikh Chat"
+    }
+
     private lateinit var currentUser: Ustad
     private lateinit var otherUserId: String
 

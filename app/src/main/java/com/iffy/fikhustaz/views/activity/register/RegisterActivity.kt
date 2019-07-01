@@ -1,5 +1,6 @@
 package com.iffy.fikhustaz.views.activity.register
 
+import android.app.ProgressDialog
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,6 +24,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var presenter: RegisterPresenter
     private var currentUser : FirebaseUser? = null
+    private lateinit var dialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,10 +109,12 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     }
 
     override fun showLoading() {
-        progressBar.visibility = View.VISIBLE
+        dialog = ProgressDialog.show(this@RegisterActivity, "Register", "Preparing profile user")
+        dialog.setCancelable(false)
+        dialog.isIndeterminate
     }
 
     override fun hideLoading() {
-        progressBar.visibility = View.GONE
+        dialog.dismiss()
     }
 }

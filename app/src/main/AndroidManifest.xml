@@ -32,7 +32,8 @@
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.iffy.fikhustaz.views.activity.HomeActivity"/>
-        </activity> <!-- FCM -->
+        </activity>
+        <!-- FCM -->
         <meta-data
                 android:name="com.google.firebase.messaging.default_notification_icon"
                 android:resource="@drawable/logo_app_fikh"/>
@@ -49,7 +50,7 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
-
+        <!-- Content Provider -->
         <provider
                 android:name="androidx.core.content.FileProvider"
                 android:authorities="com.iffy.fikhustaz.provider_paths"
@@ -73,6 +74,11 @@
                     android:value="com.iffy.fikhustaz.views.activity.HomeActivity"/>
         </activity>
         <activity android:name=".views.activity.chat.ChatActivity">
+
+            <intent-filter>
+                <action android:name="ChatActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.iffy.fikhustaz.views.activity.HomeActivity"/>

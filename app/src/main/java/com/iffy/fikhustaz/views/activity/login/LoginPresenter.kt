@@ -2,6 +2,7 @@ package com.iffy.fikhustaz.views.activity.login
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
@@ -10,6 +11,7 @@ import com.iffy.fikhustaz.data.UserType
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.iffy.fikhustaz.service.MyFirebaseInstanceIDService
+import com.iffy.fikhustaz.service.MyFirebaseMessagingService
 import com.iffy.fikhustaz.util.FirebaseUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -39,12 +41,23 @@ class LoginPresenter (v: LoginContract.View, ctx: Context) : LoginContract.Prese
         val uiScope = CoroutineScope(Dispatchers.Main)
         uiScope.launch {
             try {
-                mAuth.signInWithEmailAndPassword(email, pass).addOnSuccessListener {
-                    view?.showMsg("Login Success")
-                    view?.hideLoading()
-                    val intent = Intent(mCtx, HomeActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    mCtx.startActivity(intent)
+                mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
+                    if (it.isSuccessful){
+                        val intent = Intent(mCtx, HomeActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+                        view?.showMsg("Login Success")
+                        view?.hideLoading()
+
+                        mCtx.startActivity(intent)
+                    }else{
+                        if (it.exception != null){
+                            view?.showMsg(it.exception!!.localizedMessage)
+                        }
+                        view?.hideLoading()
+
+                    }
+
                 }.addOnFailureListener {
                     view?.showMsg(it.localizedMessage)
                     view?.hideLoading()
@@ -90,6 +103,8 @@ class LoginPresenter (v: LoginContract.View, ctx: Context) : LoginContract.Prese
                         mCtx.startActivity(intent)
 
                         view?.hideLoading()
+
+
                     }
                 }
 

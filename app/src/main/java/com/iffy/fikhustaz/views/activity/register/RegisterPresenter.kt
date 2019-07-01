@@ -2,6 +2,7 @@ package com.iffy.fikhustaz.views.activity.register
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.iid.FirebaseInstanceId
@@ -9,6 +10,7 @@ import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.iffy.fikhustaz.data.model.Verify
 import com.iffy.fikhustaz.service.MyFirebaseInstanceIDService
+import com.iffy.fikhustaz.service.MyFirebaseMessagingService
 import com.iffy.fikhustaz.util.FirebaseUtil
 
 class RegisterPresenter (v: RegisterContract.View, ctx: Context) : RegisterContract.Presenter {
@@ -75,6 +77,7 @@ class RegisterPresenter (v: RegisterContract.View, ctx: Context) : RegisterContr
                             val intent = Intent(mCtx, HomeActivity::class.java)
                             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                             mCtx.startActivity(intent)
+
                         }
 
                     }

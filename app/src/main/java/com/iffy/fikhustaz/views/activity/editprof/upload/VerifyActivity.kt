@@ -15,9 +15,9 @@ class VerifyActivity : AppCompatActivity() {
 
         FirebaseUtil.getCurrentUser {
             if (it.ijazah != null && it.ijazah.isNotBlank())
-                img_verify_ijazah.setImageDrawable(resources.getDrawable(R.drawable.ic_check_circle))
+                img_verify_ijazah.setImageResource(R.drawable.ic_check_circle)
             if (it.sertifikat != null && it.sertifikat.isNotBlank())
-                img_verify_certif.setImageDrawable(resources.getDrawable(R.drawable.ic_check_circle))
+                img_verify_certif.setImageResource(R.drawable.ic_check_circle)
         }
 
         btnLayout_verify_ijazah.setOnClickListener {

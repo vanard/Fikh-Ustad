@@ -1,6 +1,7 @@
 package com.iffy.fikhustaz.views.activity.login
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +31,7 @@ class LoginActivity : AppCompatActivity() , LoginContract.View{
     private var googleSignInClient : GoogleSignInClient? = null
     private var currentUser : FirebaseUser? = null
     private val RC_SIGN_IN = 101
+    private lateinit var dialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,10 +115,12 @@ class LoginActivity : AppCompatActivity() , LoginContract.View{
     }
 
     override fun showLoading() {
-        progressBar.visibility = View.VISIBLE
+        dialog = ProgressDialog.show(this@LoginActivity, "Login", "Logged In")
+        dialog.setCancelable(false)
+        dialog.isIndeterminate
     }
 
     override fun hideLoading() {
-        progressBar.visibility = View.GONE
+        dialog.dismiss()
     }
 }

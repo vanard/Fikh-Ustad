@@ -1,6 +1,5 @@
 package com.iffy.fikhustaz.service
 
-import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.squareup.picasso.Target
@@ -18,9 +17,15 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
+import android.util.Log.d
 import androidx.core.app.NotificationCompat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.iid.FirebaseInstanceId
 import com.iffy.fikhustaz.R
+import com.iffy.fikhustaz.util.FirebaseUtil
+import com.iffy.fikhustaz.util.NotificationHelper
 import com.iffy.fikhustaz.views.activity.chat.ChatActivity
+import java.lang.NullPointerException
 
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
@@ -41,13 +46,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
-        if (remoteMessage.notification != null) {
-            if (remoteMessage.data != null) {
-                //TODO: Show notification if we're not online
-                Log.d("FCM", remoteMessage.data.toString())
 
-                getImage(remoteMessage)
-            }
+        if (remoteMessage.notification != null) {
+            val title = remoteMessage.notification!!.title
+            val body = remoteMessage.notification!!.body
+
+            NotificationHelper.displayNotification(applicationContext, title!!, body!!)
         }
     }
 
@@ -89,7 +93,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             .setStyle(style)
             .setLargeIcon(bitmap)
             .setWhen(System.currentTimeMillis())
-            .setPriority(Notification.PRIORITY_MAX)
 
 
         notificationManager.notify(1, notificationBuilder.build())
