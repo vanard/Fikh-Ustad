@@ -8,14 +8,15 @@ class AddMateriPresenter (view: AddMateriContract.View) : AddMateriContract.Pres
     val v = view
 
     override fun uploadMateri(uid: String?, title: String, mFile: Uri?, thumb: ByteArray?) {
-        if (uid == null)
-            return v.showMsg("You must login first")
+        if (uid == null) return v.showMsg("You must login first")
         if(title.isEmpty() || title.isBlank()) return v.showMsg("Judul materi harus diisi")
         if (thumb == null) return v.showMsg("Thumbnail materi belum terpilih")
         if (mFile == null) return v.showMsg("Materi belum terpilih")
 
         v.showLoad()
-        FirebaseUtil.putMateriFile(uid, title, mFile, thumb,this::complete)
+        if (title.trim().contains(" ")) title.replace(" ", "-")
+
+        FirebaseUtil.putMateriFile(uid, title.trim(), mFile, thumb,this::complete)
     }
 
     private fun complete(){

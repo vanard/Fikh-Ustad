@@ -13,13 +13,14 @@ import com.iffy.fikhustaz.data.itemviews.ImageMessageItem
 import com.iffy.fikhustaz.data.itemviews.PersonItem
 import com.iffy.fikhustaz.data.itemviews.TextMessageItem
 import com.iffy.fikhustaz.data.model.chat.*
+import com.iffy.fikhustaz.data.model.materi.MateriUstad
 import com.iffy.fikhustaz.data.model.profile.ItOnline
 import com.iffy.fikhustaz.data.model.profile.ItSchedule
 import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.xwray.groupie.kotlinandroidextensions.Item
 
 object FirebaseUtil {
-    private val firestoreInstance: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
+    val firestoreInstance: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 
     val currentUserDocRef: DocumentReference
         get() = firestoreInstance.document("users/${FirebaseAuth.getInstance().currentUser?.uid
@@ -27,7 +28,7 @@ object FirebaseUtil {
 
     private val chatChannelsCollectionRef = firestoreInstance.collection("chatChannels")
     private val materiCollectionRef = firestoreInstance.collection("materi")
-    val user = FirebaseAuth.getInstance().currentUser
+    private val user = FirebaseAuth.getInstance().currentUser
 
     fun initCurrentUserIfFirstTime(ustad: Ustad, onComplete: () -> Unit) {
         currentUserDocRef.get().addOnSuccessListener { documentSnapshot ->
@@ -247,7 +248,7 @@ object FirebaseUtil {
 
     fun putMateriFile(uid: String?, title: String, mFile: Uri, thumb: ByteArray, onComplete: () -> Unit){
         val fileRef =
-            FirebaseStorage.getInstance().getReference("$uid/materi/$title")
+            FirebaseStorage.getInstance().getReference("$uid/materi/$title.pdf")
 
         val thumbnailMateriRef =
             FirebaseStorage.getInstance().getReference("$uid/thumbnail/$title")
@@ -256,8 +257,9 @@ object FirebaseUtil {
             fileRef.downloadUrl.addOnSuccessListener { uri ->
                 thumbnailMateriRef.putBytes(thumb).addOnCompleteListener {
                     thumbnailMateriRef.downloadUrl.addOnSuccessListener { ur ->
-                        materiCollectionRef.add(mapOf("user" to uid, "title" to title, "thumbnail" to ur, "file" to uri))
-                        onComplete()
+                        materiCollectionRef.add(MateriUstad(uid!!, user?.displayName!!, title, ur.toString(), uri.toString())).addOnSuccessListener {
+                            onComplete()
+                        }
                     }
                 }
             }

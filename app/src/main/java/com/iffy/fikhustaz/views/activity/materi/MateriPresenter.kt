@@ -24,7 +24,7 @@ class MateriPresenter (v : MateriContract.View, ctx: Context) : MateriContract.P
             try {
                 FileLoader.with(mCtx)
                     .load(url)
-                    .fromDirectory("PDFFiles", FileLoader.DIR_EXTERNAL_PUBLIC)
+                    .fromDirectory("Materi Fikh", FileLoader.DIR_EXTERNAL_PUBLIC)
                     .asFile(object: FileRequestListener<File> {
                         override fun onError(p0: FileLoadRequest?, p1: Throwable?) {
                             Toast.makeText(mCtx, p1?.message, Toast.LENGTH_SHORT).show()

@@ -1,7 +1,9 @@
 package com.iffy.fikhustaz.views.fragment.materi
 
 import android.util.Log.d
+import com.iffy.fikhustaz.data.model.materi.MateriUstad
 import com.iffy.fikhustaz.network.RetrofitFactory
+import com.iffy.fikhustaz.util.FirebaseUtil.firestoreInstance
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -58,6 +60,20 @@ class MateriSyariahPresenter (v: MateriSyariahContract.View) : MateriSyariahCont
             }
 
         }
+    }
+
+    override fun getMateri() {
+        view.showLoading()
+        firestoreInstance.collection("materi")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    view.initMateri(document.toObject(MateriUstad::class.java))
+                }
+            }
+            .addOnFailureListener { exception ->
+                d("PTK", "Error getting documents: ", exception)
+            }
     }
 
 }

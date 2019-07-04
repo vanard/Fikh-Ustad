@@ -148,6 +148,7 @@ class AddMateriActivity : AppCompatActivity(), AddMateriContract.View {
 
     override fun hideLoad() {
         dialog.dismiss()
+        finish()
     }
 
     override fun showMsg(msg: String) {

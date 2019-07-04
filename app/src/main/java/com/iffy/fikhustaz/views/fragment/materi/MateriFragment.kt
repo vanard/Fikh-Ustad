@@ -20,6 +20,8 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.fragment_materi.*
 import com.iffy.fikhustaz.R.array.filter
+import com.iffy.fikhustaz.data.itemviews.MateriUstadItem
+import com.iffy.fikhustaz.data.model.materi.MateriUstad
 import com.iffy.fikhustaz.views.fragment.materi.uploadmateri.AddMateriActivity
 import org.jetbrains.anko.*
 import org.jetbrains.anko.support.v4.alert
@@ -63,6 +65,7 @@ class MateriFragment : Fragment(), MateriSyariahContract.View {
         listFikh.clear()
 
         presenter.getData(1)
+        presenter.getMateri()
 
         adapter.clear()
     }
@@ -81,6 +84,10 @@ class MateriFragment : Fragment(), MateriSyariahContract.View {
             }
         }
 
+    }
+
+    override fun initMateri(materi: MateriUstad) {
+        adapter.add(MateriUstadItem(materi))
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -122,7 +129,7 @@ class MateriFragment : Fragment(), MateriSyariahContract.View {
             }
             R.id.menu_filter -> {
                 val spinnerItems = listOf("Semua","Ramadhan", "Muamalah", "Ibadah", "Aqidah", "Kitab", "Puasa", "Hadits", "Zakat", "Sholat", "Dzikir dan Doa", "Sejarah Islam", "Anak", "Jenazah", "Hutang Piutang", "Pernikahan")
-                selector("Filter Kategori", spinnerItems, { dialogInterface, i ->
+                selector("Filter Kategori", spinnerItems) { dialogInterface, i ->
                     toast("Filter ${spinnerItems[i]}")
 
                     adapter.clear()
@@ -139,7 +146,7 @@ class MateriFragment : Fragment(), MateriSyariahContract.View {
                         }
                     }
                     adapter.notifyDataSetChanged()
-                })
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)

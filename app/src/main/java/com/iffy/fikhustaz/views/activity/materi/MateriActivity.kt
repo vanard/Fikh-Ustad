@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_materi.*
 import org.jetbrains.anko.*
 import java.io.File
 import android.os.StrictMode
-
+import com.iffy.fikhustaz.data.model.materi.MateriUstad
 
 
 class MateriActivity : AppCompatActivity(),MateriContract.View {
@@ -32,11 +32,10 @@ class MateriActivity : AppCompatActivity(),MateriContract.View {
         presenter = MateriPresenter(this, this)
 
         if(intent != null){
-            val data = intent.getParcelableArrayListExtra<Attachment>("materi")
+            val data = intent.getParcelableExtra<MateriUstad>("materi")
             if (data != null){
-                val mTitle = data[0].title.split(" ")
-                supportActionBar?.title = "${mTitle[0]} ${mTitle[1]} ${mTitle[2]}"
-                presenter.showFile(data[0].url)
+                supportActionBar?.title = data.title
+                presenter.showFile(data.file)
 
                 val builder = StrictMode.VmPolicy.Builder()
                 StrictMode.setVmPolicy(builder.build())
@@ -53,7 +52,7 @@ class MateriActivity : AppCompatActivity(),MateriContract.View {
             .enableSwipe(true)
             .swipeHorizontal(false)
             .enableDoubletap(true)
-            .onPageError { page, t -> Toast.makeText(this@MateriActivity, "Error while open page ${page}", Toast.LENGTH_SHORT).show() }
+            .onPageError { page, t -> Toast.makeText(this@MateriActivity, "Error while open page $page", Toast.LENGTH_SHORT).show() }
             .onRender { nbPages, pageWidth, pageHeight -> pdf_view.fitToWidth() }
             .enableAnnotationRendering(true)
             .invalidPageColor(Color.WHITE)
@@ -69,7 +68,6 @@ class MateriActivity : AppCompatActivity(),MateriContract.View {
         when(item?.itemId){
             android.R.id.home -> {
                 startActivity(intentFor<HomeActivity>("frg" to AppConst.MATERI_ACTIVITY).newTask().clearTask())
-                return true
             }
             R.id.menu_share -> {
                 val i = Intent()

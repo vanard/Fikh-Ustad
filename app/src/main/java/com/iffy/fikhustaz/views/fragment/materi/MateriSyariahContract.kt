@@ -1,5 +1,6 @@
 package com.iffy.fikhustaz.views.fragment.materi
 
+import com.iffy.fikhustaz.data.model.materi.MateriUstad
 import com.iffy.fikhustaz.data.model.materi.konsulsyariah.Fikih
 import com.iffy.fikhustaz.data.model.materi.konsulsyariah.IsiFikh
 
@@ -11,9 +12,11 @@ interface MateriSyariahContract  {
             fun listData(fikh : IsiFikh)
             fun showLoading()
             fun hideLoading()
+            fun initMateri(materi: MateriUstad)
         }
         interface Presenter{
             fun getData(id:Int)
             fun getDetailData(link: String)
+            fun getMateri()
         }
 }
