@@ -1,9 +1,12 @@
 package com.iffy.fikhustaz.util
 
 import android.content.Context
+import android.net.Uri
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.*
+import com.google.firebase.storage.FirebaseStorage
 import com.iffy.fikhustaz.data.MessageType
 import com.iffy.fikhustaz.data.itemviews.ChatItem
 import com.iffy.fikhustaz.data.itemviews.ImageMessageItem
@@ -23,6 +26,8 @@ object FirebaseUtil {
             ?: throw NullPointerException("UID is null.")}")
 
     private val chatChannelsCollectionRef = firestoreInstance.collection("chatChannels")
+    private val materiCollectionRef = firestoreInstance.collection("materi")
+    val user = FirebaseAuth.getInstance().currentUser
 
     fun initCurrentUserIfFirstTime(ustad: Ustad, onComplete: () -> Unit) {
         currentUserDocRef.get().addOnSuccessListener { documentSnapshot ->
@@ -160,25 +165,6 @@ object FirebaseUtil {
             }
     }
 
-    fun addChatListener(channelId: String,
-                                onListen: (List<Item>) -> Unit): ListenerRegistration {
-            return chatChannelsCollectionRef.document(channelId).collection("lastmessage").orderBy("time", Query.Direction.DESCENDING)
-                .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-                    if (firebaseFirestoreException != null) {
-                        Log.e("FIRESTORE", "ChatMessagesListener error.", firebaseFirestoreException)
-                        return@addSnapshotListener
-                    }
-
-                    val items = mutableListOf<Item>()
-                    items.clear()
-                    querySnapshot!!.documents.forEach {
-                        items.add(ChatItem(it.toObject(Chat::class.java)!!))
-                    }
-                    onListen(items)
-                }
-
-    }
-
     fun getLastMessageListener(channelId: String, onListen: () -> Unit): ListenerRegistration{
         return chatChannelsCollectionRef.document(channelId).collection("lastmessage")
             .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
@@ -237,6 +223,45 @@ object FirebaseUtil {
         chatChannelsCollectionRef.document(channelId)
             .collection("lastmessage").document(channelId)
             .set(message)
+    }
+
+    fun putProfileBytes(uid: String?, image: ByteArray, mNama: String?, onComplete: (uri: Uri) -> Unit){
+        val profileImageRef =
+            FirebaseStorage.getInstance().getReference("$uid/profilepics/$uid")
+
+        profileImageRef.putBytes(image).addOnCompleteListener {
+            profileImageRef.downloadUrl.addOnSuccessListener { uri ->
+
+                if (uri != null) {
+                    val profile = UserProfileChangeRequest.Builder()
+                        .setPhotoUri(uri)
+                        .setDisplayName(mNama)
+                        .build()
+
+                    user!!.updateProfile(profile)
+                    onComplete(uri)
+                }
+            }
+        }
+    }
+
+    fun putMateriFile(uid: String?, title: String, mFile: Uri, thumb: ByteArray, onComplete: () -> Unit){
+        val fileRef =
+            FirebaseStorage.getInstance().getReference("$uid/materi/$title")
+
+        val thumbnailMateriRef =
+            FirebaseStorage.getInstance().getReference("$uid/thumbnail/$title")
+
+        fileRef.putFile(mFile).addOnCompleteListener {
+            fileRef.downloadUrl.addOnSuccessListener { uri ->
+                thumbnailMateriRef.putBytes(thumb).addOnCompleteListener {
+                    thumbnailMateriRef.downloadUrl.addOnSuccessListener { ur ->
+                        materiCollectionRef.add(mapOf("user" to uid, "title" to title, "thumbnail" to ur, "file" to uri))
+                        onComplete()
+                    }
+                }
+            }
+        }
     }
 
     //region FCM

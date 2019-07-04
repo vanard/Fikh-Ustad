@@ -132,7 +132,7 @@ class QuranFragment : Fragment(), QuranContract.View {
     }
 
     override fun showLoad() {
-        dialog = ProgressDialog.show(this@QuranFragment.context, "", "Loading")
+        dialog = ProgressDialog.show(this@QuranFragment.context, "Preparing", "Loading")
         dialog.setCancelable(false)
         dialog.isIndeterminate
     }

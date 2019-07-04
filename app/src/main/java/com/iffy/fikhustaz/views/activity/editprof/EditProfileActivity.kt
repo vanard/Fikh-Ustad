@@ -43,7 +43,7 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
     companion object {
         const val REQUEST_GET_SINGLE_FILE = 101
         const val REQUEST_CAPTURE_IMAGE = 102
-
+        const val REQUEST_GET_PDF_FILE = 103
     }
 
     private lateinit var presenter:EditProfPresenter
@@ -74,7 +74,7 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
         }
 
         img_edit_prof.setOnClickListener {
-            selector("Choose your fighter?", fighter) { dialogInterface, i ->
+            selector("Choose option", fighter) { dialogInterface, i ->
                 when(fighter[i]){
                     "Camera" -> openCamera()
                     "Gallery" -> openGallery()

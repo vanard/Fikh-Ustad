@@ -21,4 +21,11 @@
             android:layout_marginStart="8dp" android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
             android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
             android:visibility="visible"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:src="@drawable/ic_edit_write"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true" android:id="@+id/materi_new_post_fab"
+            android:layout_marginEnd="24dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

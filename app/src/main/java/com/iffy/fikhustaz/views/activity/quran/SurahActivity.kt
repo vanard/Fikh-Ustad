@@ -82,7 +82,7 @@ class SurahActivity : AppCompatActivity(), SurahContract.View {
     }
 
     override fun showLoad() {
-        dialog = ProgressDialog.show(this@SurahActivity, "", "Loading")
+        dialog = ProgressDialog.show(this@SurahActivity, "Preparing", "Loading")
         dialog.setCancelable(false)
         dialog.isIndeterminate
     }

@@ -16,6 +16,7 @@ class EditProfPresenter(v: EditProfContract.View) : EditProfContract.Presenter {
 
     private val view = v
     private val uiScope = CoroutineScope(Dispatchers.Main)
+    private var mUstad: Ustad? = null
 
     override fun getData() {
         view.showLoad()
@@ -30,6 +31,7 @@ class EditProfPresenter(v: EditProfContract.View) : EditProfContract.Presenter {
     override fun saveData(ustad: Ustad, selectedImageBytes: ByteArray?) {
         view.showLoad()
         val user = FirebaseAuth.getInstance().currentUser
+        mUstad = ustad
 
         if (ustad.profilePicture == null || selectedImageBytes == null){
             uiScope.launch {
@@ -47,34 +49,17 @@ class EditProfPresenter(v: EditProfContract.View) : EditProfContract.Presenter {
 
         }else{
             uiScope.launch {
-                val profileImageRef =
-                    FirebaseStorage.getInstance().getReference("${user?.uid}/profilepics/${user?.uid}")
-
-                profileImageRef.putBytes(selectedImageBytes).addOnCompleteListener {
-                    profileImageRef.downloadUrl.addOnSuccessListener { uri ->
-
-                        d("PTK", uri.toString())
-
-                        if (uri != null) {
-                            val profile = UserProfileChangeRequest.Builder()
-                                .setPhotoUri(uri)
-                                .setDisplayName(ustad.nama)
-                                .build()
-
-                            user!!.updateProfile(profile)
-
-                            FirebaseUtil.updateCurrentUser(ustad.nama!!,ustad.email!!,ustad.handphone!!,ustad.tempatLahir!!,ustad.tanggalLahir!!,ustad.pendidikan!!,ustad.keilmuan!!,ustad.mazhab!!, uri.toString(), "", "",null,
-                                ustad.userOnline, ustad.schedule)
-                            view.showMsg("Update Successfully")
-
-                            view.hideLoad()
-                        }
-
-                    }
-                }
-
+                FirebaseUtil.putProfileBytes(user?.uid, selectedImageBytes, ustad.nama, this@EditProfPresenter::updateUser)
             }
         }
+    }
+
+    private fun updateUser(uri: Uri){
+        FirebaseUtil.updateCurrentUser(mUstad?.nama!!,mUstad?.email!!,mUstad?.handphone!!,mUstad?.tempatLahir!!,mUstad?.tanggalLahir!!,mUstad?.pendidikan!!,mUstad?.keilmuan!!,mUstad?.mazhab!!, uri.toString(),
+            "", "",null, mUstad?.userOnline, mUstad?.schedule)
+
+        view.showMsg("Update Successfully")
+        view.hideLoad()
     }
 
 }

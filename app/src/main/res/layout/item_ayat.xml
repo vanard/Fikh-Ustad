@@ -18,7 +18,7 @@
                 android:text="TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/tv_ayat_arab" android:textSize="20sp"
-                android:textAlignment="viewEnd" android:layout_margin="4dp"/>
+                android:textAlignment="viewEnd" android:layout_margin="4dp" android:textColor="@android:color/black"/>
         <TextView
                 android:text="TextView"
                 android:layout_width="match_parent"

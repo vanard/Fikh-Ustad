@@ -21,7 +21,14 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".views.activity.hadits.HaditsActivity" android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name="com.iffy.fikhustaz.views.fragment.materi.uploadmateri.AddMateriActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.iffy.fikhustaz.views.activity.HomeActivity"/>
+        </activity>
+        <activity
+                android:name=".views.activity.hadits.HaditsActivity"
+                android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".views.activity.editprof.upload.VerifyActivity">
             <meta-data
@@ -32,8 +39,7 @@
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.iffy.fikhustaz.views.activity.HomeActivity"/>
-        </activity>
-        <!-- FCM -->
+        </activity> <!-- FCM -->
         <meta-data
                 android:name="com.google.firebase.messaging.default_notification_icon"
                 android:resource="@drawable/logo_app_fikh"/>
@@ -49,8 +55,7 @@
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
-        </service>
-        <!-- Content Provider -->
+        </service> <!-- Content Provider -->
         <provider
                 android:name="androidx.core.content.FileProvider"
                 android:authorities="com.iffy.fikhustaz.provider_paths"
@@ -74,11 +79,12 @@
                     android:value="com.iffy.fikhustaz.views.activity.HomeActivity"/>
         </activity>
         <activity android:name=".views.activity.chat.ChatActivity">
-
             <intent-filter>
-                <action android:name="ChatActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="ChatActivity"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
+
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.iffy.fikhustaz.views.activity.HomeActivity"/>

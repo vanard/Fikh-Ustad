@@ -20,6 +20,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.fragment_materi.*
 import com.iffy.fikhustaz.R.array.filter
+import com.iffy.fikhustaz.views.fragment.materi.uploadmateri.AddMateriActivity
 import org.jetbrains.anko.*
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.selector
@@ -46,6 +47,10 @@ class MateriFragment : Fragment(), MateriSyariahContract.View {
 
         (activity as HomeActivity).supportActionBar?.title = "Materi"
         setHasOptionsMenu(true)
+
+        materi_new_post_fab.setOnClickListener {
+            context?.startActivity<AddMateriActivity>()
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
