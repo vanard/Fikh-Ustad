@@ -231,7 +231,7 @@ object FirebaseUtil {
 
     fun putProfileBytes(uid: String?, image: ByteArray, mNama: String?, onComplete: (uri: Uri) -> Unit){
         val profileImageRef =
-            FirebaseStorage.getInstance().getReference("$uid/profilepics/$uid")
+            FirebaseStorage.getInstance().getReference("$uid/profilePicture/$uid")
 
         profileImageRef.putBytes(image).addOnCompleteListener {
             profileImageRef.downloadUrl.addOnSuccessListener { uri ->

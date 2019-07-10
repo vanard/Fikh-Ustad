@@ -79,7 +79,7 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
         }
 
         img_edit_prof.setOnClickListener {
-            selector("Choose option", fighter) { dialogInterface, i ->
+            selector("Choose your option?", fighter) { dialogInterface, i ->
                 when(fighter[i]){
                     "Camera" -> openCamera()
                     "Gallery" -> openGallery()

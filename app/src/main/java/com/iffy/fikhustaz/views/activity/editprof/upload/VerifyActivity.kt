@@ -31,9 +31,9 @@ class VerifyActivity : AppCompatActivity() {
             }
             if (it.profilePicture != null && it.profilePicture.isNotBlank()) {
                 if (it.verified == StatusAccount.VERIFIED)
-                    img_verify_certif.setImageResource(R.drawable.ic_check_circle)
+                    img_verify_profilepic.setImageResource(R.drawable.ic_check_circle)
                 if (it.verified == StatusAccount.PENDING)
-                    img_verify_certif.setImageResource(R.drawable.ic_exclamation_mark)
+                    img_verify_profilepic.setImageResource(R.drawable.ic_exclamation_mark)
 
             }
 

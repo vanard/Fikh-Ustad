@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.iffy.fikhustaz.R
@@ -53,7 +54,7 @@ class DialogUploadFragment: DialogFragment(){
         val tipe = arguments?.getString(ARG_CAUGHT)
 
         v.img_dialog.setOnClickListener {
-            context!!.selector("Choose your fighter?", fighter) { dialogInterface, i ->
+            context!!.selector("Choose your option?", fighter) { dialogInterface, i ->
                 when(fighter[i]){
                     "Camera" -> openCamera()
                     "Gallery" -> openGallery()
@@ -61,7 +62,7 @@ class DialogUploadFragment: DialogFragment(){
             }
         }
         v.btn_pick_dialog.setOnClickListener {
-            context!!.selector("Choose your fighter?", fighter) { dialogInterface, i ->
+            context!!.selector("Choose your option?", fighter) { dialogInterface, i ->
                 when(fighter[i]){
                     "Camera" -> openCamera()
                     "Gallery" -> openGallery()
@@ -85,6 +86,16 @@ class DialogUploadFragment: DialogFragment(){
                     mDialg.isIndeterminate
                     upImageRef.putBytes(selectedImageBytes!!).addOnCompleteListener {
                         upImageRef.downloadUrl.addOnSuccessListener { uri ->
+                            if (tipe == "profilePicture"){
+                                val user = FirebaseAuth.getInstance().currentUser
+                                if (uri != null) {
+                                    val profile = UserProfileChangeRequest.Builder()
+                                        .setPhotoUri(uri)
+                                        .build()
+
+                                    user!!.updateProfile(profile)
+                                }
+                            }
                             val userFieldMap = mutableMapOf<String, Any>()
                             userFieldMap[tipe] = uri.toString()
                             userFieldMap["verified"] = StatusAccount.PENDING
@@ -114,10 +125,10 @@ class DialogUploadFragment: DialogFragment(){
             if (tipe == "ijazah"){
                 if (it.ijazah != null && it.ijazah.isNotBlank())
                     Picasso.get().load(it.ijazah).into(v.img_dialog)
-            }else if (tipe == "profilePicture"){
+            }else if (tipe == "sertifikat"){
                 if (it.sertifikat != null && it.sertifikat.isNotBlank())
                     Picasso.get().load(it.sertifikat).into(v.img_dialog)
-            }else if (tipe == "sertifikat"){
+            }else if (tipe == "profilePicture"){
                 if (it.profilePicture != null && it.profilePicture.isNotBlank())
                     Picasso.get().load(it.profilePicture).into(v.img_dialog)
             }
