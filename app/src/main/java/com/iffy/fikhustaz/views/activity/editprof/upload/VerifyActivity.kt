@@ -3,8 +3,8 @@ package com.iffy.fikhustaz.views.activity.editprof.upload
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.iffy.fikhustaz.R
+import com.iffy.fikhustaz.data.StatusAccount
 import com.iffy.fikhustaz.util.FirebaseUtil
-import com.iffy.fikhustaz.views.activity.editprof.upload.DialogUploadFragment
 import kotlinx.android.synthetic.main.activity_verify.*
 
 class VerifyActivity : AppCompatActivity() {
@@ -15,9 +15,28 @@ class VerifyActivity : AppCompatActivity() {
 
         FirebaseUtil.getCurrentUser {
             if (it.ijazah != null && it.ijazah.isNotBlank())
-                img_verify_ijazah.setImageResource(R.drawable.ic_check_circle)
-            if (it.sertifikat != null && it.sertifikat.isNotBlank())
-                img_verify_certif.setImageResource(R.drawable.ic_check_circle)
+            {
+                if(it.verified == StatusAccount.VERIFIED)
+                    img_verify_ijazah.setImageResource(R.drawable.ic_check_circle)
+                if (it.verified == StatusAccount.PENDING)
+                    img_verify_ijazah.setImageResource(R.drawable.ic_exclamation_mark)
+
+            }
+            if (it.sertifikat != null && it.sertifikat.isNotBlank()) {
+                if (it.verified == StatusAccount.VERIFIED)
+                    img_verify_certif.setImageResource(R.drawable.ic_check_circle)
+                if (it.verified == StatusAccount.PENDING)
+                    img_verify_certif.setImageResource(R.drawable.ic_exclamation_mark)
+
+            }
+            if (it.profilePicture != null && it.profilePicture.isNotBlank()) {
+                if (it.verified == StatusAccount.VERIFIED)
+                    img_verify_certif.setImageResource(R.drawable.ic_check_circle)
+                if (it.verified == StatusAccount.PENDING)
+                    img_verify_certif.setImageResource(R.drawable.ic_exclamation_mark)
+
+            }
+
         }
 
         btnLayout_verify_ijazah.setOnClickListener {
@@ -28,6 +47,11 @@ class VerifyActivity : AppCompatActivity() {
         btnLayout_verify_certif.setOnClickListener {
             val s = DialogUploadFragment.newInstance("sertifikat")
             s.show(supportFragmentManager,"sertif")
+        }
+
+        btnLayout_verify_profilepic.setOnClickListener {
+            val p = DialogUploadFragment.newInstance("profilePicture")
+            p.show(supportFragmentManager, "profpic")
         }
 
     }

@@ -40,6 +40,10 @@ import java.io.IOException
 
 class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
 
+    override fun onSuccess() {
+        startActivity(intentFor<HomeActivity>().newTask().clearTask())
+    }
+
     companion object {
         const val REQUEST_GET_SINGLE_FILE = 101
         const val REQUEST_CAPTURE_IMAGE = 102
@@ -54,6 +58,7 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
     private var mSchedule = mutableListOf<Item>()
     private var mScheduleList = mutableListOf<ItSchedule>()
 
+    lateinit var bottomSheetFragment: EditProfBottomSheetFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +71,7 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
         rv_edit_schedule.layoutManager = GridLayoutManager(this@EditProfileActivity, 3)
 
         img_edit_schedule.setOnClickListener {
-            val bottomSheetFragment = EditProfBottomSheetFragment()
+            bottomSheetFragment = EditProfBottomSheetFragment()
             bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
         }
         date_tv_edit.setOnClickListener {
@@ -90,15 +95,21 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
             }
         }
 
-        FirebaseUtil.getCurrentUser {
-            if (it.ijazah != null && it.ijazah.isNotBlank() && it.sertifikat != null && it.sertifikat.isNotBlank())
-                btn_upload_edit_prof.text = "Ubah persyaratan data?"
-        }
+        loadData()
 
         btn_upload_edit_prof.setOnClickListener {
            startActivity<VerifyActivity>()
         }
 
+    }
+
+    fun loadData() {
+        FirebaseUtil.getCurrentUser {
+            if (it.ijazah != null && it.ijazah.isNotBlank() &&
+                it.sertifikat != null && it.sertifikat.isNotBlank() &&
+                it.profilePicture != null && it.profilePicture.isNotBlank())
+                btn_upload_edit_prof.text = "Ubah persyaratan data?"
+        }
     }
 
     private fun openGallery() {
@@ -138,7 +149,7 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
 
         presenter.saveData(
             Ustad(
-                name, "", "", tempat, tanggal, pendidikan, keilmuan, mazhab, selectedImageBytes.toString(),"", "", null, null, UserType.USTAZ,
+                name, "", "", tempat, tanggal, pendidikan, keilmuan, mazhab, selectedImageBytes.toString(),"", "", null, null, null, UserType.USTAZ,
                 userOnline, mutableListOf()
             ),
             selectedImageBytes

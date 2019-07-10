@@ -10,6 +10,7 @@ interface EditProfContract {
         fun showTimePicker(v: View)
         fun showDatePicker(v: View)
         fun setData(ustad: Ustad)
+        fun onSuccess()
     }
     interface Presenter{
         fun getData()

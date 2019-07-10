@@ -19,7 +19,7 @@
             android:layout_height="172dp"
             android:scaleType="centerCrop"
             android:layout_gravity="center_horizontal"
-            app:srcCompat="@drawable/ic_add_image" android:id="@+id/img_dialog"/>
+            android:src="@drawable/ic_add_image" android:id="@+id/img_dialog"/>
     <Button
             android:layout_marginTop="16dp"
             android:text="Pilih gambar"

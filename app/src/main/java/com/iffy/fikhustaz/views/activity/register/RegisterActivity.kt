@@ -12,6 +12,8 @@ import android.view.View
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.iffy.fikhustaz.R
+import com.iffy.fikhustaz.data.StatusAccount
+import com.iffy.fikhustaz.data.UserType
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.iffy.fikhustaz.views.activity.login.LoginActivity
 import com.iffy.fikhustaz.data.model.profile.Ustad
@@ -71,8 +73,9 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
             "",
             "",
             100,
+            StatusAccount.UNVERIFIED,
             mutableListOf(),
-            "USTAZ",
+            UserType.USTAZ,
             mutableListOf(),
             mutableListOf()
         )

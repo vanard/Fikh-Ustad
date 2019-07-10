@@ -9,6 +9,12 @@ object AppConst {
     const val HADIST_ACTIVITY = "Hadist"
 }
 
+object StatusAccount {
+    const val UNVERIFIED = "Unverified"
+    const val PENDING = "Pending"
+    const val VERIFIED = "Verified"
+}
+
 object MessageType {
     const val TEXT = "TEXT"
     const val IMAGE = "IMAGE"

@@ -61,7 +61,7 @@
                 <ImageView
                         android:layout_width="16dp"
                         android:layout_height="16dp"
-                        app:srcCompat="@drawable/ic_mode_comment"
+                        android:src="@drawable/ic_mode_comment"
                         android:id="@+id/imageView14"
                         android:alpha=".50"
                         app:layout_constraintTop_toBottomOf="@+id/name_tv_home" android:layout_marginTop="8dp"

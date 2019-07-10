@@ -55,6 +55,7 @@ object FirebaseUtil {
                           sertifikat: String? = null,
                           ijazah: String? = null,
                           rate: Long? = null,
+                          verified: String? = null,
                           userOnline : List<ItOnline>? = null,
                           schedule: List<ItSchedule>? = null
     ) {
@@ -73,6 +74,8 @@ object FirebaseUtil {
             userFieldMap["sertifikat"] = sertifikat
         if (ijazah != null && ijazah.isNotBlank())
             userFieldMap["ijazah"] = ijazah
+        if (verified != null && verified.isNotBlank())
+            userFieldMap["verified"] = verified
         if (schedule != null)
             userFieldMap["schedule"] = schedule
         if (userOnline != null)

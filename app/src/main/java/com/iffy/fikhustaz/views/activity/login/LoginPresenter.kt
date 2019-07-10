@@ -7,6 +7,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.iid.FirebaseInstanceId
+import com.iffy.fikhustaz.data.StatusAccount
 import com.iffy.fikhustaz.data.UserType
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.iffy.fikhustaz.data.model.profile.Ustad
@@ -89,6 +90,7 @@ class LoginPresenter (v: LoginContract.View, ctx: Context) : LoginContract.Prese
                         user.photoUrl.toString(),
                         "",
                         100,
+                        StatusAccount.UNVERIFIED,
                         mutableListOf(),
                         UserType.USTAZ,
                         mutableListOf(),

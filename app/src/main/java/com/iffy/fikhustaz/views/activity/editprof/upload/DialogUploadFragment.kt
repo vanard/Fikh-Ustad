@@ -15,20 +15,20 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.iffy.fikhustaz.R
+import com.iffy.fikhustaz.data.StatusAccount
 import com.iffy.fikhustaz.util.FirebaseUtil
 import com.iffy.fikhustaz.views.activity.editprof.EditProfileActivity
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.dialog_upload.*
 import kotlinx.android.synthetic.main.dialog_upload.view.*
+import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.selector
 import org.jetbrains.anko.support.v4.toast
-import org.jetbrains.anko.toast
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 
 
 
-class DialogUploadFragment: DialogFragment() {
+class DialogUploadFragment: DialogFragment(){
 
     private var selectedImageBytes: ByteArray? = null
     lateinit var v : View
@@ -87,6 +87,7 @@ class DialogUploadFragment: DialogFragment() {
                         upImageRef.downloadUrl.addOnSuccessListener { uri ->
                             val userFieldMap = mutableMapOf<String, Any>()
                             userFieldMap[tipe] = uri.toString()
+                            userFieldMap["verified"] = StatusAccount.PENDING
                             FirebaseUtil.currentUserDocRef.update(userFieldMap)
 
                             toast("Upload success")
@@ -113,9 +114,12 @@ class DialogUploadFragment: DialogFragment() {
             if (tipe == "ijazah"){
                 if (it.ijazah != null && it.ijazah.isNotBlank())
                     Picasso.get().load(it.ijazah).into(v.img_dialog)
-            }else{
+            }else if (tipe == "profilePicture"){
                 if (it.sertifikat != null && it.sertifikat.isNotBlank())
                     Picasso.get().load(it.sertifikat).into(v.img_dialog)
+            }else if (tipe == "sertifikat"){
+                if (it.profilePicture != null && it.profilePicture.isNotBlank())
+                    Picasso.get().load(it.profilePicture).into(v.img_dialog)
             }
             mDial.dismiss()
         }
@@ -157,11 +161,11 @@ class DialogUploadFragment: DialogFragment() {
                         selectedImageBytes = outputStream.toByteArray()
 
                         v.img_dialog.setImageBitmap(bitmap)
-                        v.btn_pick_dialog.setBackgroundDrawable(resources.getDrawable(R.drawable.bg_chip))
+                        v.btn_pick_dialog.backgroundResource = R.drawable.bg_chip
                         v.btn_pick_dialog.text = "Ganti Gambar"
                         v.btn_pick_dialog.setTextColor(Color.GRAY)
 
-                        v.btn_upload_dialog.setBackgroundDrawable(resources.getDrawable(R.drawable.btn_green_register))
+                        v.btn_upload_dialog.backgroundResource = R.drawable.btn_green_register
                         v.btn_upload_dialog.setTextColor(Color.WHITE)
                     } catch (e: IOException) {
                         e.printStackTrace()
@@ -179,11 +183,11 @@ class DialogUploadFragment: DialogFragment() {
                     selectedImageBytes = outputStream.toByteArray()
 
                     v.img_dialog.setImageBitmap(imageBitmap)
-                    v.btn_pick_dialog.setBackgroundDrawable(resources.getDrawable(R.drawable.bg_chip))
+                    v.btn_pick_dialog.backgroundResource = R.drawable.bg_chip
                     v.btn_pick_dialog.text = "Ganti Gambar"
                     v.btn_pick_dialog.setTextColor(Color.GRAY)
 
-                    v.btn_upload_dialog.setBackgroundDrawable(resources.getDrawable(R.drawable.btn_green_register))
+                    v.btn_upload_dialog.backgroundResource = R.drawable.btn_green_register
                     v.btn_upload_dialog.setTextColor(Color.WHITE)
                 }
             }

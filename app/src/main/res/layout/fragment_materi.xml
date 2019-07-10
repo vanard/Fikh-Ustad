@@ -25,7 +25,8 @@
             android:src="@drawable/ic_edit_write"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true" android:id="@+id/materi_new_post_fab"
+            android:clickable="true"
+            android:focusable="true" android:id="@+id/materi_new_post_fab"
             android:layout_marginEnd="24dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="24dp"
             app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

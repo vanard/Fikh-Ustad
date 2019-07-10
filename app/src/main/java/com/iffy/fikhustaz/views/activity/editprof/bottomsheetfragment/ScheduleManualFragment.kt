@@ -7,12 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.auth.FirebaseAuth
 
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.model.profile.ItSchedule
 import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.iffy.fikhustaz.util.DatesFormat
 import com.iffy.fikhustaz.util.FirebaseUtil
+import com.iffy.fikhustaz.views.activity.editprof.EditProfileActivity
 import kotlinx.android.synthetic.main.fragment_schedule_manual.*
 import org.jetbrains.anko.support.v4.toast
 import java.util.*
@@ -94,7 +96,18 @@ class ScheduleManualFragment : Fragment() {
         if (dayList.isEmpty()){
             toast("Pilih hari terlebih dahulu")
         }else{
-            FirebaseUtil.updateCurrentUser("","","","","","","","","","","",null, null, dayList)
+            val userFieldMap = mutableMapOf<String, Any>()
+            userFieldMap["schedule"] = dayList
+
+            val currentUserDocRef = FirebaseUtil.firestoreInstance.document(
+                "users/${FirebaseAuth.getInstance().currentUser?.uid}")
+
+            currentUserDocRef.update(userFieldMap)
+
+            val editAct = (activity as EditProfileActivity)
+            editAct.bottomSheetFragment.dismiss()
+            editAct.loadData()
+
             toast("Jadwal berhasil diubah")
         }
     }

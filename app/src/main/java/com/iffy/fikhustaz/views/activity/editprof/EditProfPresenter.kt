@@ -35,7 +35,7 @@ class EditProfPresenter(v: EditProfContract.View) : EditProfContract.Presenter {
 
         if (ustad.profilePicture == null || selectedImageBytes == null){
             uiScope.launch {
-                FirebaseUtil.updateCurrentUser(ustad.nama!!,ustad.email!!,ustad.handphone!!,ustad.tempatLahir!!,ustad.tanggalLahir!!,ustad.pendidikan!!,ustad.keilmuan!!,ustad.mazhab!!, "", "", "",null,
+                FirebaseUtil.updateCurrentUser(ustad.nama!!,ustad.email!!,ustad.handphone!!,ustad.tempatLahir!!,ustad.tanggalLahir!!,ustad.pendidikan!!,ustad.keilmuan!!,ustad.mazhab!!, "", "", "",null, null,
                     ustad.userOnline, ustad.schedule)
                 val profile = UserProfileChangeRequest.Builder()
                     .setDisplayName(ustad.nama)
@@ -45,6 +45,7 @@ class EditProfPresenter(v: EditProfContract.View) : EditProfContract.Presenter {
                 view.showMsg("Update Successfully")
 
                 view.hideLoad()
+                view.onSuccess()
             }
 
         }else{
@@ -56,10 +57,11 @@ class EditProfPresenter(v: EditProfContract.View) : EditProfContract.Presenter {
 
     private fun updateUser(uri: Uri){
         FirebaseUtil.updateCurrentUser(mUstad?.nama!!,mUstad?.email!!,mUstad?.handphone!!,mUstad?.tempatLahir!!,mUstad?.tanggalLahir!!,mUstad?.pendidikan!!,mUstad?.keilmuan!!,mUstad?.mazhab!!, uri.toString(),
-            "", "",null, mUstad?.userOnline, mUstad?.schedule)
+            "", "",null, null,mUstad?.userOnline, mUstad?.schedule)
 
         view.showMsg("Update Successfully")
         view.hideLoad()
+        view.onSuccess()
     }
 
 }
