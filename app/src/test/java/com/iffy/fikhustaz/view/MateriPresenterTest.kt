@@ -51,7 +51,7 @@ class MateriPresenterTest {
     }
 
     @Test
-    fun getKitabHaditsTest() {
+    fun getMateriTest() {
         val events: MutableList<Fikih> = mutableListOf()
         val response = apiService.fetchFikih(1)
 

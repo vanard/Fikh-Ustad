@@ -18,10 +18,34 @@ class ApiTest {
 
         apiRest = mock(RetrofitService::class.java)
     }
-
     @Test
     fun getKitabTest(){
         apiRest.fetchKitab()
         verify(apiRest).fetchKitab()
+    }
+    @Test
+    fun getHaditsTest(){
+        apiRest.fetchHadist("abu-daud", "1")
+        verify(apiRest).fetchHadist("abu-daud", "1")
+    }
+    @Test
+    fun getQuranTest(){
+        apiRest.fetchQuran()
+        verify(apiRest).fetchQuran()
+    }
+    @Test
+    fun getSurahTest(){
+        apiRest.fetchSurat("1")
+        verify(apiRest).fetchSurat("1")
+    }
+    @Test
+    fun getMateriTest(){
+        apiRest.fetchFikih(1)
+        verify(apiRest).fetchFikih(1)
+    }
+    @Test
+    fun getDetailMateriTest(){
+        apiRest.fetchIsiFikh("35143-jual-beli-curang-dan-mengurangi-timbangan-bagaimana-cara-bertaubatnya")
+        verify(apiRest).fetchIsiFikh("35143-jual-beli-curang-dan-mengurangi-timbangan-bagaimana-cara-bertaubatnya")
     }
 }

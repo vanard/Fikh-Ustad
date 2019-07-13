@@ -33,6 +33,7 @@ class MateriFragment : Fragment(), MateriSyariahContract.View {
 
     val presenter = MateriSyariahPresenter(this)
     val adapter = GroupAdapter<ViewHolder>()
+
     private var listFikh = mutableListOf<Fikih>()
     private var isiFikh = mutableListOf<IsiFikh>()
 
@@ -83,7 +84,6 @@ class MateriFragment : Fragment(), MateriSyariahContract.View {
                 presenter.getDetailData(it.link)
             }
         }
-
     }
 
     override fun initMateri(materi: MateriUstad) {

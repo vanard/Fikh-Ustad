@@ -3,6 +3,7 @@ package com.iffy.fikhustaz.util
 import android.content.Context
 import android.net.Uri
 import android.util.Log
+import android.util.Log.d
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.*
@@ -215,6 +216,7 @@ object FirebaseUtil {
                 onComplete(data)
                 return@addOnSuccessListener
             }.addOnFailureListener {
+                d("error", it.localizedMessage)
                 return@addOnFailureListener
             }
     }
