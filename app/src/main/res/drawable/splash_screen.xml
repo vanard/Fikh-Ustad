@@ -4,7 +4,7 @@
     <item android:drawable="@android:color/white"/>
 
     <item>
-        <bitmap android:src="@drawable/logo_app_fikh"
+        <bitmap android:src="@drawable/logo_fikh_ustad"
                 android:gravity="center"/>
     </item>
 

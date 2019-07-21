@@ -8,7 +8,7 @@
         tools:context=".views.activity.login.LoginActivity" android:background="@android:color/white">
     <ImageView
             android:layout_width="96dp"
-            android:layout_height="96dp" android:src="@drawable/logo_app_fikh"
+            android:layout_height="96dp" android:src="@drawable/logo_fikh_ustad"
             android:id="@+id/imageView3"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginTop="96dp"
