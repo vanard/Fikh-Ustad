@@ -66,7 +66,7 @@ class ChatActivity : AppCompatActivity(), ChatContract.View {
                         otherUserId, currentUser.nama!!, intent.getStringExtra("USERNAME")
                     )
                 et_chat_log.text.clear()
-                FirebaseUtil.sendMessage(messageToSend, channelId)
+                FirebaseUtil.sendMessage(messageToSend, channelId, currentUser.profilePicture!!)
             }
         }
     }

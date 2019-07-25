@@ -20,8 +20,10 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.fragment_materi.*
 import com.iffy.fikhustaz.R.array.filter
+import com.iffy.fikhustaz.data.StatusAccount
 import com.iffy.fikhustaz.data.itemviews.MateriUstadItem
 import com.iffy.fikhustaz.data.model.materi.MateriUstad
+import com.iffy.fikhustaz.util.FirebaseUtil
 import com.iffy.fikhustaz.views.fragment.materi.uploadmateri.AddMateriActivity
 import org.jetbrains.anko.*
 import org.jetbrains.anko.support.v4.alert
@@ -51,9 +53,23 @@ class MateriFragment : Fragment(), MateriSyariahContract.View {
         (activity as HomeActivity).supportActionBar?.title = "Materi"
         setHasOptionsMenu(true)
 
-        materi_new_post_fab.setOnClickListener {
-            context?.startActivity<AddMateriActivity>()
+        FirebaseUtil.getCurrentUser {
+            if (it.verified != null && it.verified.isNotBlank())
+            {
+                if(it.verified == StatusAccount.VERIFIED){
+                    materi_new_post_fab.isEnabled = true
+                    materi_new_post_fab.visibility = View.VISIBLE
+                    materi_new_post_fab.setOnClickListener {
+                        context?.startActivity<AddMateriActivity>()
+                    }
+                }else {
+                    materi_new_post_fab.isEnabled = false
+                    materi_new_post_fab.visibility = View.GONE
+                }
+            }
         }
+
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

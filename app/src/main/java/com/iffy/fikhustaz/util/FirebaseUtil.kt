@@ -221,7 +221,11 @@ object FirebaseUtil {
             }
     }
 
-    fun sendMessage(message: Message, channelId: String) {
+    fun sendMessage(
+        message: Message,
+        channelId: String,
+        profilePicture: String
+    ) {
         chatChannelsCollectionRef.document(channelId)
             .collection("messages")
             .add(message)
@@ -229,6 +233,12 @@ object FirebaseUtil {
         chatChannelsCollectionRef.document(channelId)
             .collection("lastmessage").document(channelId)
             .set(message)
+
+        val userFieldMap = mutableMapOf<String, Any>()
+        userFieldMap["profilePic"] = profilePicture
+
+        chatChannelsCollectionRef.document(channelId)
+            .collection("lastmessage").document(channelId).update(userFieldMap)
     }
 
     fun putProfileBytes(uid: String?, image: ByteArray, mNama: String?, onComplete: (uri: Uri) -> Unit){
