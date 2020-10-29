@@ -17,10 +17,17 @@ class MateriFikhItem(val fikh: IsiFikh) : Item(){
         viewHolder.itemView.tv_desc_materi.text = fikh.category.split("\n").toString()
         viewHolder.itemView.tv_day_materi.text = ""
 
-        Picasso.get()
-            .load(fikh.image)
-            .placeholder(R.drawable.logo_app_fikh)
-            .into(viewHolder.itemView.img_materi)
+        if (fikh.image.isEmpty() || fikh.image.isBlank()) {
+            Picasso.get()
+                .load(R.drawable.logo_app_fikh)
+                .placeholder(R.drawable.logo_app_fikh)
+                .into(viewHolder.itemView.img_materi)
+        } else {
+            Picasso.get()
+                .load(fikh.image)
+                .placeholder(R.drawable.logo_app_fikh)
+                .into(viewHolder.itemView.img_materi)
+        }
 
         viewHolder.itemView.setOnClickListener {
             viewHolder.itemView.context.startActivity<DetailMateriActivity>("data" to fikh)

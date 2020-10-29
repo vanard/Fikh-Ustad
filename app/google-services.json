@@ -1,0 +1,101 @@
+{
+  "project_info": {
+    "project_number": "121679605986",
+    "firebase_url": "https://fikh-851e0.firebaseio.com",
+    "project_id": "fikh-851e0",
+    "storage_bucket": "fikh-851e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121679605986:android:6faca757992d8f27",
+        "android_client_info": {
+          "package_name": "com.iffy.fikh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "121679605986-qk492425skqdcp83oc8inadmp2vvgshi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iffy.fikh",
+            "certificate_hash": "ac12fdc28b2235b7cddef13a56d50b625f2bc993"
+          }
+        },
+        {
+          "client_id": "121679605986-7jui0bn27lcmfacmhkoma1h0ucklij27.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAga8Xm9cDpadggmwniqma59jh0ZeVxl1Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "121679605986-7jui0bn27lcmfacmhkoma1h0ucklij27.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121679605986:android:b0e816b22bbae201",
+        "android_client_info": {
+          "package_name": "com.iffy.fikhustaz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "121679605986-5lsm4i1opfvh367t6to7bj9efp7dt6t9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iffy.fikhustaz",
+            "certificate_hash": "b7e881face52085b52847084695075a5cb0a8ae6"
+          }
+        },
+        {
+          "client_id": "121679605986-u0eu9ald4oggvbuv0irbre6gab349gu0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iffy.fikhustaz",
+            "certificate_hash": "ac12fdc28b2235b7cddef13a56d50b625f2bc993"
+          }
+        },
+        {
+          "client_id": "121679605986-u0dm1jmhhfrkn7de33tbnmuiemeakbo7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iffy.fikhustaz",
+            "certificate_hash": "637760aa6521f2a4cd028807a07b08d80246dd64"
+          }
+        },
+        {
+          "client_id": "121679605986-7jui0bn27lcmfacmhkoma1h0ucklij27.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAga8Xm9cDpadggmwniqma59jh0ZeVxl1Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "121679605986-7jui0bn27lcmfacmhkoma1h0ucklij27.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
