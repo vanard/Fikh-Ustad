@@ -23,7 +23,7 @@ import com.iffy.fikhustaz.data.model.materi.MateriUstad
 class MateriActivity : AppCompatActivity(),MateriContract.View {
 
     private lateinit var presenter : MateriPresenter
-    private lateinit var uri: Uri
+    private var uri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,12 +70,16 @@ class MateriActivity : AppCompatActivity(),MateriContract.View {
                 startActivity(intentFor<HomeActivity>("frg" to AppConst.MATERI_ACTIVITY).newTask().clearTask())
             }
             R.id.menu_share -> {
-                val i = Intent()
-                i.action = Intent.ACTION_SEND
-                i.type = "application/pdf"
-                i.putExtra(Intent.EXTRA_STREAM, uri)
+                if (uri != null) {
+                    val i = Intent()
+                    i.action = Intent.ACTION_SEND
+                    i.type = "application/pdf"
+                    i.putExtra(Intent.EXTRA_STREAM, uri)
 
-                this@MateriActivity.startActivity(i)
+                    this@MateriActivity.startActivity(i)
+                }
+                else
+                    toast("PDF share is not ready.")
             }
         }
         return super.onOptionsItemSelected(item)
