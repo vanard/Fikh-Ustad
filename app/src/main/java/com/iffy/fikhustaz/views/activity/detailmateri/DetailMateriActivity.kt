@@ -43,7 +43,7 @@ class DetailMateriActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail_materi)
 
         if (intent != null) {
-            a = intent.getParcelableExtra("data")
+            a = intent.getParcelableExtra("data")!!
 
             supportActionBar?.title = a.title
             Picasso.get().load(a.image).placeholder(R.drawable.logo_app_fikh).into(img_detailmateri)
@@ -82,8 +82,8 @@ class DetailMateriActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId){
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
             android.R.id.home -> {
                 startActivity(intentFor<HomeActivity>("frg" to AppConst.MATERI_ACTIVITY).newTask().clearTask())
                 return true

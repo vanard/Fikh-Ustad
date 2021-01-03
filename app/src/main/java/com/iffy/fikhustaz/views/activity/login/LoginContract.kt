@@ -1,6 +1,7 @@
 package com.iffy.fikhustaz.views.activity.login
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.iffy.fikhustaz.data.model.profile.Ustad
 
 interface LoginContract{
     interface View{

@@ -71,7 +71,11 @@ class HaditsActivity : AppCompatActivity(), HaditsContract.View {
         setContentView(R.layout.activity_hadits)
 
         presenter = HaditsPresenter(this)
-        data = intent.getParcelableExtra("data")
+        if (intent != null)
+            data = intent.getParcelableExtra("data")!!
+        else
+            toast("Something went wrong.")
+
         jumlahHadits = data.jumlah.split(" ")[0]
         pages = jumlahHadits.toInt()/15
 

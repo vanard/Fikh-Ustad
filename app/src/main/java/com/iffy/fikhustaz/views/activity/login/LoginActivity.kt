@@ -4,34 +4,40 @@ import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Typeface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
+import android.util.Log
 import android.util.Log.w
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.iffy.fikhustaz.R
+import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.iffy.fikhustaz.views.activity.register.RegisterActivity
 import com.iffy.fikhustaz.views.activity.reset.ResetActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.*
 
+
 class LoginActivity : AppCompatActivity() , LoginContract.View{
 
     private lateinit var presenter: LoginPresenter
     private var googleSignInClient : GoogleSignInClient? = null
     private var currentUser : FirebaseUser? = null
+    private var db = FirebaseFirestore.getInstance()
     private val RC_SIGN_IN = 101
     private lateinit var dialog: ProgressDialog
+    private var listUsers = mutableListOf<Ustad>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +57,20 @@ class LoginActivity : AppCompatActivity() , LoginContract.View{
 
         googleSignInClient = GoogleSignIn.getClient(this@LoginActivity, gso)
         presenter = LoginPresenter(this, this)
-        text()
+        setTextView()
+
+        db.collection("users").get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful && task.result != null) {
+                    for (doc: QueryDocumentSnapshot in task.result!!) {
+                        val data = doc.toObject(Ustad::class.java)
+                        listUsers.add(data)
+
+                    }
+                }else {
+                    w("LoginActivity", "Error getting document", task.exception )
+                }
+            }
 
         btn_login_login.setOnClickListener { tryLogin() }
 
@@ -67,7 +86,15 @@ class LoginActivity : AppCompatActivity() , LoginContract.View{
         if (!presenter.verify(mEmail, mPass)){
             return
         }
-        presenter.login(mEmail, mPass)
+
+        val loginUstaz = listUsers.find {
+            it.email == mEmail && it.type == "USTAZ"
+        }
+
+        if (loginUstaz != null)
+            presenter.login(mEmail, mPass)
+        else
+            toast("Please login on Fikh App for Customer to use this email.")
 
     }
 
@@ -79,7 +106,7 @@ class LoginActivity : AppCompatActivity() , LoginContract.View{
                 val account = task.getResult(ApiException::class.java)
                 presenter.googleLogin(account!!)
             } catch (e: ApiException) {
-                w("MainActivity", "Google sign in failed", e)
+                w("LoginActivity", "Google sign in failed", e)
             }
         }
     }
@@ -89,7 +116,7 @@ class LoginActivity : AppCompatActivity() , LoginContract.View{
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-    private fun text(){
+    private fun setTextView(){
         val texuto = tv_daftar_login.text.toString()
         val spannable = SpannableString(texuto)
         val lengthTexuto = texuto.length - 6

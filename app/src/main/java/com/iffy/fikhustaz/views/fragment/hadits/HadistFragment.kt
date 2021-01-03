@@ -23,17 +23,14 @@ import org.jetbrains.anko.support.v4.startActivity
 
 class HadistFragment : Fragment(), HadistContract.View {
 
-    private lateinit var dialog: ProgressDialog
     val adapter = GroupAdapter<ViewHolder>()
 
     override fun showLoad() {
-        dialog = ProgressDialog.show(this@HadistFragment.context, "", "Loading")
-        dialog.setCancelable(false)
-        dialog.isIndeterminate
+        progressBar2.visibility = View.VISIBLE
     }
 
     override fun hideLoad() {
-        dialog.dismiss()
+        progressBar2.visibility = View.GONE
     }
 
     override fun onCreateView(

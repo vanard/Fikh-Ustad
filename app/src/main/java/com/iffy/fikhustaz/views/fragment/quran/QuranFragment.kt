@@ -24,7 +24,6 @@ import org.jetbrains.anko.support.v4.toast
 
 class QuranFragment : Fragment(), QuranContract.View {
 
-    private lateinit var dialog: ProgressDialog
     val adapter = GroupAdapter<ViewHolder>()
     private var listQuran = mutableListOf<Quran>()
     private var listDisplay = mutableListOf<Quran>()
@@ -132,13 +131,11 @@ class QuranFragment : Fragment(), QuranContract.View {
     }
 
     override fun showLoad() {
-        dialog = ProgressDialog.show(this@QuranFragment.context, "Preparing", "Loading")
-        dialog.setCancelable(false)
-        dialog.isIndeterminate
+        progressBar3.visibility = View.VISIBLE
     }
 
     override fun hideLoad() {
-        dialog.dismiss()
+        progressBar3.visibility = View.INVISIBLE
     }
 
     override fun showMsg(str: String) {

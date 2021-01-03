@@ -49,18 +49,19 @@ class SurahActivity : AppCompatActivity(), SurahContract.View {
         rv_ayat.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
         if (intent != null) {
-            quran = intent.getParcelableExtra("quran")
+            quran = intent.getParcelableExtra("quran")!!
 
                 supportActionBar?.title = quran.nama
 
                 presenter.initDataSql(quran.nomor)
 
-        }
+        }else
+            toast("Something went wrong.")
 
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId){
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
             android.R.id.home -> {
                 startActivity(intentFor<HomeActivity>("frg" to AppConst.QURAN_ACTIVITY).newTask().clearTask())
                 return true

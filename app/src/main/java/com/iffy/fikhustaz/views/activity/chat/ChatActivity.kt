@@ -49,7 +49,7 @@ class ChatActivity : AppCompatActivity(), ChatContract.View {
         FirebaseUtil.getCurrentUser {
             currentUser = it
         }
-        otherUserId = intent.getStringExtra("USER_ID")
+        otherUserId = intent.getStringExtra("USER_ID").toString()
         presenter.getData(otherUserId)
     }
 
@@ -63,7 +63,7 @@ class ChatActivity : AppCompatActivity(), ChatContract.View {
                     TextMessage(
                         et_chat_log.text.toString(), Calendar.getInstance().time,
                         FirebaseAuth.getInstance().currentUser!!.uid,
-                        otherUserId, currentUser.nama!!, intent.getStringExtra("USERNAME")
+                        otherUserId, currentUser.nama!!, intent.getStringExtra("USERNAME").toString()
                     )
                 et_chat_log.text.clear()
                 FirebaseUtil.sendMessage(messageToSend, channelId, currentUser.profilePicture!!)
@@ -93,8 +93,8 @@ class ChatActivity : AppCompatActivity(), ChatContract.View {
         rv_chat_log.scrollToPosition(rv_chat_log.adapter!!.itemCount - 1)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId){
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
             android.R.id.home -> {
                 startActivity(intentFor<HomeActivity>("frg" to AppConst.CHAT_ACTIVITY).newTask().clearTask())
                 return true

@@ -2,7 +2,6 @@ package com.iffy.fikhustaz.views.activity.login
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
@@ -47,10 +46,9 @@ class LoginPresenter (v: LoginContract.View, ctx: Context) : LoginContract.Prese
                         val intent = Intent(mCtx, HomeActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
 
+                        mCtx.startActivity(intent)
                         view?.showMsg("Login Success")
                         view?.hideLoading()
-
-                        mCtx.startActivity(intent)
                     }else{
                         if (it.exception != null){
                             view?.showMsg(it.exception!!.localizedMessage)
@@ -63,9 +61,9 @@ class LoginPresenter (v: LoginContract.View, ctx: Context) : LoginContract.Prese
                     view?.showMsg(it.localizedMessage)
                     view?.hideLoading()
                 }
-                view?.hideLoading()
             } catch (e: Throwable) {
                 view?.showMsg("Ooops: Something else went wrong")
+                view?.hideLoading()
             }
         }
     }
