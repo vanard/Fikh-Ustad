@@ -136,7 +136,7 @@ class ScheduleFragment : Fragment() {
 
                 val editAct = (activity as EditProfileActivity)
                 editAct.bottomSheetFragment.dismiss()
-                editAct.loadData()
+                editAct.loadData(1)
 
                 toast("Schedule Updated")
             }

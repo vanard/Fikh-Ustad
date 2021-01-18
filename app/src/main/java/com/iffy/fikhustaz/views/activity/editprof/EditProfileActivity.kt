@@ -4,11 +4,13 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
 import android.app.TimePickerDialog
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -40,9 +42,7 @@ import java.io.IOException
 
 class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
 
-    override fun onSuccess() {
-        startActivity(intentFor<HomeActivity>().newTask().clearTask())
-    }
+    private val TAG = "EditProfileActivity"
 
     companion object {
         const val REQUEST_GET_SINGLE_FILE = 101
@@ -103,12 +103,18 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
 
     }
 
-    fun loadData() {
+    fun loadData(code: Int? = 0) {
         FirebaseUtil.getCurrentUser {
             if (it.ijazah != null && it.ijazah.isNotBlank() &&
                 it.sertifikat != null && it.sertifikat.isNotBlank() &&
-                it.profilePicture != null && it.profilePicture.isNotBlank())
-                btn_upload_edit_prof.text = "Ubah persyaratan data?"
+                it.profilePicture != null && it.profilePicture.isNotBlank()) {
+                    btn_upload_edit_prof.text = "Ubah persyaratan data?"
+            }
+            if (code != 0) {
+                mScheduleList.clear()
+                mSchedule.clear()
+                this.setData(it)
+            }
         }
     }
 
@@ -123,11 +129,18 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
     }
 
     private fun  openCamera(){
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-            takePictureIntent.resolveActivity(packageManager)?.also {
-                startActivityForResult(takePictureIntent, REQUEST_CAPTURE_IMAGE)
-            }
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        try {
+            startActivityForResult(takePictureIntent, REQUEST_CAPTURE_IMAGE)
+        } catch (e: ActivityNotFoundException) {
+            // display error state to the user
+            Log.d(TAG, "openCamera: something went wrong")
         }
+//        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+//            takePictureIntent.resolveActivity(packageManager)?.also {
+//                startActivityForResult(takePictureIntent, REQUEST_CAPTURE_IMAGE)
+//            }
+//        }
     }
 
     private fun tryToSaveData() {
@@ -245,7 +258,7 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
     }
 
     override fun showLoad() {
-        dialog = ProgressDialog.show(this, "", "Tunggu sebentar")
+        dialog = ProgressDialog.show(this, "", "Please wait...")
         dialog.setCancelable(false)
         dialog.isIndeterminate
     }
@@ -306,6 +319,10 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
 
     override fun showMsg(msg: String) {
         toast(msg)
+    }
+
+    override fun onSuccess() {
+        startActivity(intentFor<HomeActivity>().newTask().clearTask())
     }
 
 }

@@ -117,6 +117,7 @@
                 android:name=".views.activity.login.LoginActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
     </application>
 
 </manifest>

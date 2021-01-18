@@ -35,17 +35,23 @@ class EditProfPresenter(v: EditProfContract.View) : EditProfContract.Presenter {
 
         if (ustad.profilePicture == null || selectedImageBytes == null){
             uiScope.launch {
-                FirebaseUtil.updateCurrentUser(ustad.nama!!,ustad.email!!,ustad.handphone!!,ustad.tempatLahir!!,ustad.tanggalLahir!!,ustad.pendidikan!!,ustad.keilmuan!!,ustad.mazhab!!, "", "", "",null, null,
-                    ustad.userOnline, ustad.schedule)
+                FirebaseUtil.updateCurrentUser(ustad.nama!!,ustad.email!!,ustad.handphone!!,ustad.tempatLahir!!,
+                    ustad.tanggalLahir!!,ustad.pendidikan!!,ustad.keilmuan!!,ustad.mazhab!!, "",
+                    "", "",null, null, ustad.userOnline, ustad.schedule)
+
                 val profile = UserProfileChangeRequest.Builder()
                     .setDisplayName(ustad.nama)
                     .build()
 
-                user!!.updateProfile(profile)
-                view.showMsg("Update Successfully")
+                user!!.updateProfile(profile).addOnCompleteListener {
+                    if(it.isSuccessful) {
+                        view.showMsg("Update Successfully")
 
-                view.hideLoad()
-                view.onSuccess()
+                        view.hideLoad()
+                        view.onSuccess()
+                    }
+                }
+
             }
 
         }else{
@@ -56,7 +62,8 @@ class EditProfPresenter(v: EditProfContract.View) : EditProfContract.Presenter {
     }
 
     private fun updateUser(uri: Uri){
-        FirebaseUtil.updateCurrentUser(mUstad?.nama!!,mUstad?.email!!,mUstad?.handphone!!,mUstad?.tempatLahir!!,mUstad?.tanggalLahir!!,mUstad?.pendidikan!!,mUstad?.keilmuan!!,mUstad?.mazhab!!, uri.toString(),
+        FirebaseUtil.updateCurrentUser(mUstad?.nama!!,mUstad?.email!!,mUstad?.handphone!!,mUstad?.tempatLahir!!,
+            mUstad?.tanggalLahir!!,mUstad?.pendidikan!!,mUstad?.keilmuan!!,mUstad?.mazhab!!, uri.toString(),
             "", "",null, null,mUstad?.userOnline, mUstad?.schedule)
 
         view.showMsg("Update Successfully")

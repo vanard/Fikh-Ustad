@@ -141,7 +141,7 @@ class AddMateriActivity : AppCompatActivity(), AddMateriContract.View {
     }
 
     override fun showLoad() {
-        dialog = ProgressDialog.show(this, "", "Tunggu sebentar")
+        dialog = ProgressDialog.show(this, "", "Please wait...")
         dialog.setCancelable(false)
         dialog.isIndeterminate
     }

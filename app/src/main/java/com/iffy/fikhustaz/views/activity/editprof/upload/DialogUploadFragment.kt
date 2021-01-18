@@ -81,7 +81,7 @@ class DialogUploadFragment: DialogFragment(){
             v.btn_upload_dialog.setOnClickListener {
 
                 if (selectedImageBytes != null) {
-                    val mDialg = ProgressDialog.show(context, "Uploading", "Tunggu sebentar")
+                    val mDialg = ProgressDialog.show(context, "Uploading", "Please wait...")
                     mDialg.setCancelable(false)
                     mDialg.isIndeterminate
                     upImageRef.putBytes(selectedImageBytes!!).addOnCompleteListener {
@@ -117,7 +117,7 @@ class DialogUploadFragment: DialogFragment(){
     }
 
     private fun loadPage(tipe: String) {
-        val mDial = ProgressDialog.show(context, "", "Tunggu sebentar")
+        val mDial = ProgressDialog.show(context, "", "Please wait...")
         mDial.setCancelable(false)
         mDial.isIndeterminate
 

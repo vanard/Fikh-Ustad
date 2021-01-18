@@ -106,7 +106,7 @@ class ScheduleManualFragment : Fragment() {
 
             val editAct = (activity as EditProfileActivity)
             editAct.bottomSheetFragment.dismiss()
-            editAct.loadData()
+            editAct.loadData(1)
 
             toast("Jadwal berhasil diubah")
         }

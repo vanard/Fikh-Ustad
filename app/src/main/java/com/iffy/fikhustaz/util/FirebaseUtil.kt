@@ -172,7 +172,7 @@ object FirebaseUtil {
 
     fun getLastMessageListener(channelId: String, onListen: () -> Unit): ListenerRegistration{
         return chatChannelsCollectionRef.document(channelId).collection("lastmessage")
-            .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+            .addSnapshotListener { _, firebaseFirestoreException ->
                 if (firebaseFirestoreException != null) {
                     Log.e("FIRESTORE", "ChatMessagesListener error.", firebaseFirestoreException)
                     return@addSnapshotListener
@@ -254,8 +254,11 @@ object FirebaseUtil {
                         .setDisplayName(mNama)
                         .build()
 
-                    user!!.updateProfile(profile)
-                    onComplete(uri)
+                    user!!.updateProfile(profile).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            onComplete(uri)
+                        }
+                    }
                 }
             }
         }
