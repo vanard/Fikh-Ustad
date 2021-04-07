@@ -106,4 +106,14 @@ class ChatActivity : AppCompatActivity(), ChatContract.View {
     override fun onBackPressed() {
         startActivity(intentFor<HomeActivity>("frg" to AppConst.CHAT_ACTIVITY).newTask().clearTask())
     }
+
+    override fun onPause() {
+        super.onPause()
+        FirebaseUtil.updateStatusOnline("offline")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        FirebaseUtil.updateStatusOnline("online")
+    }
 }

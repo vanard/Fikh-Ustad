@@ -9,6 +9,7 @@ import com.iffy.fikhustaz.views.fragment.pesan.PesanFragment
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.R.id.*
 import com.iffy.fikhustaz.data.AppConst
+import com.iffy.fikhustaz.util.FirebaseUtil
 import com.iffy.fikhustaz.views.activity.login.LoginActivity
 import com.iffy.fikhustaz.util.permissionCheck
 import com.iffy.fikhustaz.views.fragment.hadits.HadistFragment
@@ -200,5 +201,15 @@ class HomeActivity : AppCompatActivity() {
 
         ft.commit()
         supportActionBar?.title = "Al - Qur'an"
+    }
+
+    override fun onPause() {
+        super.onPause()
+        FirebaseUtil.updateStatusOnline("offline")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        FirebaseUtil.updateStatusOnline("online")
     }
 }

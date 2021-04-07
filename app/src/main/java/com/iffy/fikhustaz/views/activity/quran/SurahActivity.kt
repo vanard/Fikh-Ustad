@@ -16,6 +16,7 @@ import com.iffy.fikhustaz.data.local.db
 import com.iffy.fikhustaz.data.model.quran.Quran
 import com.iffy.fikhustaz.data.model.quran.Surat
 import com.iffy.fikhustaz.network.RetrofitFactory
+import com.iffy.fikhustaz.util.FirebaseUtil
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
@@ -117,5 +118,15 @@ class SurahActivity : AppCompatActivity(), SurahContract.View {
 
     override fun showMsg(str: String) {
         toast(str)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        FirebaseUtil.updateStatusOnline("offline")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        FirebaseUtil.updateStatusOnline("online")
     }
 }

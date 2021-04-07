@@ -325,4 +325,14 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
         startActivity(intentFor<HomeActivity>().newTask().clearTask())
     }
 
+    override fun onPause() {
+        super.onPause()
+        FirebaseUtil.updateStatusOnline("offline")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        FirebaseUtil.updateStatusOnline("online")
+    }
+
 }

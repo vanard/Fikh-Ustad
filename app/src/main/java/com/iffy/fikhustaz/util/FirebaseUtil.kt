@@ -284,6 +284,20 @@ object FirebaseUtil {
         }
     }
 
+    fun updateStatusOnline(status: String){
+
+        val onlineData = mutableListOf<ItOnline>()
+        if(status.equals("online")) {
+            onlineData.add(
+                0, ItOnline(
+                    "Online",
+                    0
+                )
+            )
+        }
+        currentUserDocRef.update("userOnline", onlineData)
+    }
+
     //region FCM
     fun getFCMRegistrationTokens(onComplete: (tokens: MutableList<String>) -> Unit) {
         currentUserDocRef.get().addOnSuccessListener {

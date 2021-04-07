@@ -12,6 +12,7 @@ import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.itemviews.HaditsItem
 import com.iffy.fikhustaz.data.model.hadist.Hadist
 import com.iffy.fikhustaz.data.model.hadist.KitabHadist
+import com.iffy.fikhustaz.util.FirebaseUtil
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.activity_hadits.*
@@ -121,6 +122,16 @@ class HaditsActivity : AppCompatActivity(), HaditsContract.View {
         hadist.forEach {
             mAdapter.add(HaditsItem(it))
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        FirebaseUtil.updateStatusOnline("offline")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        FirebaseUtil.updateStatusOnline("online")
     }
 
 }
