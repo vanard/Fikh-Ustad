@@ -11,6 +11,7 @@ import com.iffy.fikhustaz.data.AppConst
 import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.iffy.fikhustaz.data.model.chat.TextMessage
 import com.iffy.fikhustaz.util.FirebaseUtil
+import com.iffy.fikhustaz.views.activity.BaseActivity
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Section
@@ -22,7 +23,7 @@ import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
 import java.util.*
 
-class ChatActivity : AppCompatActivity(), ChatContract.View {
+class ChatActivity : BaseActivity(), ChatContract.View {
 
     companion object {
         const val CHANNEL_ID = "chat"
@@ -105,15 +106,5 @@ class ChatActivity : AppCompatActivity(), ChatContract.View {
 
     override fun onBackPressed() {
         startActivity(intentFor<HomeActivity>("frg" to AppConst.CHAT_ACTIVITY).newTask().clearTask())
-    }
-
-    override fun onPause() {
-        super.onPause()
-        FirebaseUtil.updateStatusOnline("offline")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        FirebaseUtil.updateStatusOnline("online")
     }
 }

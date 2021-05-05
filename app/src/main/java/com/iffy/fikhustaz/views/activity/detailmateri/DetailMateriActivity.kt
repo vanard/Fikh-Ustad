@@ -21,6 +21,7 @@ import android.os.Environment.getExternalStorageDirectory
 import android.os.Environment
 import android.os.StrictMode
 import com.iffy.fikhustaz.util.FirebaseUtil
+import com.iffy.fikhustaz.views.activity.BaseActivity
 import com.itextpdf.text.Document
 import com.itextpdf.text.Paragraph
 import com.itextpdf.text.pdf.PdfWriter
@@ -32,7 +33,7 @@ import com.itextpdf.text.pdf.BaseFont
 import com.itextpdf.text.Font
 
 
-class DetailMateriActivity : AppCompatActivity() {
+class DetailMateriActivity : BaseActivity() {
 
     private lateinit var a : IsiFikh
     private lateinit var uri : Uri
@@ -104,15 +105,5 @@ class DetailMateriActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         startActivity(intentFor<HomeActivity>("frg" to AppConst.MATERI_ACTIVITY).newTask().clearTask())
-    }
-
-    override fun onPause() {
-        super.onPause()
-        FirebaseUtil.updateStatusOnline("offline")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        FirebaseUtil.updateStatusOnline("online")
     }
 }

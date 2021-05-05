@@ -19,7 +19,7 @@ import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity() {
 
     private val fragHome = HomeFragment()
     private val fragPesan = PesanFragment()
@@ -201,15 +201,5 @@ class HomeActivity : AppCompatActivity() {
 
         ft.commit()
         supportActionBar?.title = "Al - Qur'an"
-    }
-
-    override fun onPause() {
-        super.onPause()
-        FirebaseUtil.updateStatusOnline("offline")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        FirebaseUtil.updateStatusOnline("online")
     }
 }

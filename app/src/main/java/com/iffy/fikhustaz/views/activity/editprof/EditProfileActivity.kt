@@ -25,6 +25,7 @@ import com.iffy.fikhustaz.data.model.profile.ItSchedule
 import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.iffy.fikhustaz.util.DatesFormat
 import com.iffy.fikhustaz.util.FirebaseUtil
+import com.iffy.fikhustaz.views.activity.BaseActivity
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.iffy.fikhustaz.views.activity.editprof.bottomsheetfragment.EditProfBottomSheetFragment
 import com.iffy.fikhustaz.views.activity.editprof.upload.VerifyActivity
@@ -40,7 +41,7 @@ import java.io.ByteArrayOutputStream
 import java.io.IOException
 
 
-class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
+class EditProfileActivity : BaseActivity(), EditProfContract.View {
 
     private val TAG = "EditProfileActivity"
 
@@ -323,16 +324,6 @@ class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
 
     override fun onSuccess() {
         startActivity(intentFor<HomeActivity>().newTask().clearTask())
-    }
-
-    override fun onPause() {
-        super.onPause()
-        FirebaseUtil.updateStatusOnline("offline")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        FirebaseUtil.updateStatusOnline("online")
     }
 
 }

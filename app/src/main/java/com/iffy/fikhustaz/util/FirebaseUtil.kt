@@ -287,7 +287,7 @@ object FirebaseUtil {
     fun updateStatusOnline(status: String){
 
         val onlineData = mutableListOf<ItOnline>()
-        if(status.equals("online")) {
+        if(status == "online") {
             onlineData.add(
                 0, ItOnline(
                     "Online",

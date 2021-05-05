@@ -19,9 +19,10 @@ import java.io.File
 import android.os.StrictMode
 import com.iffy.fikhustaz.data.model.materi.MateriUstad
 import com.iffy.fikhustaz.util.FirebaseUtil
+import com.iffy.fikhustaz.views.activity.BaseActivity
 
 
-class MateriActivity : AppCompatActivity(),MateriContract.View {
+class MateriActivity : BaseActivity(),MateriContract.View {
 
     private lateinit var presenter : MateriPresenter
     private var uri: Uri? = null
@@ -102,15 +103,5 @@ class MateriActivity : AppCompatActivity(),MateriContract.View {
     override fun hideLoading() {
         progressBar.visibility = View.GONE
         pdf_view.visibility = View.VISIBLE
-    }
-
-    override fun onPause() {
-        super.onPause()
-        FirebaseUtil.updateStatusOnline("offline")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        FirebaseUtil.updateStatusOnline("online")
     }
 }
