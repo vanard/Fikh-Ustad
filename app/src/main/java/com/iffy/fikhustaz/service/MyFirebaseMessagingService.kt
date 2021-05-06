@@ -17,10 +17,12 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
+import android.util.Log
 import android.util.Log.d
 import androidx.core.app.NotificationCompat
 import com.google.firebase.iid.FirebaseInstanceId
 import com.iffy.fikhustaz.R
+import com.iffy.fikhustaz.util.FirebaseUtil
 import com.iffy.fikhustaz.util.NotificationHelper
 import com.iffy.fikhustaz.views.activity.chat.ChatActivity
 import java.lang.NullPointerException
@@ -42,6 +44,15 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         }
     }
 
+    override fun onNewToken(p0: String) {
+        super.onNewToken(p0)
+
+        val listTokens: MutableList<String> = ArrayList()
+        listTokens.add(p0);
+
+        FirebaseUtil.setFCMRegistrationTokens(listTokens)
+    }
+
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
 
@@ -51,6 +62,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
             NotificationHelper.displayNotification(applicationContext, title!!, body!!)
         }
+
+        Log.d("notification", "tes")
     }
 
     private fun sendNotification(bitmap: Bitmap) {

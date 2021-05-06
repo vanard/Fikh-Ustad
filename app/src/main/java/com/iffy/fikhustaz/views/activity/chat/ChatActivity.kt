@@ -2,10 +2,12 @@ package com.iffy.fikhustaz.views.activity.chat
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.messaging.FirebaseMessaging
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.AppConst
 import com.iffy.fikhustaz.data.model.profile.Ustad
@@ -32,6 +34,7 @@ class ChatActivity : AppCompatActivity(), ChatContract.View {
 
     private lateinit var currentUser: Ustad
     private lateinit var otherUserId: String
+    private lateinit var otherUserToken: String
 
     private lateinit var messagesListenerRegistration: ListenerRegistration
     private var shouldInitRecyclerView = true
@@ -50,6 +53,11 @@ class ChatActivity : AppCompatActivity(), ChatContract.View {
             currentUser = it
         }
         otherUserId = intent.getStringExtra("USER_ID").toString()
+
+        FirebaseUtil.getUserFCMToken(otherUserId, onComplete = {
+            otherUserToken = it
+        })
+
         presenter.getData(otherUserId)
     }
 
@@ -59,14 +67,17 @@ class ChatActivity : AppCompatActivity(), ChatContract.View {
 
         send_btn_chat_log.setOnClickListener {
             if (et_chat_log.text.toString().isNotEmpty()){
+                val text = et_chat_log.text.toString()
                 val messageToSend =
                     TextMessage(
-                        et_chat_log.text.toString(), Calendar.getInstance().time,
+                        text, Calendar.getInstance().time,
                         FirebaseAuth.getInstance().currentUser!!.uid,
                         otherUserId, currentUser.nama!!, intent.getStringExtra("USERNAME").toString()
                     )
                 et_chat_log.text.clear()
                 FirebaseUtil.sendMessage(messageToSend, channelId, currentUser.profilePicture!!)
+                FirebaseUtil.sendNotification(currentUser.nama!!, text, otherUserToken)
+
             }
         }
     }

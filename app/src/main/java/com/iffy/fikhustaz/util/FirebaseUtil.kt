@@ -4,21 +4,30 @@ import android.content.Context
 import android.net.Uri
 import android.util.Log
 import android.util.Log.d
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.*
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
 import com.iffy.fikhustaz.data.MessageType
 import com.iffy.fikhustaz.data.itemviews.ChatItem
 import com.iffy.fikhustaz.data.itemviews.ImageMessageItem
 import com.iffy.fikhustaz.data.itemviews.PersonItem
 import com.iffy.fikhustaz.data.itemviews.TextMessageItem
+import com.iffy.fikhustaz.data.model.Notification.Notification
+import com.iffy.fikhustaz.data.model.Notification.NotificationRoot
 import com.iffy.fikhustaz.data.model.chat.*
 import com.iffy.fikhustaz.data.model.materi.MateriUstad
 import com.iffy.fikhustaz.data.model.profile.ItOnline
 import com.iffy.fikhustaz.data.model.profile.ItSchedule
 import com.iffy.fikhustaz.data.model.profile.Ustad
+import com.iffy.fikhustaz.network.RetrofitFactory
 import com.xwray.groupie.kotlinandroidextensions.Item
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Response
+import javax.security.auth.callback.Callback
 
 object FirebaseUtil {
     val firestoreInstance: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
@@ -294,6 +303,54 @@ object FirebaseUtil {
 
     fun setFCMRegistrationTokens(registrationTokens: MutableList<String>) {
         currentUserDocRef.update(mapOf("registrationTokens" to registrationTokens))
+    }
+
+    fun updateFCMToken(){
+        FirebaseMessaging.getInstance().token.addOnCompleteListener OnCompleteListener@{ task ->
+            if (!task.isSuccessful) {
+                Log.d("FCM", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+
+            val listToken : MutableList<String> = ArrayList()
+
+            if (token != null) {
+                listToken.add(token)
+                setFCMRegistrationTokens(listToken)
+            } else {
+                Log.d("FCM", "null")
+            }
+        }
+    }
+
+    fun getUserFCMToken(uid: String, onComplete: (tokens: String) -> Unit) {
+        val userDoc = firestoreInstance.document("users/${uid}");
+        userDoc.get().addOnSuccessListener { documentSnapshot ->
+            val user = documentSnapshot.toObject(Ustad::class.java)!!
+            val token = user.registrationTokens[0]
+            onComplete(token)
+        }
+    }
+
+    fun sendNotification(title: String, body: String, token: String){
+        val retrofit = RetrofitFactory.makeRetrofitService(RetrofitFactory.BASE_URL_FCM)
+        val call = retrofit.sendNotification(
+            NotificationRoot(token, Notification(title, body))
+        )
+
+        call.enqueue(object: retrofit2.Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.d("FCM", t.toString())
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                Log.d("response", response.raw().toString());
+            }
+
+        })
     }
     //endregion FCM
 }
