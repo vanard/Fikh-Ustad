@@ -12,12 +12,14 @@ import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.data.itemviews.HaditsItem
 import com.iffy.fikhustaz.data.model.hadist.Hadist
 import com.iffy.fikhustaz.data.model.hadist.KitabHadist
+import com.iffy.fikhustaz.util.FirebaseUtil
+import com.iffy.fikhustaz.views.activity.BaseActivity
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.activity_hadits.*
 import org.jetbrains.anko.toast
 
-class HaditsActivity : AppCompatActivity(), HaditsContract.View {
+class HaditsActivity : BaseActivity(), HaditsContract.View {
 
     private lateinit var presenter: HaditsPresenter
     private var page = 1
@@ -122,5 +124,4 @@ class HaditsActivity : AppCompatActivity(), HaditsContract.View {
             mAdapter.add(HaditsItem(it))
         }
     }
-
 }

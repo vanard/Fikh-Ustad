@@ -9,6 +9,7 @@ import com.iffy.fikhustaz.views.fragment.pesan.PesanFragment
 import com.iffy.fikhustaz.R
 import com.iffy.fikhustaz.R.id.*
 import com.iffy.fikhustaz.data.AppConst
+import com.iffy.fikhustaz.util.FirebaseUtil
 import com.iffy.fikhustaz.views.activity.login.LoginActivity
 import com.iffy.fikhustaz.util.permissionCheck
 import com.iffy.fikhustaz.views.fragment.hadits.HadistFragment
@@ -18,7 +19,7 @@ import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity() {
 
     private val fragHome = HomeFragment()
     private val fragPesan = PesanFragment()

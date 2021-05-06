@@ -25,6 +25,7 @@ import com.iffy.fikhustaz.data.model.profile.ItSchedule
 import com.iffy.fikhustaz.data.model.profile.Ustad
 import com.iffy.fikhustaz.util.DatesFormat
 import com.iffy.fikhustaz.util.FirebaseUtil
+import com.iffy.fikhustaz.views.activity.BaseActivity
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.iffy.fikhustaz.views.activity.editprof.bottomsheetfragment.EditProfBottomSheetFragment
 import com.iffy.fikhustaz.views.activity.editprof.upload.VerifyActivity
@@ -40,7 +41,7 @@ import java.io.ByteArrayOutputStream
 import java.io.IOException
 
 
-class EditProfileActivity : AppCompatActivity(), EditProfContract.View {
+class EditProfileActivity : BaseActivity(), EditProfContract.View {
 
     private val TAG = "EditProfileActivity"
 

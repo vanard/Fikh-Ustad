@@ -16,6 +16,8 @@ import com.iffy.fikhustaz.data.local.db
 import com.iffy.fikhustaz.data.model.quran.Quran
 import com.iffy.fikhustaz.data.model.quran.Surat
 import com.iffy.fikhustaz.network.RetrofitFactory
+import com.iffy.fikhustaz.util.FirebaseUtil
+import com.iffy.fikhustaz.views.activity.BaseActivity
 import com.iffy.fikhustaz.views.activity.HomeActivity
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
@@ -30,7 +32,7 @@ import org.jetbrains.anko.newTask
 import org.jetbrains.anko.toast
 import retrofit2.HttpException
 
-class SurahActivity : AppCompatActivity(), SurahContract.View {
+class SurahActivity : BaseActivity(), SurahContract.View {
 
     val adapter = GroupAdapter<ViewHolder>()
     private var listAyat = mutableListOf<Surat>()
