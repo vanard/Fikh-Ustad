@@ -69,6 +69,8 @@ class PesanFragment : Fragment() , PesanContract.View{
             d("Pesan_Fragment", "$currentUser")
         }
 
+        FirebaseUtil.updateFCMToken()
+
         presenter.getLastMessageId()
 
     }

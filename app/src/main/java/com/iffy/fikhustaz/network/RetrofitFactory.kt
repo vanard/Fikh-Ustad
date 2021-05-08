@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit
 object RetrofitFactory {
     const val BASE_URL_FIKH = "https://ta-iffy.herokuapp.com"
     const val BASE_URL_SYARIAH = "https://iffy-ta.herokuapp.com"
+    const val BASE_URL_FCM = "https://fcm.googleapis.com"
 
     fun makeRetrofitService(url : String): RetrofitService {
         return Retrofit.Builder()
