@@ -14,6 +14,8 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
+const val SERVER_KEY = "AAAAHFSrcOI:APA91bFPVUp8DUgh7cZNNvgvvG-8KF3q24isFd8v9dGpWCpUOLDGV8H39efGqG5cADmre76WuxYLenpwiy_eg_nvIa1DMjCpNJObMS_rdCM4B7BefHl24espgrIi2teeMrKHVAPyRJpL"
+
 interface RetrofitService {
     @GET("/articles")
     fun fetchArticles() : Deferred<Response<Kajian>>
@@ -41,7 +43,7 @@ interface RetrofitService {
 
     @Headers(
         "Content-Type:application/json",
-        "Authorization: Bearer AAAAHFSrcOI:APA91bFPVUp8DUgh7cZNNvgvvG-8KF3q24isFd8v9dGpWCpUOLDGV8H39efGqG5cADmre76WuxYLenpwiy_eg_nvIa1DMjCpNJObMS_rdCM4B7BefHl24espgrIi2teeMrKHVAPyRJpL"
+        "Authorization: Bearer $SERVER_KEY"
     )
     @POST("fcm/send")
     fun sendNotification(
